@@ -6,11 +6,14 @@ import { MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { useRef } from "react";
 import emailjs from '@emailjs/browser';
+import { useToast } from "@/components/ui/use-toast"
+
 
 
 const Contactpage = () => {
   const form  = useRef();
-   
+  const { toast } = useToast()
+
   const sendEmail = (e) => {
     e.preventDefault();
 
@@ -27,15 +30,23 @@ const Contactpage = () => {
         },
       );
       e.target.reset();
+
+      setTimeout(() => {
+        toast({
+          title: "Your response has been submitted successfully!",
+        })
+      }, 2000);
   };   
   return (
     <main>
       {/* ========== Contact us Image background ========*/}
-      <div className="relative w-full h-[150px] border-2 border-black">
-        <h1 className=" text-3xl ml-10 mt-14 xl:text-5xl xl:ml-40 z-50">
+      <div className="relative w-full h-[150px] border-2 border-white">
+      <div className="absolute top-0 left-0 w-full h-[150px]  blur-sm backgroundDiv"></div>
+      <h1 className="relative text-3xl ml-10 mt-14 xl:text-5xl xl:ml-40 z-1 text-white">
           Contact Us
-        </h1>
+      </h1>
       </div>
+      
 
       {/* ======== Contact us Form and details section ========= */}
       <div className="xl:flex xl:justify-between">
@@ -103,7 +114,7 @@ const Contactpage = () => {
               required
             ></textarea>
 
-            <button type="submit" className="bg-green-1 flex justify-center mb-5 text-white p-2 rounded-md w-30 sm:w-40 xl:mt-5 xl:w-[8rem] ">
+            <button type="submit" className="bg-green-1 flex justify-center mb-5 text-white p-2 rounded-md w-30 sm:w-40 xl:mt-5 xl:w-[8rem]"> 
               Submit
             </button>
           </form>
