@@ -10,13 +10,15 @@ import MobileNav from "./MobileNav";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 
 const Navbar = () => {
   const pathname = usePathname();
+  const route = useRouter();
 
   return (
-    <nav className="bg-green-1 p-3 w-screen">
+    <nav className="bg-green-1 p-3 w-full">
       <div className="lg:w-4/5 m-auto hidden sm:flex items-center justify-between">
         <div className="sm:w-[350px] lg:w-[50%] xl:w-2/5 flex justify-between items-center">
           {/* hello thali logo */}
@@ -53,7 +55,7 @@ const Navbar = () => {
           <div className="p-3 rounded-3xl bg-green-2 hover:bg-slate cursor-pointer">
             <FaCartShopping className="text-white hover:text-green-1" />
           </div>
-          <Button className="bg-white text-green-1 font-semibold text-sm">
+          <Button onClick={() => route.push("/contact-us")} className="bg-white text-green-1 font-semibold text-sm hover:text-green-1 hover:bg-white">
             Contact Us
           </Button>
         </div>

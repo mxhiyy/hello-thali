@@ -20,7 +20,7 @@ module.exports = {
       colors: {
         green: {
           1: "#0F5132",
-          2: "#2D6348"
+          2: "#2D6348",
         },
         slate: "#94AEA0",
         border: "hsl(var(--border))",
@@ -61,6 +61,7 @@ module.exports = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        5: "5px"
       },
       keyframes: {
         "accordion-down": {

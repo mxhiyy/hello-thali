@@ -36,7 +36,7 @@ const MobileNav = () => {
               className="cursor-pointer sm:hidden"
             />
           </SheetTrigger>
-          <SheetContent side={"left"} className="bg-green-1 border-none">
+          <SheetContent side={"right"} className="bg-green-1 border-none">
             <div className="h-full flex flex-col justify-between items-center overflow-y-auto">
               <SheetClose asChild>
                 <section className="flex h-full flex-col gap-8 pt-16 text-slate">
