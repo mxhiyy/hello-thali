@@ -1,12 +1,33 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
+import { useRef } from "react";
+import emailjs from '@emailjs/browser';
+
 
 const Contactpage = () => {
+  const form  = useRef();
+   
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm('service_y2m6k1k', 'template_m1xbwyw', form.current, {
+        publicKey: 'rLH_300giKWQylT-N',
+      })
+      .then(
+        () => {
+          console.log('SUCCESS!');
+        },
+        (error) => {
+          console.log('FAILED...', error.text);
+        },
+      );
+      e.target.reset();
+  };   
   return (
     <main>
       {/* ========== Contact us Image background ========*/}
@@ -24,10 +45,11 @@ const Contactpage = () => {
             Contact us about anything related to our company or services. <br />{" "}
             We'll do our best to get back to you as soon as possible
           </p>
-          <form className="text-base ml-10 mt-14 xl:ml-40">
+          <form ref={form} onSubmit={sendEmail} className="text-base ml-10 mt-14 xl:ml-40">
             {/* =============== name section ============= */}
             <label className="block md:inline-block mt-5 md:mr-40">Name*</label>
             <input
+              name="user_name"
               className="p-2 w-[80vw] mt-2 border-2 border-gray-300 rounded-5 sm:w-[90vw] md:w-[70vw] xl:w-[25vw]"
               type="text"
               placeholder="Enter name"
@@ -39,6 +61,7 @@ const Contactpage = () => {
               Phone Number
             </label>
             <input
+              name="user_phonenumber"
               className="p-2 w-[80vw] mt-2 border-2 border-gray-300 rounded-5 sm:w-[90vw] md:w-[70vw] xl:w-[25vw]"
               type="text"
               placeholder="+91 "
@@ -49,6 +72,7 @@ const Contactpage = () => {
               Email*
             </label>
             <input
+              name="user_email"
               className="p-2 w-[80vw] mt-2 border-2 border-gray-300 rounded-5 sm:w-[90vw] md:w-[70vw] xl:w-[25vw]"
               type="text"
               placeholder="your@mail.oom"
@@ -60,6 +84,7 @@ const Contactpage = () => {
               Subject*
             </label>
             <input
+              name="user_subject"
               className="p-2 w-[80vw] mt-2 border-2 border-gray-300 rounded-5 sm:w-[90vw] md:w-[70vw] xl:w-[25vw]"
               type="text"
               placeholder="Enter Subject"
@@ -71,19 +96,19 @@ const Contactpage = () => {
               Question*
             </label>
             <textarea
+              name="user_message"
               className="p-2 w-[80vw] mt-2 border-2 border-gray-300 rounded-5 sm:w-[90vw] md:w-[70vw] xl:w-[25vw]"
               type="text"
               placeholder="Enter Question"
               required
             ></textarea>
+
+            <button type="submit" className="bg-green-1 flex justify-center mb-5 text-white p-2 rounded-md w-30 sm:w-40 xl:mt-5 xl:w-[8rem] ">
+              Submit
+            </button>
           </form>
 
           {/* ========= Form Submit Button ============ */}
-          <div className="w-full flex justify-center mb-5">
-            <Button className="bg-green-1 text-white w-30 sm:w-40 xl:mt-5">
-              Submit
-            </Button>
-          </div>
         </div>
 
         {/* ========== Contact us Details Card ============ */}
