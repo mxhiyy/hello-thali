@@ -8,7 +8,6 @@ First, run the development server:
 npm run dev
 # or
 yarn dev
-eshika rawat
 # or
 pnpm dev
 # or
