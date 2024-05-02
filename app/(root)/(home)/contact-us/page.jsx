@@ -10,6 +10,7 @@ import { useToast } from "@/components/ui/use-toast"
 
 
 
+
 const Contactpage = () => {
   const form  = useRef();
   const { toast } = useToast()
@@ -74,7 +75,7 @@ const Contactpage = () => {
             <input
               name="user_phonenumber"
               className="p-2 w-[80vw] mt-2 border-2 border-gray-300 rounded-5 sm:w-[90vw] md:w-[70vw] xl:w-[25vw]"
-              type="text"
+              type="number"
               placeholder="+91 "
             />
             <br />
@@ -85,7 +86,7 @@ const Contactpage = () => {
             <input
               name="user_email"
               className="p-2 w-[80vw] mt-2 border-2 border-gray-300 rounded-5 sm:w-[90vw] md:w-[70vw] xl:w-[25vw]"
-              type="text"
+              type="email"
               placeholder="your@mail.oom"
               required
             />
