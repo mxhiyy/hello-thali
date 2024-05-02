@@ -29,11 +29,8 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.3",
     "react-icons": "^5.0.1",
-<<<<<<< HEAD
     "styled-components": "^6.1.8",
-=======
     "react-responsive-carousel": "^3.2.23",
->>>>>>> 7e60ed2c4a1b12b2d161d62f9ffc1edbab3e736c
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.4"
