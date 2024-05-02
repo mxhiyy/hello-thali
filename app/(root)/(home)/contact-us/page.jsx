@@ -41,7 +41,7 @@ const Contactpage = () => {
   return (
     <main>
       {/* ========== Contact us Image background ========*/}
-      <div className="relative w-full h-[150px] border-2 border-white">
+      <div className="relative w-full h-[150px] border-2 border-white ">
       <div className="absolute top-0 left-0 w-full h-[150px]  blur-sm backgroundDiv"></div>
       <h1 className="relative text-3xl ml-10 mt-14 xl:text-5xl xl:ml-40 z-1 text-white">
           Contact Us
