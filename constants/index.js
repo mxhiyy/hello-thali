@@ -97,4 +97,168 @@ export const accordianData = [
     title: "Can I customize my thali?",
     description: "In this case, you will have to contact to the support team. Go to contact us->then fill the form and expect a call from us"
   }
-]
+];
+
+export const MenuLink = {
+  Thali: [
+    {
+      name: "Paneer",
+      img: "/assets/paneer.jpeg",
+    },
+    {
+      name: "Potatos",
+      img: "/assets/potatos.jpg",
+    },
+    {
+      name: "Bhindi",
+      img: "/assets/bhindi.jpeg",
+    },
+    {
+      name: "Brinjal",
+      img: "/assets/brinjal.jpg",
+    },
+    {
+      name: "Mixed Veg",
+      img: "/assets/mixedveg.png"
+    },
+    {
+      name: "Bottle gaurd",
+      img: "/assets/bottlegaurd.jpg",
+    }
+  ],
+
+  Pizza: [
+    {
+      name: "Paneer",
+      img: "/assets/paneer.jpeg",
+    },
+    {
+      name: "Potatos",
+      img: "/assets/potatos.jpg",
+    },
+    {
+      name: "Bhindi",
+      img: "/assets/bhindi.jpeg",
+    },
+    {
+      name: "Brinjal",
+      img: "/assets/brinjal.jpg",
+    },
+    {
+      name: "Mixed Veg",
+      img: "/assets/mixedveg.png"
+    },
+    {
+      name: "Bottle gaurd",
+      img: "/assets/bottlegaurd.jpg",
+    }
+  ],
+
+  Noodles: [
+    {
+      name: "Paneer",
+      img: "/assets/paneer.jpeg",
+    },
+    {
+      name: "Potatos",
+      img: "/assets/potatos.jpg",
+    },
+    {
+      name: "Bhindi",
+      img: "/assets/bhindi.jpeg",
+    },
+    {
+      name: "Brinjal",
+      img: "/assets/brinjal.jpg",
+    },
+    {
+      name: "Mixed Veg",
+      img: "/assets/mixedveg.png"
+    },
+    {
+      name: "Bottle gaurd",
+      img: "/assets/bottlegaurd.jpg",
+    }
+  ],
+
+  Burgers: [
+    {
+      name: "Paneer",
+      img: "/assets/paneer.jpeg",
+    },
+    {
+      name: "Potatos",
+      img: "/assets/potatos.jpg",
+    },
+    {
+      name: "Bhindi",
+      img: "/assets/bhindi.jpeg",
+    },
+    {
+      name: "Brinjal",
+      img: "/assets/brinjal.jpg",
+    },
+    {
+      name: "Mixed Veg",
+      img: "/assets/mixedveg.png"
+    },
+    {
+      name: "Bottle gaurd",
+      img: "/assets/bottlegaurd.jpg",
+    }
+  ],
+
+  Biryani: [
+    {
+      name: "Paneer",
+      img: "/assets/paneer.jpeg",
+    },
+    {
+      name: "Potatos",
+      img: "/assets/potatos.jpg",
+    },
+    {
+      name: "Bhindi",
+      img: "/assets/bhindi.jpeg",
+    },
+    {
+      name: "Brinjal",
+      img: "/assets/brinjal.jpg",
+    },
+    {
+      name: "Mixed Veg",
+      img: "/assets/mixedveg.png"
+    },
+    {
+      name: "Bottle gaurd",
+      img: "/assets/bottlegaurd.jpg",
+    }
+  ],
+
+  Drinks: [
+    {
+      name: "Paneer",
+      img: "/assets/paneer.jpeg",
+    },
+    {
+      name: "Potatos",
+      img: "/assets/potatos.jpg",
+    },
+    {
+      name: "Bhindi",
+      img: "/assets/bhindi.jpeg",
+    },
+    {
+      name: "Brinjal",
+      img: "/assets/brinjal.jpg",
+    },
+    {
+      name: "Mixed Veg",
+      img: "/assets/mixedveg.png"
+    },
+    {
+      name: "Bottle gaurd",
+      img: "/assets/bottlegaurd.jpg",
+    }
+  ]
+}
