@@ -66,17 +66,9 @@
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
 
 .backgroundDiv {
-  background-image: url('../public/assets/contactbanner.png'); /* Set the path to your image */
+  background-image: url('/assets/contactbanner.png'); /* Set the path to your image */
   background-size: cover; /* Optional: Adjust background size */
   background-position: center; /* Optional: Adjust background position */
   /* Add any other styling you need */
