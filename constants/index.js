@@ -103,26 +103,44 @@ export const MenuLink = {
   Thali: [
     {
       name: "Paneer",
+      title: "Paneer Thali",
+      sellingPrice: 110,
+      mrp: 150,
       img: "/assets/paneer.jpeg",
     },
     {
       name: "Potatos",
+      title: "Potatos Thali",
+      sellingPrice: 90,
+      mrp: 150,
       img: "/assets/potatos.jpg",
     },
     {
       name: "Bhindi",
+      title: "Bhindi Thali",
+      sellingPrice: 90,
+      mrp: 150,
       img: "/assets/bhindi.jpeg",
     },
     {
       name: "Brinjal",
+      title: "Brinjal Thali",
+      sellingPrice: 90,
+      mrp: 150,
       img: "/assets/brinjal.jpg",
     },
     {
       name: "Mixed Veg",
+      title: "Mixed Veg Thali",
+      sellingPrice: 100,
+      mrp:150,
       img: "/assets/mixedveg.png"
     },
     {
       name: "Bottle gaurd",
+      title: "Bottle guard Thali",
+      sellingPrice: 80,
+      mrp: 150,
       img: "/assets/bottlegaurd.jpg",
     }
   ],

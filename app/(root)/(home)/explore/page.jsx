@@ -11,26 +11,26 @@ const buttons = [
     name: "Thali",
     enable: true
   },
-  {
-    name: "Pizza",
-    enable: false,
-  },
-  {
-    name: "Noodles",
-    enable: false,
-  },
-  {
-    name: "Burgers",
-    enable: false,
-  },
-  {
-    name: "Biryani",
-    enable: false,
-  },
-  {
-    name: "Drinks",
-    enable: false,
-  },
+  // {
+  //   name: "Pizza",
+  //   enable: false,
+  // },
+  // {
+  //   name: "Noodles",
+  //   enable: false,
+  // },
+  // {
+  //   name: "Burgers",
+  //   enable: false,
+  // },
+  // {
+  //   name: "Biryani",
+  //   enable: false,
+  // },
+  // {
+  //   name: "Drinks",
+  //   enable: false,
+  // },
 ];
 
 
@@ -48,29 +48,38 @@ const Explorepage = () => {
   };
 
   return (
-    <main>
+    <main className='w-full'>
       <div className='flex flex-col gap-3 w-full h-40 justify-center items-center bg-[#F0F5F3]'>
         <h1 className='text-2xl font-semibold mt-5'>No Subscription, No Problem ?</h1>
-        <p className='text-[0.65rem] mb-5 font-semibold'>No String attachded, Just pure satisfaction : Experience GOAT Thali's Deliciousness</p>
+        <p className='text-[0.65rem] mb-5 font-semibold'>No String attachded, Just pure satisfaction </p>
       </div>
 
       <div className='mt-10'>
-        <div className='grid grid-cols-3 grid-rows-2 gap-1 w-full h-20 text-sm ml-3'>
+        <div className='grid grid-cols-3 grid-rows-2 gap-1 w-full h-20 text-sm place-items-center'>
         {buttons.map((data) => (
-          <Button key={data.name} size="xs" className={` w-28 ${selectedButton === data.name ? "bg-green-1 text-white" : "bg-white text-green-1"}${!data.enable ? 'cursor-not-allowed text-black font-semibold border-2 border-gray-400' : ''}`} disabled={!data.enable} onClick={() => handleSubmitButton(data.name)}>{data.name}</Button>
+          <Button key={data.name} className={`p-3 w-28 ${selectedButton === data.name ? "bg-green-1 text-white" : "bg-white text-green-1"}${!data.enable ? 'cursor-not-allowed text-black font-semibold border-2 border-gray-400' : ''}`} disabled={!data.enable} onClick={() => handleSubmitButton(data.name)}>{data.name}</Button>
         ))}
         </div>
 
         {loading && (<div className='flex justify-center items-center'><CircularProgress /></div>)}
         {console.log(selectedButton)}        
         {!loading && selectedButton && (
-           <div className='mt-10 grid grid-cols-2 grid-rows-3 border-2 border-white gap-5 mb-10'>
-           {MenuLink[selectedButton].map((data) => (
-             <div className='flex flex-col gap-3 w-40 ml-5' key={data.name}>
-               <Image src={data.img} alt={data.name} width={200} height={100} />
-               <Button className="p-2 rounded-md w-full bg-[#A38F98] text-white">{data.name}</Button>
+           <div className='mt-10 grid grid-cols-2 grid-rows-3 border-2 border-white gap-5 mb-10 w-full place-items-center'>
+           {MenuLink[selectedButton].map((data) => {
+             const discount = (data.sellingPrice / data.mrp) * 100;
+             return(
+              <div className='flex flex-col gap-3 w-40' key={data.name}>
+               <Image src={data.img} className='relative rounded-xl' alt={data.name} width={200} height={100} />
+               <div className='absolute h-6 w-12 bg-red-600 text-white text-xs flex justify-center items-center transform mt-2' style={{ borderTopRightRadius:'12px', borderBottomRightRadius: '12px'}}>{100 - Math.round(discount)} %</div>
+               <p className='font-semibold text-sm'>{data.title}</p>
+               <div className='w-20 flex gap-2 items-center'>
+               <p className='font-semibold text-base mt-1'>₹{data.sellingPrice}</p>
+               <p className='font-normal text-sm text-gray-400 mt-1 line-through'>₹{data.mrp}</p>
+               </div>
+               <Button className="p-2 rounded-md w-full bg-white hover:bg-white border-2 border-[#A38F98] text-[#A38F98] hover:text-[#A38F98]">Add to Cart</Button>
              </div>
-           ))}
+             )
+          })}
          </div>
         )}
       </div>
