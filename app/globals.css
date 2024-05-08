@@ -84,3 +84,9 @@
   background-position: center;
   background-size: cover;
 }
+
+.menubanner{
+  background-image: url("/assets/menubanner.png");
+  background-position: center;
+  background-size: cover;
+}

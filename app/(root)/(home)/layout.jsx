@@ -4,11 +4,11 @@ import Navbar from '@/components/Navbar'
 
 const Homelayout = ({ children }) => {
   return (
-   <main>
-    <Navbar />
-    { children }
-    <Footer />
-   </main>
+      <main>
+      <Navbar />
+        { children }
+      <Footer />
+      </main>
   )
 }
 

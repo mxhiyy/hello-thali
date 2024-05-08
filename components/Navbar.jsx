@@ -17,6 +17,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const route = useRouter();
 
+
   return (
     <nav className="bg-green-1 p-3 w-full">
       <div className="lg:w-4/5 m-auto hidden sm:flex items-center justify-between">

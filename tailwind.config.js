@@ -24,7 +24,7 @@ module.exports = {
           3: "#132C21",
         },
         gray: {2 : "#F0F5F3", 3: "#E4E6E7"},
-        purple: {2: "#A38F98", 3: "#132C21"},
+        purple: {2: "#A38F98", 3: "#132C21", 4: "#F0F5F3"},
         slate: "#94AEA0",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
