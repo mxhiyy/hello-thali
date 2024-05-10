@@ -3,26 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { Homecard, TestimonalCard } from "@/constants";
 import { useRouter } from "next/navigation";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import HomeCard from "@/components/HomeCard";
 import Testimonal from "@/components/Testimonal";
-import LoginModal from "@/components/Modal";
 
  const Homepage = () => {
   const route = useRouter();
-  const [ modalOpen, setModalOpen ] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setModalOpen(true);
-    }, 5000);
-
-    return clearInterval(() => timer);
-  }, []);
 
   return (
     <Fragment>
-      <LoginModal isOpen={modalOpen} closeModal={setModalOpen} />
       <div className="w-full h-[300px] maindiv flex flex-col gap-2 relative">
         <div className="absolute inset-0 bg-blur backdrop-blur-sm"></div>
         <h1 className="text-3xl font-semibold relative z-100 text-center text-white mt-20">No Time to Cook?</h1>
