@@ -55,7 +55,7 @@ const Contactpage = () => {
         <div>
           <p className="text-base ml-10 mt-14 xl:ml-40 md:text-lg">
             Contact us about anything related to our company or services. <br />{" "}
-            We'll do our best to get back to you as soon as possible
+            We will do our best to get back to you as soon as possible
           </p>
           <form ref={form} onSubmit={sendEmail} className="text-base ml-10 mt-14 xl:ml-40">
             {/* =============== name section ============= */}

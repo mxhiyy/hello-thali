@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -72,4 +78,15 @@
   background-size: cover; /* Optional: Adjust background size */
   background-position: center; /* Optional: Adjust background position */
   /* Add any other styling you need */
+}
+.maindiv{
+  background-image: url("/assets/bgBanner.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.menubanner{
+  background-image: url("/assets/menubanner.png");
+  background-position: center;
+  background-size: cover;
 }
