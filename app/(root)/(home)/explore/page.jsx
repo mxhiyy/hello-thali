@@ -55,9 +55,12 @@ const Explorepage = () => {
       </div>
 
       <div className='mt-10'>
+
+       
         <div className='grid place-items-center grid-cols-3 grid-rows-1 gap-4 w-full h-20 text-sm ml-2'>
         {buttons.map((data) => (
           <Button key={data.name} size="xs" className={`p-2 w-28 ${selectedButton === data.name ? "bg-green-1 text-white" : "bg-white text-green-1"}${!data.enable ? 'cursor-not-allowed text-black font-semibold border-2 border-gray-400' : ''}`} disabled={!data.enable} onClick={() => handleSubmitButton(data.name)}>{data.name}</Button>  
+
         ))}
         </div>
       </div>
@@ -67,6 +70,7 @@ const Explorepage = () => {
         {loading && (<div className='flex justify-center items-center'><CircularProgress /></div>)}
 
         {!loading && selectedButton && (
+           
            <div className='mt-10 grid grid-cols-2 grid-rows-3 border-2 border-white gap-5 mb-10 w-full place-items-center'>
            {MenuLink[selectedButton].map((data) => {
              const discount = (data.sellingPrice / data.mrp) * 100;
@@ -79,14 +83,17 @@ const Explorepage = () => {
                <p className='font-semibold text-base mt-1'>₹{data.sellingPrice}</p>
                <p className='font-normal text-sm text-gray-400 mt-1 line-through'>₹{data.mrp}</p>
                </div>
-               <Button className="p-2 rounded-md w-full bg-white hover:bg-white border-2 border-purple-2 text-purple-2 hover:text-purple-2">Add to Cart</Button>
+               <Button className="p-2 rounded-md w-full bg-white hover:bg-white border-2 border-[#A38F98] text-[#A38F98] hover:text-[#A38F98]">Add to Cart</Button>
+
              </div>
              )
           })}
          </div>
         )}
+        
       </div>
     </main>
+    
   )
 }
 
