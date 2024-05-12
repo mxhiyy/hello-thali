@@ -68,6 +68,10 @@ const LoginModal = memo(({ isOpen, closeModal }) => {
           variant: "destructive"
         });
       }
+
+      toast({
+        title: "Something Bad Happened. Please try again!"
+      })
     });
   }, [phoneNumber, otp]);
 
@@ -83,7 +87,9 @@ const LoginModal = memo(({ isOpen, closeModal }) => {
         title: "Login Sucessfully",
         variant: 'success'
       });
+      window.location.reload();
       router.push('/profile');
+      
     })
     .catch((error) => {
       setLoading(false);

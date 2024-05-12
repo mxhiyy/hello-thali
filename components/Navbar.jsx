@@ -34,7 +34,6 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    route.push("/");
     window.location.reload();
   }
 
@@ -83,8 +82,8 @@ const Navbar = () => {
                     <NavigationMenuTrigger>{greeting}</NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <Link  href={"/profile"}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Profile Section</NavigationMenuLink></Link>
-                      <Link href={"/profile"}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Orders</NavigationMenuLink></Link>
-                      <Link onClick={handleLogout} href={"/profile"}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Log Out</NavigationMenuLink></Link>
+                      <Link href={"/orders"}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Orders</NavigationMenuLink></Link>
+                      <Link onClick={handleLogout} href={"/"} ><NavigationMenuLink className={navigationMenuTriggerStyle()}>Log Out</NavigationMenuLink></Link>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                 </NavigationMenuList>
