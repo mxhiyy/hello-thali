@@ -21,8 +21,8 @@ const Profilepage = () => {
       email, 
       address,
     };
-
-    console.log(updatedDetails)
+    const user = JSON.parse(localStorage.getItem("user")) || {};
+    localStorage.setItem("user", JSON.stringify({ ...user, ...updatedDetails }));
     dispatch(updateProfileDetails(updatedDetails));
     route.push("/")
   }

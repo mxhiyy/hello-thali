@@ -46,6 +46,7 @@ const LoginModal = memo(({ isOpen, closeModal }) => {
   }
 
   const onSignUp = useCallback(() => {
+    setLoading(true);
     onCaptchaVerifier();
 
     const appVerifier = window.recaptchaVerifier;
@@ -66,11 +67,6 @@ const LoginModal = memo(({ isOpen, closeModal }) => {
           title: "Too many requests! Try again later.",
           variant: "destructive"
         });
-      } else {
-        toast({
-          title: "Check the number again.",
-          variant: "destructive"
-        });
       }
     });
   }, [phoneNumber, otp]);
@@ -81,6 +77,7 @@ const LoginModal = memo(({ isOpen, closeModal }) => {
     .then(async(res) =>{
       setLoading(false);
       dispatch(updatePhoneNumber(phoneNumber)); // dispatch the phonenumber here
+      localStorage.setItem("user", JSON.stringify({ phoneNumber })); // settting the user object, in the localstorage
       setOtpSection(false);
       toast({ 
         title: "Login Sucessfully",
@@ -129,7 +126,7 @@ const LoginModal = memo(({ isOpen, closeModal }) => {
                   onClick={onSignUp}
                   className="w-40 bg-green-1 text-white hover:bg-green-950"
                 >
-                  {loading && (<CgSpinner size={20} className="mr-1 animate-spin" />)}
+                  {loading && (<CgSpinner size={30} className="mr-1 animate-spin" />)}
                   Send OTP via SMS
                 </Button>
               </div>

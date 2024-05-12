@@ -11,28 +11,31 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
 const Navbar = () => {
   const pathname = usePathname();
   const route = useRouter();
-  const user = useSelector((state) => state.user);
+  const user = JSON.parse(localStorage.getItem("user"));
   let greeting = "";
-  if (user.phoneNumber && user.firstName) {
-    greeting = `Hi ${user.firstName}👋🏻`;
-  } else if (user.phoneNumber) {
+  if (user?.phoneNumber && user?.firstName) {
+    greeting = `Hi ${user?.firstName}👋🏻`;
+  } else if (user?.phoneNumber) {
     greeting = `Hi User👋🏻`;
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    route.push("/");
+    window.location.reload();
   }
 
   return (
@@ -71,7 +74,7 @@ const Navbar = () => {
             <FaSearch className="text-white hover:text-green-1" />
           </div>
           <div className="p-3 rounded-3xl bg-green-2 hover:bg-slate cursor-pointer">
-            <FaCartShopping className="text-white hover:text-green-1" />
+            <Link href={"/cart"}><FaCartShopping className="text-white hover:text-green-1" /></Link>
           </div>
           {greeting && (
               <NavigationMenu>
@@ -79,16 +82,10 @@ const Navbar = () => {
                   <NavigationMenuItem>
                     <NavigationMenuTrigger>{greeting}</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <Link href={"/profile"}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Profile Section</NavigationMenuLink></Link>
+                      <Link  href={"/profile"}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Profile Section</NavigationMenuLink></Link>
                       <Link href={"/profile"}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Orders</NavigationMenuLink></Link>
-                      <Link href={"/profile"}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Log Out</NavigationMenuLink></Link>
+                      <Link onClick={handleLogout} href={"/profile"}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Log Out</NavigationMenuLink></Link>
                     </NavigationMenuContent>
-                    {/* <NavigationMenuContent>
-                      <NavigationMenuLink>Orders</NavigationMenuLink>
-                    </NavigationMenuContent>
-                    <NavigationMenuContent>
-                      <NavigationMenuLink>LogOut</NavigationMenuLink>
-                    </NavigationMenuContent> */}
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
