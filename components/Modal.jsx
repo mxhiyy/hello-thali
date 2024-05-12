@@ -1,7 +1,8 @@
 'use client';
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useCallback } from "react";
 import PhoneInput from "react-phone-input-2";
+import { memo } from "react";
 import "react-phone-input-2/lib/material.css";
 import { Button } from "./ui/button";
 import OtpInput from "react-otp-input";
@@ -9,18 +10,21 @@ import { CgSpinner } from "react-icons/cg";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@/app/firebase.config";
+import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast"
+import debounce from 'lodash.debounce';
+import { useDispatch } from "react-redux";
+import { updatePhoneNumber } from "@/store/slice/userSlice";
 
-const LoginModal = ({ isOpen, closeModal }) => {
+const LoginModal = memo(({ isOpen, closeModal }) => {
   const [ phoneNumber, setPhoneNumber ] = useState("");
   const [ otpSection, setOtpSection ] = useState(false);
   const [ loading, setLoading ] = useState(false);
-  const [ user, setUser] = useState(null);
   const [ otp, setOtp ] = useState('');
   const [ showOtp, setShowOtp ] = useState(false);
   const router = useRouter();
-  const { toast } = useToast()
+  const dispatch = useDispatch();
+  const { toast } = useToast();
 
   function onCaptchaVerifier(){
     if(!window.recaptchaVerifier){
@@ -41,8 +45,7 @@ const LoginModal = ({ isOpen, closeModal }) => {
     }
   }
 
-  function onSignUp(){
-    setLoading(true)
+  const onSignUp = useCallback(() => {
     onCaptchaVerifier();
 
     const appVerifier = window.recaptchaVerifier;
@@ -54,31 +57,48 @@ const LoginModal = ({ isOpen, closeModal }) => {
       setOtpSection(true);
       setLoading(false);
       setShowOtp(true);
-      alert('hi')
-      
+      toast({ title: "Otp Send Successfully", variant: 'success'})
     })
     .catch((error) => {
-      console.log(error);
       setLoading(false);
+      if (error.code === 'auth/too-many-requests') {
+        toast({
+          title: "Too many requests! Try again later.",
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Check the number again.",
+          variant: "destructive"
+        });
+      }
     });
-  };
+  }, [phoneNumber, otp]);
 
-  function otpVerify(){
+  const otpVerify = useCallback(() => {
     setLoading(true);
-    window.confirmationResult
-    .confirm(otp)
-    .then(async (res) =>{
-      console.log(res);
-      setUser(res.user);
+    window.confirmationResult.confirm(otp)
+    .then(async(res) =>{
       setLoading(false);
-      router.push('/profile');
+      dispatch(updatePhoneNumber(phoneNumber)); // dispatch the phonenumber here
       setOtpSection(false);
+      toast({ 
+        title: "Login Sucessfully",
+        variant: 'success'
+      });
+      router.push('/profile');
     })
     .catch((error) => {
-      console.log(error);
       setLoading(false);
+      if(error.code === 'auth/invalid-verification-code'){
+        toast({title:"Invalid OTP!", variant: 'destructive'})
+      }
     })
-  }
+  }, [otp ]);
+
+  const debounceHandleChange = debounce((value) => {
+    setPhoneNumber(value);
+  }, 500);
 
   return (
     <div>
@@ -95,7 +115,7 @@ const LoginModal = ({ isOpen, closeModal }) => {
                 <PhoneInput
                   inputStyle={{ border: '2px solid gray'}}
                   value={phoneNumber}
-                  onChange={setPhoneNumber}
+                  onChange={debounceHandleChange}
                   country={"in"}
                   inputProps={{
                     name: "phone",
@@ -109,6 +129,7 @@ const LoginModal = ({ isOpen, closeModal }) => {
                   onClick={onSignUp}
                   className="w-40 bg-green-1 text-white hover:bg-green-950"
                 >
+                  {loading && (<CgSpinner size={20} className="mr-1 animate-spin" />)}
                   Send OTP via SMS
                 </Button>
               </div>
@@ -116,8 +137,6 @@ const LoginModal = ({ isOpen, closeModal }) => {
           </div>
         </Fragment>
       )}
-
-      
 
       {otpSection && (
         <Fragment>
@@ -133,7 +152,6 @@ const LoginModal = ({ isOpen, closeModal }) => {
                   numInputs={6}
                   value={otp}
                   onChange={setOtp}
-                  inputType="number"
                   disabled={false}
                   autoFocus
                   renderInput={(props) => <input {...props} />}
@@ -150,6 +168,6 @@ const LoginModal = ({ isOpen, closeModal }) => {
       )}
     </div>
   );
-};
+});
 
 export default LoginModal;
