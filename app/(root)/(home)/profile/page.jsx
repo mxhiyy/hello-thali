@@ -19,7 +19,7 @@ const Profilepage = () => {
   const [address, setAddress] = useState("");
   const dispatch = useDispatch();
   const route = useRouter();
-  const user = JSON.parse(localStorage.getItem("user")) || {};
+  const user = JSON.parse(localStorage.getItem("user"))
 
   const handleUpdateProfile = (e) => {
     const updatedDetails = {
@@ -28,10 +28,7 @@ const Profilepage = () => {
       email,
       address,
     };
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ ...user, ...updatedDetails })
-    );
+    localStorage.setItem("user", JSON.stringify({ ...user, ...updatedDetails }));
     dispatch(updateProfileDetails(updatedDetails));
     route.push("/");
   };

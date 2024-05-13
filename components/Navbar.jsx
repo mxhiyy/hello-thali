@@ -20,11 +20,14 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const pathname = usePathname();
   const route = useRouter();
   const user = JSON.parse(localStorage.getItem("user"));
+
+
   let greeting = "";
   if (user?.phoneNumber && user?.firstName) {
     greeting = `Hi ${user?.firstName}👋🏻`;
@@ -34,6 +37,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    route.push('/');
     window.location.reload();
   }
 
@@ -68,8 +72,8 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className={`flex items-center sm:w-[200px] lg:${greeting ? 'w-[30%]' : 'w-[25%]'} xl:1/5 justify-between`}>
-          <div className="p-3 rounded-3xl bg-green-2 hover:bg-slate cursor-pointer">
+        <div className={`flex items-center sm:w-[200px] ${greeting && ( 'lg:w-[35%]')} lg:w-[25%] justify-between`}>
+          <div className="p-3 mr-2 rounded-3xl bg-green-2 hover:bg-slate cursor-pointer">
             <FaSearch className="text-white hover:text-green-1" />
           </div>
           <div className="p-3 rounded-3xl bg-green-2 hover:bg-slate cursor-pointer">

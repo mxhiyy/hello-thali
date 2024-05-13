@@ -68,10 +68,12 @@ const LoginModal = memo(({ isOpen, closeModal }) => {
           variant: "destructive"
         });
       }
-
-      toast({
-        title: "Something Bad Happened. Please try again!"
-      })
+      if(error){
+        toast({
+          title: "Something Bad Happened. Please try again!",
+          variant: "destructive"
+        })
+      }
     });
   }, [phoneNumber, otp]);
 
@@ -81,13 +83,12 @@ const LoginModal = memo(({ isOpen, closeModal }) => {
     .then(async(res) =>{
       setLoading(false);
       dispatch(updatePhoneNumber(phoneNumber)); // dispatch the phonenumber here
-      localStorage.setItem("user", JSON.stringify({ phoneNumber })); // settting the user object, in the localstorage
+      window.localStorage.setItem("user", JSON.stringify({ phoneNumber })); // settting the user object, in the localstorage
       setOtpSection(false);
       toast({ 
         title: "Login Sucessfully",
         variant: 'success'
       });
-      window.location.reload();
       router.push('/profile');
       
     })

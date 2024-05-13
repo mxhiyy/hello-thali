@@ -8,8 +8,8 @@ import { useEffect, useState } from 'react';
 
 const Homelayout = ({ children }) => {
   const [ modalOpen, setModalOpen ] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user"));
-
+  const user = JSON.parse(localStorage.getItem("user"))
+  
   useEffect(() => {
     const timer = setTimeout(() => {
         setModalOpen(!user?.phoneNumber);
