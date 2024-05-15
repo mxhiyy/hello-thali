@@ -2,9 +2,11 @@
 
 import { Button } from '@/components/ui/button';
 import { MenuLink } from '@/constants';
+import { addToCart } from '@/store/slice/cartSlice';
 import { CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 const buttons = [
   {
@@ -34,9 +36,16 @@ const buttons = [
 ];
 
 
+
 const Explorepage = () => {
   const [selectedButton, setSelectedButton] = useState("Thali");
   const [ loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleAddToCartItems = (data) => {
+    dispatch(addToCart(data));
+    console.log(`item added succussfully : ${data.name}`)
+  }
 
   const handleSubmitButton = (name) => {
     setSelectedButton(name);
@@ -83,8 +92,7 @@ const Explorepage = () => {
                <p className='font-semibold text-base mt-1'>₹{data.sellingPrice}</p>
                <p className='font-normal text-sm text-gray-400 mt-1 line-through'>₹{data.mrp}</p>
                </div>
-               <Button className="p-2 rounded-md w-full bg-white hover:bg-white border-2 border-[#A38F98] text-[#A38F98] hover:text-[#A38F98]">Add to Cart</Button>
-
+               <Button className="p-2 rounded-md w-full bg-white hover:bg-white border-2 border-[#A38F98] text-[#A38F98] hover:text-[#A38F98]" onClick={() => handleAddToCartItems(data)}>Add to Cart</Button>
              </div>
              )
           })}

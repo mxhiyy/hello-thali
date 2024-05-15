@@ -7,19 +7,19 @@ import { useEffect, useState } from 'react';
 
 
 const Homelayout = ({ children }) => {
-  const [ modalOpen, setModalOpen ] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user"))
+  // const [ modalOpen, setModalOpen ] = useState(false);
+  // const user = JSON.parse(localStorage.getItem("user"))
   
-  useEffect(() => {
-    const timer = setTimeout(() => {
-        setModalOpen(!user?.phoneNumber);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [user?.phoneNumber]);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //       setModalOpen(!user?.phoneNumber);
+  //   }, 4000);
+  //   return () => clearInterval(timer);
+  // }, [user?.phoneNumber]);
 
   return (
       <main>
-      <LoginModal isOpen={modalOpen} closeModal={setModalOpen} />
+      {/* <LoginModal isOpen={modalOpen} closeModal={setModalOpen} /> */}
       <Navbar />
         { children }
       <Footer />

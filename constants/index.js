@@ -107,6 +107,7 @@ export const MenuLink = {
       sellingPrice: 110,
       mrp: 150,
       img: "/assets/paneer.jpeg",
+      divider: true,
     },
     {
       name: "Potatos",
@@ -114,6 +115,7 @@ export const MenuLink = {
       sellingPrice: 90,
       mrp: 150,
       img: "/assets/potatos.jpg",
+      divider: true,
     },
     {
       name: "Bhindi",
@@ -121,6 +123,7 @@ export const MenuLink = {
       sellingPrice: 90,
       mrp: 150,
       img: "/assets/bhindi.jpeg",
+      divider: true,
     },
     {
       name: "Brinjal",
@@ -128,13 +131,15 @@ export const MenuLink = {
       sellingPrice: 90,
       mrp: 150,
       img: "/assets/brinjal.jpg",
+      divider: true,
     },
     {
       name: "Mixed Veg",
       title: "Mixed Veg Thali",
       sellingPrice: 100,
       mrp:150,
-      img: "/assets/mixedveg.png"
+      img: "/assets/mixedveg.png",
+      divider: true,
     },
     {
       name: "Bottle gaurd",
@@ -142,6 +147,7 @@ export const MenuLink = {
       sellingPrice: 80,
       mrp: 150,
       img: "/assets/bottlegaurd.jpg",
+      divider: true,
     }
   ],
 
@@ -283,19 +289,16 @@ export const MenuLink = {
 
 export const Homecard = [
   {
-    img: "/assets/qualityfood.jpg",
-    title: "Quality Food & Customized Menu",
-    description: "Forget bland, one-size-fits-all meals! At HelloThali, quality and customization reign supreme. We offer delicious, authentic Indian dishes crafted with fresh ingredients. Choose from our diverse menu or build your own thali, tailoring it to your taste buds and dietary preferences."
+    img: "/assets/qualityfood.svg",
+    title: "Quality Food",
   },
   {
-    img: "/assets/deliveryboy.jpg",
+    img: "/assets/homedelivery.svg",
     title: "Home Delivery",
-    description: "Ditch the grocery lines and skip the cooking stress! HelloThali brings home-cooked happiness straight to your door. Enjoy fresh, delicious thalis delivered at your chosen time. Convenience without compromise- savor authentic Indian flavors without lifting a finger."
   },
   {
-    img: "/assets/money.jpg",
+    img: "/assets/affordableprice.svg",
     title: "Affordable Prices",
-    description: "Delicious food shouldn't break the bank! HelloThali offers mouthwatering thalis at budget-friendly prices. Choose from affordable weekly and monthly subscription plans, perfect for students, professionals, and families. Enjoy restaurant-quality meals without the restaurant bill."
   }
 ];
 

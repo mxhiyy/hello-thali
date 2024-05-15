@@ -20,12 +20,14 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { useEffect, useState } from "react";
+import { Badge } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const pathname = usePathname();
   const route = useRouter();
   const user = JSON.parse(localStorage.getItem("user"));
+  const cartItems = useSelector((state) => state.cart.items);
 
 
   let greeting = "";
@@ -76,8 +78,8 @@ const Navbar = () => {
           <div className="p-3 mr-2 rounded-3xl bg-green-2 hover:bg-slate cursor-pointer">
             <FaSearch className="text-white hover:text-green-1" />
           </div>
-          <div className="p-3 rounded-3xl bg-green-2 hover:bg-slate cursor-pointer">
-            <Link href={"/cart"}><FaCartShopping className="text-white hover:text-green-1" /></Link>
+          <div className="p-2 rounded-3xl bg-green-2 hover:bg-slate cursor-pointer">
+            <Badge badgeContent={cartItems.length} color='primary'><Link href={"/cart"}><FaCartShopping size={20} className="text-white hover:text-green-1" /></Link></Badge>
           </div>
           {greeting && (
               <NavigationMenu>
