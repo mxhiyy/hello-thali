@@ -34,7 +34,10 @@ module.exports = {
           4: "#035A079E",
           5: "#004B07",
         },
-        gray: {1:"#F4F4F4", 2 : "#F0F5F3", 3: "#E4E6E7"},
+        olive: {
+          1: "#7997000F"
+        },
+        gray: {1:"#F4F4F4", 2 : "#F0F5F3", 3: "#E4E6E7", 4: "#D9D9D9"},
         purple: {2: "#A38F98", 3: "#132C21", 4: "#F0F5F3"},
         slate: "#94AEA0",
         border: "hsl(var(--border))",

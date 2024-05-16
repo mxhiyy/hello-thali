@@ -103,3 +103,8 @@ body{
   background-position: center;
   background-size: cover;
 }
+
+.mySwiper{
+  width: 87vw;
+  height: 280px;
+}

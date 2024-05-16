@@ -7,9 +7,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-coverflow';
 // import required modules
-import { Pagination } from 'swiper/modules';
-import { Homecard } from "@/constants";
+import { Pagination, Autoplay } from 'swiper/modules';
+import { Homecard, TestimonalCard } from "@/constants";
 
 
  const Homepage = () => {
@@ -27,8 +28,7 @@ import { Homecard } from "@/constants";
           delay: 3000,
           disableOnInteraction: false
         }}
-        modules={[Pagination]}
-        className="mySwiper"
+        modules={[Pagination, Autoplay ]}
       >
        <SwiperSlide><img src="/assets/first-banner.svg" alt="first-banner" className="w-full" /></SwiperSlide>
        <SwiperSlide><img src="/assets/first-banner.svg" alt="first-banner" className="w-full" /></SwiperSlide>
@@ -39,7 +39,7 @@ import { Homecard } from "@/constants";
 
       <div className="w-[90%] h-full m-auto mt-10">
       <div className="h-[400px] flex justify-around items-center">
-        <div className="bg-[#7997000F] w-[420px] h-[270px] rounded-3xl p-7 flex flex-col gap-2">
+        <div className="bg-olive-1 w-[420px] h-[270px] rounded-3xl p-7 flex flex-col gap-2">
           <h5 className="text-2xl font-semibold">About Us</h5>
           <p className="text-sm font-medium w-80">We deliver authentic, delicious Indian thalis straight to your door. Forger expensive restaurants or grocery shopping enjoy alfordable weekly/monthly plans with diverse menus curated by experts. Let us simplify your life, one delicious meal at a time.Forger expensive restaurants or grocery shopping </p>
           <button className="mt-1 text-white rounded-md text-sm bg-green-4 p-2 w-24 font-medium">Read More</button>
@@ -53,7 +53,7 @@ import { Homecard } from "@/constants";
         <div className='w-[350px] h-[450px]'>
           <img src="/assets/missionimage.svg" alt="image-about" className="w-full h-full" />
         </div>
-        <div className="bg-[#7997000F] w-[420px] h-[270px] rounded-3xl p-7 flex flex-col gap-2">
+        <div className="bg-olive-1 w-[420px] h-[270px] rounded-3xl p-7 flex flex-col gap-2">
           <h5 className="text-2xl font-semibold">Our Mission</h5>
           <p className="text-sm font-medium w-80">We deliver authentic, delicious Indian thalis straight to your door. Forger expensive restaurants or grocery shopping enjoy alfordable weekly/monthly plans with diverse menus curated by experts. Let us simplify your life, one delicious meal at a time.Forger expensive restaurants or grocery shopping </p>
           <button className="mt-1 text-white rounded-md text-sm bg-green-4 p-2 w-24 font-medium">Read More</button>
@@ -62,10 +62,10 @@ import { Homecard } from "@/constants";
       </div>
 
       <div className="mt-10 h-[500px]">
-        <h1 className="text-center text-6xl font-normal text-green-5">Customised Menu</h1>
-        <div className="w-[80%] m-auto flex items-center justify-center gap-4 mt-5">
+        <h1 className="text-center text-5xl font-medium text-green-5">Customised Menu</h1>
+        <div className="w-[80%] m-auto flex items-center justify-center gap-4 mt-10">
           <div className="w-3/5 h-[330px] bg-white rounded-xl"></div>
-          <div className="h-full flex flex-col gap-5 bg-[#7997000F] p-5 w-[340px] rounded-xl">
+          <div className="h-full flex flex-col gap-5 bg-olive-1 p-5 w-[340px] rounded-xl">
             <p className="text-sm font-medium w-80">We deliver authentic, delicious Indian thalis straight to your door. Forget expensive restaurants or grocery shopping enjoy alfordable weekly/monthly plans with diverse menus curated by experts. Let us simplify your life, one delicious meal at a time.We deliver authentic, delicious Indian thalis straight to your door. Forger expensive restaurants or grocery shopping enjoy alfordable weekly/monthly plans with diverse menus curated by experts. </p>
             <button className="p-2 text-white rounded-md text-sm bg-green-4 w-24 font-medium">See how?</button>
           </div>
@@ -81,7 +81,49 @@ import { Homecard } from "@/constants";
         ))}
       </div>
 
+      <div class="mt-20 w-[80%] m-auto">
+        <img src="/assets/ellipse.svg" alt="ellipse" />
+      </div>
 
+      <div className="mt-20 flex flex-col gap-5">
+        <h1 className="text-5xl font-medium text-center text-green-5">Testimonials</h1>     
+         <Swiper
+         slidesPerView={4}
+         centeredSlides={true}
+         spaceBetween={10}
+         grabCursor={true}
+         pagination={{
+           clickable: true,
+         }}
+         autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+         }}
+         modules={[ Pagination, Autoplay ]}
+         className="mySwiper"
+         >
+          {
+            TestimonalCard.map((data) => (
+              <SwiperSlide  key={data.name}>
+                <div className="w-[330px] h-[230px] rounded-xl bg-olive-1 p-5 mr-5">
+                  <p className="text-sm font-medium">"{data.description}"</p>
+                  <div className="flex gap-3 w-36 justify-between items-center mt-4"><img src={data.img} alt={data.name} width={25} height={30} className="rounded-3xl" /> <div className="w-1 h-1 bg-black rounded-full"></div><h6 className="text-sm font-medium">{data.name}</h6></div>
+                </div>
+              </SwiperSlide>
+            ))
+            }
+         </Swiper>
+      </div>
+
+      <div className="w-[80%] m-auto rounded-xl h-full p-5 flex flex-col gap-10 bg-olive-1 mt-20">
+        <h3 className="font-semibold text-2xl">Breaking the Budget, Not the Flavor: </h3>
+        <div className="mt-5 flex flex-col gap-2">
+          <h3 className="font-medium text-2xl">HelloThali's Mission to Bring Affordable Thali to every Customer.</h3>
+          <h3 className="font-medium text-2xl">Good Food is like a warm hug, it nourishes the soul.</h3>
+          <button className="bg-green-4 text-white rounded-md p-2 text-sm w-28 font-medium mt-3">Contact Us</button>
+        </div>
+
+      </div>
     </Fragment>
   )
 }
