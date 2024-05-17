@@ -51,7 +51,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 items-center">
           <img src="/icons/hellothali-logo.png" alt="logo" width={40} height={40} />
           <p className="text-sm font-semibold flex items-center"><AiOutlineCopyrightCircle /> XYZ Pvt. Ltd</p>
         </div>

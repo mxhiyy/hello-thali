@@ -1,6 +1,5 @@
 "use client"
 
-import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,7 +13,6 @@ import { Homecard, TestimonalCard } from "@/constants";
 
 
  const Homepage = () => {
-  const route = useRouter();
 
   return (
     <Fragment>

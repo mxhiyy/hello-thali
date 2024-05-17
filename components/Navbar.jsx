@@ -26,7 +26,8 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const pathname = usePathname();
   const route = useRouter();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useSelector((state) => state.user);
+  // const user = JSON.parse(localStorage.getItem("user"));
   const cartItems = useSelector((state) => state.cart.items);
 
 
@@ -38,33 +39,32 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
     route.push('/');
-    window.location.reload();
   }
 
   return (
-    <nav className="bg-green-1 p-3 w-full">
-      <div className="lg:w-4/5 m-auto hidden sm:flex items-center justify-between">
+    <nav className="p-3 w-full mb-5">
+      <div className="lg:w-[90%] m-auto hidden sm:flex items-center justify-between">
         <div className="sm:w-[350px] lg:w-[50%] xl:w-2/5 flex justify-between items-center">
           {/* hello thali logo */}
           <Link href="/">
             <Image
               src="/icons/hellothali-logo.png"
               alt="logo"
-              width={40}
-              height={40}
+              width={50}
+              height={50}
             />
           </Link>
-          <div className=" sm:w-[300px] lg:w-3/4 flex justify-between">
+          <div className="sm:w-[300px] lg:w-[90%] flex justify-between ml-5">
             {NavbarLink.map((link) => {
               const isActive = pathname === link.route;
               return (
                 <Link
                   key={link.label}
-                  className={cn("text-slate cursor-pointer hover:text-white", {
-                    "text-white": isActive,
+                  className={cn("text-black text-lg font-medium drop-shadow-2xl  cursor-pointer hover:text-green-5", {
+                    "text-green-5": isActive,
                   })}
+                  style={{ fontFamily: 'Inter'}}
                   href={link.route}
                 >
                   {link.label}
@@ -74,14 +74,8 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className={`flex items-center sm:w-[200px] ${greeting && ( 'lg:w-[35%]')} lg:w-[25%] justify-between`}>
-          <div className="p-3 mr-2 rounded-3xl bg-green-2 hover:bg-slate cursor-pointer">
-            <FaSearch className="text-white hover:text-green-1" />
-          </div>
-          <div className="p-2 rounded-3xl bg-green-2 hover:bg-slate cursor-pointer">
-            <Badge badgeContent={cartItems.length} color='primary'><Link href={"/cart"}><FaCartShopping size={20} className="text-white hover:text-green-1" /></Link></Badge>
-          </div>
-          {greeting && (
+        <div className={`flex items-center sm:w-[200px] ${greeting && ( 'lg:w-[35%]')} lg:w-[24%] justify-between`}>
+          {/* {greeting && (
               <NavigationMenu>
                 <NavigationMenuList >
                   <NavigationMenuItem>
@@ -94,10 +88,18 @@ const Navbar = () => {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
-          )}
+          )} */}
+          <Button className='flex items-center gap-3 bg-green-4 opacity-65  text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white'>
+            <FaCartShopping size={25} />
+            <div className="flex flex-col">
+              <p className="text-xs font-medium">2 items</p>
+              <p className="text-xs font-medium">₹198</p>
+            </div>
+          </Button>
+          <Button className='bg-green-4 opacity-65 text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white'>Login</Button>
           <Button
             onClick={() => route.push("/contact-us")}
-            className="bg-white text-green-1 font-semibold text-sm hover:text-green-1 hover:bg-white"
+            className="bg-green-4 opacity-65  text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white"
           >
             Contact Us
           </Button>

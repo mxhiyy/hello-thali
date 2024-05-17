@@ -17,53 +17,42 @@ export const NavbarLink = [{
     label: "Blogs",
     route: "/blogs",
   },
+
+  {
+    label: "Refer&Earn",
+    route: "/referearn",
+  }
 ];
 
 export const PricingPlans = [
   {
     heading: "Try Once",
-    headingColor: "black",
-    price: "119.00",
-    priceColor: "#FDFDFD",
-    plans: "/Thali",
-    perThali: "(INR 119.00 per thali)",
+    perThali: "Rs.90/Thali",
     titleone: "Budget-friendly",
     titletwo: "Taste before you commit",
     titlethird: "Flexible option",
     titlefourth: "Ideal For occasional use",
+    titlefifth: "Customer Support",
     buttonText: "Order now",
-    cardcolor: "#E2E5E8",
+    cardcolor: "#ECEBEB33",
   },
 
   {
-    heading: "Weekly",
-    price: "710.00",
-    priceColor: "#E9EAE9",
-    headingColor: "white",
-    plans: "/week",
-    perThali: "(INR 101.42 per thali)",
-    titleone: "Budget-friendly",
-    titletwo: "Renewel benefits",
-    titlethird: "Convience Unleashed",
-    titlefourth: "Email Support",
+    heading: "Weekly Plan",
+    main: "Recommended",
+    perThali: "Rs.80/Thali",
+    titleone: "Renewal benefits",
+    titletwo: "Budget-friendly",
+    titlethird: "Flexible option",
+    titlefourth: "Extra Cost savings",
+    titlefifth: "Variety galore",
+    titlesixth: "Ideal for daily use",
+    titleseventh: "Email support",
+    titleeight: "Mobile Phone Support",
+    titleninth: "Customization",
     buttonText: "Book now",
-    cardcolor: "#132C21"
+    cardcolor: "linear-gradient(180deg, rgba(136, 130, 79, 0.078) 0%, rgba(132, 48, 109, 0.048) 47%);"
   },
-
-  {
-    heading: "Monthly",
-    price: "2555.00",
-    priceColor: "#F6F4F5",
-    headingColor: "white",
-    plans: "/month",
-    perThali: "(INR 91.25 per thali)",
-    titleone: "Budget Friendly",
-    titletwo: "Renewel benefits",
-    titlethird: "Ultimate value",
-    titlefourth: "Extra cost savings",
-    buttonText: "Book now",
-    cardcolor: "#9E8A93"
-  }
 ];
 
 export const accordianData = [
@@ -99,193 +88,71 @@ export const accordianData = [
   }
 ];
 
-export const MenuLink = {
-  Thali: [
+export const MenuLink = [
     {
+      img: "/assets/veg.svg",
+      main: "Bestseller",
       name: "Paneer",
-      title: "Paneer Thali",
-      sellingPrice: 110,
-      mrp: 150,
-      img: "/assets/paneer.jpeg",
+      title: "Mattar Paneer & Mix Veg Thali",
+      sellingPrice: 130,
+      mrp: 160,
+      image: "/assets/paneer.jpeg",
+      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
       divider: true,
     },
     {
       name: "Potatos",
-      title: "Potatos Thali",
+      main: "Recommended",
+      img: "/assets/veg.svg",
+      title: "Shahi Paneer & Chole Thali",
+      sellingPrice: 130,
+      mrp: 160,
+      image: "/assets/potatos.jpg",
+      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
+      divider: true,
+    },
+    {
+      name: "Bhindi",
+      img: "/assets/veg.svg",
+      title: "Aalo Mattar & Dal Thali",
       sellingPrice: 90,
-      mrp: 150,
-      img: "/assets/potatos.jpg",
-      divider: true,
-    },
-    {
-      name: "Bhindi",
-      title: "Bhindi Thali",
-      sellingPrice: 90,
-      mrp: 150,
-      img: "/assets/bhindi.jpeg",
+      mrp: 160,
+      image: "/assets/bhindi.jpeg",
+      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
       divider: true,
     },
     {
       name: "Brinjal",
-      title: "Brinjal Thali",
-      sellingPrice: 90,
-      mrp: 150,
-      img: "/assets/brinjal.jpg",
+      img: "/assets/veg.svg",
+      title: "Kadhai Paneer & Dal Tadka Thali",
+      sellingPrice: 120,
+      mrp: 160,
+      image: "/assets/brinjal.jpg",
+      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
       divider: true,
     },
     {
       name: "Mixed Veg",
-      title: "Mixed Veg Thali",
-      sellingPrice: 100,
-      mrp:150,
-      img: "/assets/mixedveg.png",
+      img: "/assets/veg.svg",
+      title: "Mattar Paneer & Rajma Thali",
+      sellingPrice: 130,
+      mrp:160,
+      image: "/assets/mixedveg.png",
+      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
       divider: true,
+
     },
     {
       name: "Bottle gaurd",
-      title: "Bottle guard Thali",
-      sellingPrice: 80,
-      mrp: 150,
-      img: "/assets/bottlegaurd.jpg",
+      img: "/assets/veg.svg",
+      title: "Kadhi Pakoda & Masala Chaap Thali",
+      sellingPrice: 99,
+      mrp: 160,
+      image: "/assets/bottlegaurd.jpg",
+      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
       divider: true,
     }
-  ],
-
-  Pizza: [
-    {
-      name: "Paneer",
-      img: "/assets/paneer.jpeg",
-    },
-    {
-      name: "Potatos",
-      img: "/assets/potatos.jpg",
-    },
-    {
-      name: "Bhindi",
-      img: "/assets/bhindi.jpeg",
-    },
-    {
-      name: "Brinjal",
-      img: "/assets/brinjal.jpg",
-    },
-    {
-      name: "Mixed Veg",
-      img: "/assets/mixedveg.png"
-    },
-    {
-      name: "Bottle gaurd",
-      img: "/assets/bottlegaurd.jpg",
-    }
-  ],
-
-  Noodles: [
-    {
-      name: "Paneer",
-      img: "/assets/paneer.jpeg",
-    },
-    {
-      name: "Potatos",
-      img: "/assets/potatos.jpg",
-    },
-    {
-      name: "Bhindi",
-      img: "/assets/bhindi.jpeg",
-    },
-    {
-      name: "Brinjal",
-      img: "/assets/brinjal.jpg",
-    },
-    {
-      name: "Mixed Veg",
-      img: "/assets/mixedveg.png"
-    },
-    {
-      name: "Bottle gaurd",
-      img: "/assets/bottlegaurd.jpg",
-    }
-  ],
-
-  Burgers: [
-    {
-      name: "Paneer",
-      img: "/assets/paneer.jpeg",
-    },
-    {
-      name: "Potatos",
-      img: "/assets/potatos.jpg",
-    },
-    {
-      name: "Bhindi",
-      img: "/assets/bhindi.jpeg",
-    },
-    {
-      name: "Brinjal",
-      img: "/assets/brinjal.jpg",
-    },
-    {
-      name: "Mixed Veg",
-      img: "/assets/mixedveg.png"
-    },
-    {
-      name: "Bottle gaurd",
-      img: "/assets/bottlegaurd.jpg",
-    }
-  ],
-
-  Biryani: [
-    {
-      name: "Paneer",
-      img: "/assets/paneer.jpeg",
-    },
-    {
-      name: "Potatos",
-      img: "/assets/potatos.jpg",
-    },
-    {
-      name: "Bhindi",
-      img: "/assets/bhindi.jpeg",
-    },
-    {
-      name: "Brinjal",
-      img: "/assets/brinjal.jpg",
-    },
-    {
-      name: "Mixed Veg",
-      img: "/assets/mixedveg.png"
-    },
-    {
-      name: "Bottle gaurd",
-      img: "/assets/bottlegaurd.jpg",
-    }
-  ],
-
-  Drinks: [
-    {
-      name: "Paneer",
-      img: "/assets/paneer.jpeg",
-    },
-    {
-      name: "Potatos",
-      img: "/assets/potatos.jpg",
-    },
-    {
-      name: "Bhindi",
-      img: "/assets/bhindi.jpeg",
-    },
-    {
-      name: "Brinjal",
-      img: "/assets/brinjal.jpg",
-    },
-    {
-      name: "Mixed Veg",
-      img: "/assets/mixedveg.png"
-    },
-    {
-      name: "Bottle gaurd",
-      img: "/assets/bottlegaurd.jpg",
-    }
-  ]
-};
+];
 
 export const Homecard = [
   {
@@ -337,5 +204,35 @@ export const TestimonalCard = [
     description: "Honestly, I just hate cooking. But I also hate spending a fortune on takeout. HelloThali is the perfect middle ground! The food is delicious and feels homemade, but I don't have to lift a finger. It's like having a personal chef without the crazy bill. Now I can finally enjoy dinnertime without the kitchen blues!",
     img: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     name: "harami",
+  }
+];
+
+
+export const blogsCard = [
+  {
+    id: 1,
+    name: "Mohit Poonia",
+    img: "/assets/money.jpg",
+    title: "How GenZ's are spending too much on food online and still feels unsatisfied everyday",
+    description: "Picture this: You're juggling work deadlines, family commitments, and a social life. The last thing you have time for is slaving away in the kitchen, yet the thought of another greasy takeout meal or ...",
+    date: "29-Feb-2024"
+  },
+
+  {
+    id: 2,
+    name: "Rahul",
+    img: "/assets/money.jpg",
+    title: "How GenZ's are spending too much on food online and still feels unsatisfied everyday",
+    description: "Picture this: You're juggling work deadlines, family commitments, and a social life. The last thing you have time for is slaving away in the kitchen, yet the thought of another greasy takeout meal or ...",
+    date: "29-Feb-2024"
+  },
+
+  {
+    id: 3,
+    name: "Eshika Rawat",
+    img: "/assets/money.jpg",
+    title: "How GenZ's are spending too much on food online and still feels unsatisfied everyday",
+    description: "Picture this: You're juggling work deadlines, family commitments, and a social life. The last thing you have time for is slaving away in the kitchen, yet the thought of another greasy takeout meal or ...",
+    date: "29-Feb-2024"
   }
 ]

@@ -1,6 +1,5 @@
 "use client"
 
-import PricingPlansCard from '@/components/PricingPlansCard'
 import { PricingPlans, accordianData } from '@/constants'
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -8,6 +7,9 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
+import { MdDone } from "react-icons/md";
+import { Button } from '@/components/ui/button';
+
 
 
 const PricingPlanspage = () => {
@@ -51,18 +53,37 @@ const PricingPlanspage = () => {
   
   return (
     <main>
-      <div className='text-center text-2xl mt-10'><h1>Pricing Plans</h1></div>
-      <div className='flex flex-col xl:flex-row justify-center items-center mt-10 gap-5'>
-        {PricingPlans.map((data) => (
-          <PricingPlansCard data={data} key={data.heading} />
-        ))}
+      <div className='mt-20 w-[90%] m-auto'>
+        <h1 className='text-6xl font-semibold text-blue text-center'>Choose Your Plan</h1>
+        <div className='mt-10 grid grid-cols-2 grid-rows-1 border-2 border-black place-items-center '>
+          {PricingPlans.map((data) => (
+            <div className='border-2 border-black w-[350px] h-[570px] flex flex-col gap-2 p-5 rounded-xl relative'>
+              <h1 className='text-indigo text-center text-4xl font-semibold' style={{ textShadow: "1px 3px 4px #00000040"}}>{data.heading}</h1>
+              <div className='flex justify-end'>
+              {data.heading === "Weekly Plan" && (<p className='rounded-3xl bg-[#32A3ABAD] text-[#933562] text-[6px] font-semibold p-1 w-[54px]'>{data.main}</p>)}
+              </div>
+              <h3 className='text-base font-semibold text-center'>Starts from</h3>
+              <h1 className='font-semibold text-3xl text-center text-[#001062]'>{data.perThali}</h1>
+              <div className='mt-5 flex flex-col gap-2'>
+                <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titleone}</h3></div>
+                <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titletwo}</h3></div>
+                <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titlethird}</h3></div>
+                <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titlefourth}</h3></div>
+                <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titlefifth}</h3></div>
+                {data.titlesixth && ( <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titlesixth}</h3></div> )}
+                {data.titleseventh && ( <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titleseventh}</h3></div>)}
+                {data.titleeight && ( <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titleeight}</h3></div>)}
+                {data.titleninth && ( <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titleninth}</h3></div> )}
+              </div>
+
+              <Button className='text-center bg-green-4 opacity-65 absolute bottom-0 flex justify-center text-white font-normal text-xl hover:opacity-90 hover:bg-green-4 hover:text-white' >{data.buttonText}</Button>
+            </div>
+          ))}
+
+        </div>
       </div>
 
-      <div className='flex justify-center items-center w-[80vw] m-auto border-t-2 border-b-2 border-gray-3 p-6 mt-20'>
-        <h6 className='text-sm font-medium'>HelloThali Subscription <span className='text-green-1'>Terms & Conditions</span></h6>
-      </div>
-
-      <div className='mt-20 w-[80vw] m-auto '>
+      {/* <div className='mt-20 w-[80vw] m-auto '>
         <h1 className='text-2xl ml-5'>Questions ?</h1>
         <div className='mt-5'>
           {accordianData.map((data) => (
@@ -78,14 +99,7 @@ const PricingPlanspage = () => {
           </Accordion>
           ))}
         </div>
-      </div>
-
-      <div className='mt-20 flex flex-col gap-4 p-3 bg-gray-2'>
-        <h2 className='text-base font-normal mt-2'>We are single and always free to get in touch with you. <br /> Feel free to message us or give a missed call</h2>
-        <div className='w-40'>
-        <button className='bg-green-1 text-sm font-normal p-2 rounded-md text-white'>Contact us</button>
-        </div>
-      </div>
+      </div> */}
     </main>
   )
 }

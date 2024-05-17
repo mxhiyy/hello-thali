@@ -28,7 +28,6 @@ const Profilepage = () => {
       email,
       address,
     };
-    localStorage.setItem("user", JSON.stringify({ ...user, ...updatedDetails }));
     dispatch(updateProfileDetails(updatedDetails));
     route.push("/");
   };
