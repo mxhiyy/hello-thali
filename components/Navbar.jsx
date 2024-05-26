@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Badge } from "@mui/material";
 import { useSelector } from "react-redux";
+import LoginCard from "./Login";
+import { useState } from "react";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -29,6 +31,7 @@ const Navbar = () => {
   const user = useSelector((state) => state.user);
   // const user = JSON.parse(localStorage.getItem("user"));
   const cartItems = useSelector((state) => state.cart.items);
+  const [open, setOpen] = useState(false);
 
 
   let greeting = "";
@@ -37,6 +40,10 @@ const Navbar = () => {
   } else if (user?.phoneNumber) {
     greeting = `Hi User👋🏻`;
   };
+
+  const handleClick = () => {
+    setOpen(true);
+  }
 
   const handleLogout = () => {
     route.push('/');
@@ -89,14 +96,15 @@ const Navbar = () => {
                 </NavigationMenuList>
               </NavigationMenu>
           )} */}
-          <Button className='flex items-center gap-3 bg-green-4 opacity-65  text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white'>
+          <Button onClick={() => route.push('/cart')} className='flex items-center gap-3 bg-green-4 opacity-65  text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white'>
             <FaCartShopping size={25} />
             <div className="flex flex-col">
               <p className="text-xs font-medium">2 items</p>
               <p className="text-xs font-medium">₹198</p>
             </div>
           </Button>
-          <Button className='bg-green-4 opacity-65 text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white'>Login</Button>
+          <Button className='bg-green-4 opacity-65 text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white' onClick={handleClick} >Login</Button>
+          {open && ( <LoginCard open={open} setOpen={setOpen} />)}
           <Button
             onClick={() => route.push("/contact-us")}
             className="bg-green-4 opacity-65  text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white"

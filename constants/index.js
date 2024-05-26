@@ -33,8 +33,9 @@ export const PricingPlans = [
     titlethird: "Flexible option",
     titlefourth: "Ideal For occasional use",
     titlefifth: "Customer Support",
-    buttonText: "Order now",
+    buttonText: "Order Now",
     cardcolor: "#ECEBEB33",
+    route: "/explore"
   },
 
   {
@@ -50,11 +51,93 @@ export const PricingPlans = [
     titleseventh: "Email support",
     titleeight: "Mobile Phone Support",
     titleninth: "Customization",
-    buttonText: "Book now",
-    cardcolor: "linear-gradient(180deg, rgba(136, 130, 79, 0.078) 0%, rgba(132, 48, 109, 0.048) 47%);"
+    buttonText: "Book Now",
+    cardcolor: "linear-gradient(180deg, rgba(136, 130, 79, 0.078) 0%, rgba(132, 48, 109, 0.048) 47%);",
+    route: "/pricing-plans/book-now"
   },
 ];
 
+export const orderNowCard = {
+  Monday: [
+    {
+      image: "/assets/booknowimage.svg",
+      heading: "Mattar Paneer",
+      description: "Costs Extra to the Regular Thali",
+      main: "BestSeller",
+      mrp: 44,
+      sellingPrice: 20
+    },
+
+    {
+      image: "/assets/booknowimage.svg",
+      heading: "Aalo Mattar",
+      description: "Costs Nothing Extra to the Regular Thali",
+      main: "BestSeller",
+    },
+
+    {
+      image: "/assets/booknowimage.svg",
+      heading: "Capsicum",
+      description: "Costs Extra to the Regular Thali",
+      main: "BestSeller",
+      mrp: 44,
+      sellingPrice: 20
+    },
+
+    {
+      image: "/assets/booknowimage.svg",
+      heading: "Kadhi Pakora",
+      description: "Costs Nothing Extra to the Regular Thali",
+      main: "BestSeller",
+    },
+
+    {
+      image: "/assets/booknowimage.svg",
+      heading: "Mushroom",
+      description: "Costs Extra to the Regular Thali",
+      main: "BestSeller",
+      mrp: 44,
+      sellingPrice: 20
+    },
+
+    {
+      image: "/assets/booknowimage.svg",
+      heading: "Mix Veg",
+      description: "Costs Nothing Extra to the Regular Thali",
+      main: "BestSeller",
+    }
+  ]
+};
+
+export const tableData = [
+  {
+    heading: "Customisable Items",
+  },
+  {
+    heading: "Monday",
+  },
+  {
+    heading: "Tuesday",
+  },
+  {
+    heading: "Wednesday",
+  },
+  {
+    heading: "Thursday",
+  },
+  {
+    heading: "Friday",
+  },
+  {
+    heading: "Saturday",
+  },
+  {
+    heading: "Sunday",
+  },
+
+
+
+]
 export const accordianData = [
   {
     id: 1,

@@ -6,15 +6,17 @@ import { styled } from '@mui/material/styles';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
+import HelpIcon from '@mui/icons-material/Help';
 import { MdDone } from "react-icons/md";
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 
 
 const PricingPlanspage = () => {
 
   const [expanded, setExpanded] = React.useState(1);
+  const route = useRouter()
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -23,6 +25,7 @@ const PricingPlanspage = () => {
   const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
   ))(({ theme }) => ({
+    padding: theme.spacing(1),
     '&:not(:last-child)': {
       borderBottom: 0,
     },
@@ -33,14 +36,16 @@ const PricingPlanspage = () => {
   
   const AccordionSummary = styled((props) => (
     <MuiAccordionSummary
-    expandIcon={<ArrowDropDownCircleIcon className='text-base' />}
+    expandIcon={<HelpIcon className='text-2xl text-black' />}
       {...props}
     />
   ))(({ theme }) => ({
     backgroundColor:"white",
-    color: "#0F5132",
     border: "none",
     flexDirection: 'row-reverse',
+    '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+      transform: 'rotate(360deg)',
+    },
     '& .MuiAccordionSummary-content': {
       marginLeft: theme.spacing(1),
     },
@@ -55,53 +60,61 @@ const PricingPlanspage = () => {
     <main>
       <div className='mt-20 w-[90%] m-auto'>
         <h1 className='text-6xl font-semibold text-blue text-center'>Choose Your Plan</h1>
-        <div className='mt-10 grid grid-cols-2 grid-rows-1 border-2 border-black place-items-center '>
+        <div className='mt-10 grid grid-cols-2 grid-rows-1 place-items-center'>
           {PricingPlans.map((data) => (
-            <div className='border-2 border-black w-[350px] h-[570px] flex flex-col gap-2 p-5 rounded-xl relative'>
-              <h1 className='text-indigo text-center text-4xl font-semibold' style={{ textShadow: "1px 3px 4px #00000040"}}>{data.heading}</h1>
+            <div className='w-[350px] h-[570px] flex flex-col gap-2 p-5 rounded-xl relative' style={{ background: `${data.cardcolor}`}}>
+              <h1 className='text-indigo text-center text-4xl font-bold'>{data.heading}</h1> 
+              {/* style={{ textShadow: "1px 3px 4px #00000040"}} */}
               <div className='flex justify-end'>
-              {data.heading === "Weekly Plan" && (<p className='rounded-3xl bg-[#32A3ABAD] text-[#933562] text-[6px] font-semibold p-1 w-[54px]'>{data.main}</p>)}
+              {data.heading === "Weekly Plan" && (<p className='rounded-3xl bg-[#32A3ABAD] flex justify-center text-[#933562] text-[6px] font-semibold p-1 w-[54px]'>{data.main}</p>)}
               </div>
               <h3 className='text-base font-semibold text-center'>Starts from</h3>
               <h1 className='font-semibold text-3xl text-center text-[#001062]'>{data.perThali}</h1>
               <div className='mt-5 flex flex-col gap-2'>
-                <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titleone}</h3></div>
-                <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titletwo}</h3></div>
-                <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titlethird}</h3></div>
-                <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titlefourth}</h3></div>
-                <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titlefifth}</h3></div>
-                {data.titlesixth && ( <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titlesixth}</h3></div> )}
-                {data.titleseventh && ( <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titleseventh}</h3></div>)}
-                {data.titleeight && ( <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titleeight}</h3></div>)}
-                {data.titleninth && ( <div className='flex gap-2 items-center'><MdDone size={25} /> <h3 className='font-semibold text-lg'>{data.titleninth}</h3></div> )}
+                <div className='flex gap-2 items-center'><MdDone size={24} /> <h3 className='font-semibold text-lg'>{data.titleone}</h3></div>
+                <div className='flex gap-2 items-center'><MdDone size={24} /> <h3 className='font-semibold text-lg'>{data.titletwo}</h3></div>
+                <div className='flex gap-2 items-center'><MdDone size={24} /> <h3 className='font-semibold text-lg'>{data.titlethird}</h3></div>
+                <div className='flex gap-2 items-center'><MdDone size={24} /> <h3 className='font-semibold text-lg'>{data.titlefourth}</h3></div>
+                <div className='flex gap-2 items-center'><MdDone size={24} /> <h3 className='font-semibold text-lg'>{data.titlefifth}</h3></div>
+                {data.titlesixth && ( <div className='flex gap-2 items-center'><MdDone size={24} /> <h3 className='font-semibold text-xl'>{data.titlesixth}</h3></div> )}
+                {data.titleseventh && ( <div className='flex gap-2 items-center'><MdDone size={24} /> <h3 className='font-semibold text-xl'>{data.titleseventh}</h3></div>)}
+                {data.titleeight && ( <div className='flex gap-2 items-center'><MdDone size={24} /> <h3 className='font-semibold text-xl'>{data.titleeight}</h3></div>)}
+                {data.titleninth && ( <div className='flex gap-2 items-center'><MdDone size={24} /> <h3 className='font-semibold text-xl'>{data.titleninth}</h3></div> )}
               </div>
 
-              <Button className='text-center bg-green-4 opacity-65 absolute bottom-0 flex justify-center text-white font-normal text-xl hover:opacity-90 hover:bg-green-4 hover:text-white' >{data.buttonText}</Button>
+              <Button onClick={() => route.push(`${data.route}`) } className='text-center bg-green-4 opacity-65 absolute bottom-2 left-28 flex justify-center text-white font-normal text-xl hover:opacity-90 hover:bg-green-4 hover:text-white' >{data.buttonText}</Button>
             </div>
           ))}
-
         </div>
       </div>
 
-      {/* <div className='mt-20 w-[80vw] m-auto '>
-        <h1 className='text-2xl ml-5'>Questions ?</h1>
+      <div className='w[90%] m-auto mt-20'>
+        <h5 className='text-center text-2xl font-normal'>Pricing Plan <span className='font-semibold cursor-pointer hover:underline'> Terms & Conditions </span></h5>
+      </div>
+
+      <div className='w-[90%] flex m-auto justify-center items-center mt-10'>
+         <img src="/assets/ellipse.svg" alt="ellipse" />
+      </div>
+
+      <div className='mt-20 w-[80%] m-auto '>
+        <h1 className='text-4xl font-semibold ml-5'>Questions ?</h1>
         <div className='mt-5'>
           {accordianData.map((data) => (
             <Accordion key={data.id} expanded={expanded === data.id} onChange={handleChange(data.id)}>
             <AccordionSummary aria-controls={`${data.id}-content`} id={`${data.id}-header`}>
-               <p className='text-sm font-medium'>{data.title}</p>
+               <p className='text-2xl font-medium text-black'>{data.title}</p>
             </AccordionSummary>
             <AccordionDetails>
-              <p className='text-sm ml-6'>
+              <p className='text-2xl font-normal ml-6'>
                  {data.description}
               </p>
             </AccordionDetails>
           </Accordion>
           ))}
         </div>
-      </div> */}
+      </div>
     </main>
   )
 }
 
-export default PricingPlanspage
+export default PricingPlanspage;
