@@ -50,7 +50,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="p-3 w-full mb-5">
+    <nav className="p-3 w-full mb-5 border-b-2 border-gray-4">
       <div className="lg:w-[90%] m-auto hidden sm:flex items-center justify-between">
         <div className="sm:w-[350px] lg:w-[50%] xl:w-2/5 flex justify-between items-center">
           {/* hello thali logo */}
@@ -62,13 +62,13 @@ const Navbar = () => {
               height={50}
             />
           </Link>
-          <div className="sm:w-[300px] lg:w-[90%] flex justify-between ml-5">
+          <div className="sm:w-[300px] lg:w-[90%] flex justify-between ml-10">
             {NavbarLink.map((link) => {
               const isActive = pathname === link.route;
               return (
                 <Link
                   key={link.label}
-                  className={cn("text-black text-lg font-medium drop-shadow-2xl  cursor-pointer hover:text-green-5", {
+                  className={cn("text-black text-base font-medium drop-shadow-2xl  cursor-pointer hover:text-green-5", {
                     "text-green-5": isActive,
                   })}
                   style={{ fontFamily: 'Inter'}}
@@ -96,21 +96,23 @@ const Navbar = () => {
                 </NavigationMenuList>
               </NavigationMenu>
           )} */}
-          <Button onClick={() => route.push('/cart')} className='flex items-center gap-3 bg-green-4 opacity-65  text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white'>
+          <Link href={"/cart"}>
+          <Button className='flex items-center gap-3 bg-green-4 text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white'>
             <FaCartShopping size={25} />
             <div className="flex flex-col">
               <p className="text-xs font-medium">2 items</p>
               <p className="text-xs font-medium">₹198</p>
             </div>
           </Button>
-          <Button className='bg-green-4 opacity-65 text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white' onClick={handleClick} >Login</Button>
+          </Link>
+          <Button className='bg-green-4 text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white' onClick={handleClick} >Login</Button>
           {open && ( <LoginCard open={open} setOpen={setOpen} />)}
-          <Button
-            onClick={() => route.push("/contact-us")}
-            className="bg-green-4 opacity-65  text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white"
+         <Link href={"/contact-us"}>
+         <Button
+            className="bg-green-4  text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white"
           >
             Contact Us
-          </Button>
+          </Button></Link>
         </div>
       </div>
 

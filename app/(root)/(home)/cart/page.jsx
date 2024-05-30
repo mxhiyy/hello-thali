@@ -1,86 +1,214 @@
-'use client'
+"use client";
 
-import { Divider } from "@mui/material";
+import { Divider, Modal } from "@mui/material";
 import { IoMdAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
-import { IoCloseSharp } from "react-icons/io5";
 import { useState } from "react";
-import Image from "next/image";
 import { useSelector } from "react-redux";
+import { CiStar } from "react-icons/ci";
+import { Button } from "@/components/ui/button";
+import { MdDeleteForever } from "react-icons/md";
+import { SiTicktick } from "react-icons/si";
+
 
 const CardPage = () => {
-    const [ countItems, setCountItems ] = useState(1);
-    const cartItems = useSelector((state) => state.cart.items);
+  const [countItems, setCountItems] = useState(1);
+  const cartItems = useSelector((state) => state.cart.items);
+  const [customised, setCustomised] = useState("Roti & Half-Bowl Rice");
+  const [ open, setOpen ] = useState(false);
 
-    // if(cartItems.length > 0){
-    //     const lastCartItemIndex = cartItems.length - 1;
-    //     cartItems["Thali"][lastCartItemIndex].divider = false;
-    // };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-    return(
-        <main className="w-full h-full">
-            <div className="w-full mt-20 flex">
-                <div className="w-3/5 h-1/2">
-                    <h1 className="text-3xl ml-10 font-medium">Cart</h1>
-                    <div className="mt-6 w-[90%] h-full m-auto border-2 border-gray p-2 rounded-xl flex flex-col mb-2">
-                        {
-                            cartItems.map((item) => {
-                                return(
-                                 <>
-                                    <div className="flex justify-between items-center" key={item.name}>
-                                        <div className="flex gap-4 items-center">
-                                            <img src={item.img} alt="cart-images" className="h-28 w-28 m-3 rounded-xl"  />
-                                            <h6 className="font-semibold text-base">{item.name}</h6>
-                                        </div>
+  const handleClose = () => {
+    setOpen(false);
+  }
 
-                                        <div className="flex justify-between items-center w-2/5">
-                                            <div className="w-24 flex justify-between items-center border-2 border-gray-2 ">
-                                                <IoMdAdd className="cursor-pointer bg-green-1 text-white" size={25} onClick={() => setCountItems(countItems + 1)} />
-                                                <p className="text-base font-normal">{countItems}</p>
-                                                <button><FiMinus className="cursor-pointer bg-green-1 text-white" size={25}  onClick={() => setCountItems(countItems - 1)} /></button>
-                                            </div>
+  // if(cartItems.length > 0){
+  //     const lastCartItemIndex = cartItems.length - 1;
+  //     cartItems["Thali"][lastCartItemIndex].divider = false;
+  // };
 
-                                            <h3 className="text-base font-medium">₹ {item.sellingPrice}</h3>
-                                             
-                                            <IoCloseSharp size={20} className="cursor-pointer bg-gray-2 m-3 text-green-1 rounded-3xl"/>
-                                        </div>
+  return (
+    <main className="w-full h-full">
+      <div
+        className="mt-10 flex flex-col gap-7 w-[90%] m-auto"
+        style={{ fontFamily: "Inter" }}
+      >
+        <h1 className="font-normal text-7xl">Your Cart</h1>
+        <div className="flex justify-between text-base font-normal">
+          <h6>Continue Shopping</h6>
+          <h6>3 Items</h6>
+          <h6>Need Help? Call +91 80033XX0XX</h6>
+        </div>
+      </div>
+      <div className="w-[90%] m-auto">
+        <Divider sx={{ border: "1px solid black" }} />
+      </div>
 
-                                    </div>
-                                    {item.divider && (<Divider />)}
-                                 </>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-                <div className="w-2/5 h-1/2">
-                    <h1 className="text-3xl ml-10 font-medium">Order Summary</h1>
-                    <div className="mt-6 w-[90%] h-full m-auto p-2 flex flex-col mb-2">
-                        <input type="text" placeholder="Enter Coupen" className="p-3 rounded-md bg-gray-2 text-gray-400 font-semibold" style={{ outline: 'none' }} />
-                        <Divider style={{ marginTop: '10px'}} />
-                        <div className="mt-5 flex flex-col gap-4">
-                            <div className="flex w-full justify-between items-center"><h5 className="text-base font-medium">Subtotal</h5> <h5 className="text-base font-medium">₹ 100</h5></div>
-                            <div className="flex w-full justify-between items-center"><h5 className="text-base font-medium">Shipping</h5> <h5 className="text-base font-medium">₹ 10</h5></div>
-                        </div>
-                        <Divider style={{ marginTop: '10px'}} />
-
-                        <div className="flex w-full justify-between items-center mt-5"><h5 className="text-base font-semibold">Total</h5> <h5 className="text-base font-semibold">₹ 110</h5></div>
-                        <button className="w-full p-3 rounded-xl mt-10 text-white font-semibold text-base bg-green-1">Checkout</button>
-
-                        <div className="mt-5 flex justify-between items-center">
-                            <div className="w-2/5 border-t-2 border-gray"></div>
-                            <p className="text-base font-medium text-gray">OR</p>
-                            <div className="w-2/5 border-t-2 border-gray"></div>
-                        </div>
-
-                        <button className="w-full p-2 rounded-xl mt-6 flex justify-center items-center gap-2 font-semibold text-base border-2 border-green-1 text-green-1 "><Image src={"/icons/paypal-icon.png"} alt="paypal-icon" height={30} width={30} />Pay with PayPal</button>
-                        
-                    </div>
-                </div>
+      <div className="w-[90%] m-auto flex gap-4 mt-20">
+        <div className="w-[85%]">
+            <div className="flex gap-2">
+            <div
+            className="flex w-[100%] h-[260px] p-3 rounded-lg"
+            style={{ border: "1px solid #0000001A" }}
+          >
+            <div className="w-3/5 flex flex-col gap-4">
+              <div className="flex gap-3 items-center">
+                <img src="/assets/veg.svg" alt="veg" width={30} height={30} />
+              </div>
+              <h2 className="font-semibold text-2xl">
+                Mattar Paneer & Mix Veg Thali
+              </h2>
+              <div className="flex items-center gap-3">
+                <p className="font-semibold text-base line-through text-gray-500">
+                  ₹ 160
+                </p>
+                <p className="font-semibold text-base text-black">₹ 130</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <CiStar size={23} />
+                <p className="text-sm font-light">4.9</p>
+              </div>
+              <h5 className="font-light text-sm">
+                Serves 1 | Other Items: 3, {customised}, Raiyeta, Salad, Pickel,
+                Mouth Freshner
+              </h5>
             </div>
-        </main>
-    )
+            <div className="w-2/5 flex flex-col relative items-end mr-10">
+              <div>
+                <img
+                  src="/assets/paneer.jpeg"
+                  alt="paneer"
+                  width={190}
+                  height={200}
+                  className="rounded-xl"
+                />
+                <Button className="text-green-4 w-28 bg-[#EEEEEE] rounded-md absolute bottom-7 right-9 font-semibold text-xl hover:text-green-4 hover:bg-[#EEEEEE] flex justify-between">
+                  <IoMdAdd size={20} />
+                  {countItems}
+                  <FiMinus size={20} />
+                </Button>
+                <div className="mt-7 flex justify-center items-center">
+                  <p onClick={handleOpen} className="text-center font-semibold cursor-pointer bg-green-4 opacity-65 text-white text-[10px] p-[0.8px] rounded-2xl w-24">
+                    Customisable Now
+                  </p>
+                </div>
 
-}
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                    className="flex justify-center items-center"
+                >
+                     <div className={`rounded-md bg-white w-[800px] h-[350px] flex flex-col gap-7 p-5`}>
+                        <h1 className="font-bold text-center text-4xl text-green-4 opacity-65">Customise as per your taste</h1>
+                        <div className="text-xl font-bold flex justify-between w-96"><p>Mattar Paneer & Mix Veg Thali</p> | <p>₹ 160</p></div>
+                         <div className="flex justify-between">
+                         <div className="w-[450px] bg-[#E3E3E380] p-5 rounded-md">
+                           <form className="flex flex-col gap-5">
+
+                            <div className="flex justify-between">
+                               <div className="flex gap-2">
+                                <img src="/assets/veg.svg" alt="veg" width={30} height={30} />
+                                <label className="font-bold text-lg" id="option1">Roti & Half-Bowl Rice</label>
+                               </div>
+                                <input type="radio" id="option1" name="options" placeholder="w-30 h-30" onChange={(e) => setCustomised(e.target.value)} value="Roti & Half-Bowl Rice" />
+                            </div>
+
+                            <div className="flex justify-between">
+                               <div className="flex gap-2">
+                                <img src="/assets/veg.svg" alt="veg" width={30} height={30} />
+                                <label className="font-bold text-lg" id="option1">6 Roti</label>
+                               </div>
+                                <input type="radio" id="option1" name="options" placeholder="w-30 h-30" onChange={(e) => setCustomised(e.target.value)} value="6 Roti" />
+                            </div>
+
+                            <div className="flex justify-between">
+                               <div className="flex gap-2">
+                                <img src="/assets/veg.svg" alt="veg" width={30} height={30} />
+                                <label className="font-bold text-lg" id="option1">Full Bowl Rice</label>
+                               </div>
+                                <input type="radio" id="option1" name="options" placeholder="w-30 h-30" onChange={(e) => setCustomised(e.target.value)} value="Full Bowl Rice" />
+                            </div>
+                           </form>
+                        </div>
+
+                        <div className="flex flex-col justify-end w-[250px]">
+                            <div className="w-full flex flex-col gap-1 items-center justify-center">
+                                <p className="font-bold text-[#B10000] text-sm">Customisation at No Extra Cost</p>
+                                <Button className='bg-green-4 opacity-65 hover:bg-green-4 text-white text-xl font-semibold' onClick={handleClose}>Update Items</Button>
+
+
+                            </div>
+                        </div>
+
+                         </div>
+                     </div>
+
+                </Modal>
+              </div>
+            </div>
+          </div>
+
+          {/* Delete secion================== */}
+          <div className="w-5 rounded-md bg-[#EFEDED] flex items-center justify-center">
+            <MdDeleteForever className="text-black" />
+          </div>
+            </div>
+        </div>
+
+        <div className="w-[30%]">
+        <div className="w-[350px] h-[500px] rounded-xl flex flex-col gap-2 border-2 border-black bg-[#FAF9F9] p-5" style={{ border: '1px solid #0000001A'}}>
+        <h6 className="font-normal text-xl">Enter Promo Code</h6>
+        <div className="flex items-center gap-3">
+          <input type="text" className="p-2 w-48 rounded-md" placeholder="Promo Code" style={{ outline: 'none'}} />
+          <p className="text-green-4 text-xs font-bold flex gap-1 items-center">Applied <SiTicktick color="bg-green-4" /></p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <h3 className="font-bold text-xl">Bill Details</h3>
+          <div className="flex justify-between">
+            <h1 className="font-normal text-sm">Item Total</h1>
+            <h1 className="font-normal text-sm">₹ 940</h1>
+          </div>
+          <div className="flex justify-between">
+            <h1 className="font-normal text-sm">Delivery Fee</h1>
+            <h1 className="font-normal text-sm">₹ 175</h1>
+          </div>
+          <Divider sx={{backgroundColor: 'black'}} />
+          <div className="flex justify-between">
+            <h1 className="font-normal text-sm">Item Discount</h1>
+            <h1 className="font-normal text-sm">-₹ 300</h1>
+          </div>
+          <div className="flex justify-between">
+            <h1 className="font-normal text-sm">Delivery Discount</h1>
+            <h1 className="font-normal text-sm">-₹ 175</h1>
+          </div>
+          <div className="flex justify-between">
+            <h1 className="font-normal text-sm">GST and Restaurant Charges</h1>
+            <h1 className="font-normal text-sm">₹ 8.09</h1>
+          </div>
+
+          <div className="flex justify-between">
+            <h1 className="font-bold text-xl">TO PAY</h1>
+            <h1 className="font-bold text-xl">₹ 648</h1>
+          </div>
+
+          <Button className='bg-green-4 bg-opacity-60 text-white rounded-xl text-lg font-extrabold hover:bg-green-4'>CHECKOUT</Button>
+          <div className="mt-2 bg-gray-5 h-4"><p className="text-xs text-green-4 font-bold text-center">Savings of ₹475</p></div>
+        
+          <div className="flex flex-col gap-2">
+            <h1 className="font-bold text-sm">Cancellation Policy</h1>
+            <p className="font-normal text-xs">Orders cannot be cancelled once packed for delivery. In case of unexpected delays, a refund will be provided, if applicable.</p>
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+    </main>
+  );
+};
 
 export default CardPage;

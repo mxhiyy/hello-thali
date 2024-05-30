@@ -1,80 +1,146 @@
-"use client"
+"use client";
 
 import { Fragment } from "react";
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-coverflow';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/effect-coverflow";
 // import required modules
-import { Pagination, Autoplay } from 'swiper/modules';
+import { Pagination, Autoplay } from "swiper/modules";
 import { Homecard, TestimonalCard } from "@/constants";
 
-
- const Homepage = () => {
-
+const Homepage = () => {
   return (
     <Fragment>
-      <div className="w-[90%] m-auto h-[550px]">
-      <Swiper
-        pagination={{
-          dynamicBullets: true,
-          clickable: true,
-        }}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false
-        }}
-        modules={[Pagination, Autoplay ]}
-      >
-       <SwiperSlide><img src="/assets/first-banner.svg" alt="first-banner" className="w-full" /></SwiperSlide>
-       <SwiperSlide><img src="/assets/first-banner.svg" alt="first-banner" className="w-full" /></SwiperSlide>
-       <SwiperSlide><img src="/assets/first-banner.svg" alt="first-banner" className="w-full" /></SwiperSlide>
-        
-      </Swiper>
+      <div className="w-[90%] m-auto">
+        <Swiper
+          pagination={{
+            dynamicBullets: true,
+            clickable: true,
+          }}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          modules={[Pagination, Autoplay]}
+        >
+          <SwiperSlide>
+            <img
+              src="/assets/first-banner.svg"
+              alt="first-banner"
+              className="w-full"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img
+              src="/assets/first-banner.svg"
+              alt="first-banner"
+              className="w-full"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img
+              src="/assets/first-banner.svg"
+              alt="first-banner"
+              className="w-full"
+            />
+          </SwiperSlide>
+        </Swiper>
       </div>
 
-      <div className="w-[90%] h-full m-auto mt-10">
-      <div className="h-[400px] flex justify-around items-center">
-        <div className="bg-olive-1 w-[420px] h-[270px] rounded-3xl p-7 flex flex-col gap-2">
-          <h5 className="text-2xl font-semibold">About Us</h5>
-          <p className="text-sm font-medium w-80">We deliver authentic, delicious Indian thalis straight to your door. Forger expensive restaurants or grocery shopping enjoy alfordable weekly/monthly plans with diverse menus curated by experts. Let us simplify your life, one delicious meal at a time.Forger expensive restaurants or grocery shopping </p>
-          <button className="mt-1 text-white rounded-md text-sm bg-green-4 p-2 w-24 font-medium">Read More</button>
-        </div>
-        <div className='w-[350px] h-[450px]'>
-          <img src="/assets/aboutimage.svg" alt="image-about" className="w-full h-full" />
-        </div>
-      </div>
+      <div className="w-[90%] m-auto mt-10 h-[80%]">
+        <div className="flex justify-between">
+          <div className="flex flex-col gap-32 h-full">
+            <div className="bg-olive-1 w-[450px] rounded-3xl p-7 flex flex-col gap-2">
+              <h5 className="text-2xl font-extrabold">About Us</h5>
+              <p className="text-sm font-semibold w-96 leading-6">
+                We deliver authentic, delicious Indian thalis straight to your
+                door. Forger expensive restaurants or grocery shopping enjoy
+                alfordable weekly/monthly plans with diverse menus curated by
+                experts. Let us simplify your life, one delicious meal at a
+                time.Forger expensive restaurants or grocery shopping{" "}
+              </p>
+              <button className="mt-1 text-white rounded-md text-sm bg-green-4 p-2 w-24 font-semibold">
+                Read More
+              </button>
+            </div>
 
-      <div className="h-[400px] flex justify-around items-center">
-        <div className='w-[350px] h-[450px]'>
-          <img src="/assets/missionimage.svg" alt="image-about" className="w-full h-full" />
-        </div>
-        <div className="bg-olive-1 w-[420px] h-[270px] rounded-3xl p-7 flex flex-col gap-2">
-          <h5 className="text-2xl font-semibold">Our Mission</h5>
-          <p className="text-sm font-medium w-80">We deliver authentic, delicious Indian thalis straight to your door. Forger expensive restaurants or grocery shopping enjoy alfordable weekly/monthly plans with diverse menus curated by experts. Let us simplify your life, one delicious meal at a time.Forger expensive restaurants or grocery shopping </p>
-          <button className="mt-1 text-white rounded-md text-sm bg-green-4 p-2 w-24 font-medium">Read More</button>
-        </div>
-      </div>
-      </div>
+            <div>
+              <img
+                src="/assets/missionimage.svg"
+                alt="image-about"
+                width={400}
+              />
+            </div>
+          </div>
 
-      <div className="mt-10 h-[500px]">
-        <h1 className="text-center text-5xl font-medium text-green-5">Customised Menu</h1>
-        <div className="w-[80%] m-auto flex items-center justify-center gap-4 mt-10">
-          <div className="w-3/5 h-[330px] bg-white rounded-xl"></div>
-          <div className="h-full flex flex-col gap-5 bg-olive-1 p-5 w-[340px] rounded-xl">
-            <p className="text-sm font-medium w-80">We deliver authentic, delicious Indian thalis straight to your door. Forget expensive restaurants or grocery shopping enjoy alfordable weekly/monthly plans with diverse menus curated by experts. Let us simplify your life, one delicious meal at a time.We deliver authentic, delicious Indian thalis straight to your door. Forger expensive restaurants or grocery shopping enjoy alfordable weekly/monthly plans with diverse menus curated by experts. </p>
-            <button className="p-2 text-white rounded-md text-sm bg-green-4 w-24 font-medium">See how?</button>
+          <div className="w-7">
+            <img src="/assets/home-ellipse.svg" alt="home-elipse" />
+          </div>
+
+          <div className="flex flex-col gap-10">
+            <div className=" flex justify-end">
+              <img src="/assets/aboutimage.svg" alt="image-about" width={400} />
+            </div>
+            <div className="bg-olive-1 w-[450px] rounded-3xl p-7 flex flex-col gap-2 ">
+              <h5 className="text-2xl font-extrabold">Our Mission</h5>
+              <p className="text-sm font-semibold w-96 leading-6">
+                We deliver authentic, delicious Indian thalis straight to your
+                door. Forger expensive restaurants or grocery shopping enjoy
+                alfordable weekly/monthly plans with diverse menus curated by
+                experts. Let us simplify your life, one delicious meal at a
+                time.Forger expensive restaurants or grocery shopping{" "}
+              </p>
+              <button className="mt-1 text-white rounded-md text-sm bg-green-4 p-2 w-24 font-semibold">
+                Read More
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="w-[80%] m-auto mt-5 flex justify-around">
+      <div className="mt-40 h-[500px]">
+        <h1 className="text-center text-5xl font-medium text-green-5">
+          Customised Menu
+        </h1>
+        <div className="w-[90%] m-auto flex justify-between gap-4 mt-10">
+          <div className="w-[80%] h-[350px] bg-gray-4 rounded-xl"></div>
+          <div className="h-[350px] flex flex-col gap-5 bg-olive-1 p-5 w-[340px] rounded-xl">
+            <p className="text-sm font-semibold w-72">
+              We deliver authentic, delicious Indian thalis straight to your
+              door. Forget expensive restaurants or grocery shopping enjoy
+              alfordable weekly/monthly plans with diverse menus curated by
+              experts. Let us simplify your life, one delicious meal at a
+              time.We deliver authentic, delicious Indian thalis straight to
+              your door. Forger expensive restaurants or grocery shopping enjoy
+              alfordable weekly/monthly plans with diverse menus curated by
+              experts.{" "}
+            </p>
+            <button className="p-2 text-white rounded-md text-sm bg-green-4 w-24 font-semibold">
+              See how?
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-[90%] m-auto mt-5 flex justify-between">
         {Homecard.map((data) => (
-          <div key={data.title} className="w-[250px] h-full flex flex-col gap-3">
-            <img src={data.img} className="rounded-xl cursor-pointer" alt="home-card" height={200} width={250} />
-            <h3 className="text-xl text-green-5 font-semibold text-center">{data.title}</h3>
+          <div
+            key={data.title}
+            className="w-[250px] h-full flex flex-col gap-3"
+          >
+            <img
+              src={data.img}
+              className="rounded-xl cursor-pointer"
+              alt="home-card"
+              height={300}
+              width={250}
+            />
+            <h3 className="text-3xl text-green-5 font-semibold text-center">
+              {data.title}
+            </h3>
           </div>
         ))}
       </div>
@@ -84,47 +150,63 @@ import { Homecard, TestimonalCard } from "@/constants";
       </div>
 
       <div className="mt-20 flex flex-col gap-5">
-        <h1 className="text-5xl font-medium text-center text-green-5">Testimonials</h1>     
-         <Swiper
-         slidesPerView={4}
-         centeredSlides={true}
-         spaceBetween={10}
-         grabCursor={true}
-         pagination={{
-           clickable: true,
-         }}
-         autoplay={{
-          delay: 4000,
-          disableOnInteraction: false,
-         }}
-         modules={[ Pagination, Autoplay ]}
-         className="mySwiper"
-         >
-          {
-            TestimonalCard.map((data) => (
-              <SwiperSlide  key={data.name}>
-                <div className="w-[330px] h-[230px] rounded-xl bg-olive-1 p-5 mr-5">
-                  <p className="text-sm font-medium">"{data.description}"</p>
-                  <div className="flex gap-3 w-36 justify-between items-center mt-4"><img src={data.img} alt={data.name} width={25} height={30} className="rounded-3xl" /> <div className="w-1 h-1 bg-black rounded-full"></div><h6 className="text-sm font-medium">{data.name}</h6></div>
+        <h1 className="text-5xl font-medium text-center text-green-5">
+          Testimonials
+        </h1>
+        <Swiper
+          slidesPerView={4}
+          centeredSlides={true}
+          spaceBetween={10}
+          grabCursor={true}
+          pagination={{
+            clickable: true,
+          }}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+          }}
+          modules={[Pagination, Autoplay]}
+          className="mySwiper"
+        >
+          {TestimonalCard.map((data) => (
+            <SwiperSlide key={data.name}>
+              <div className="w-[330px] h-[230px] rounded-xl bg-olive-1 p-5 mr-5">
+                <p className="text-sm font-medium">"{data.description}"</p>
+                <div className="flex gap-3 w-36 justify-between items-center mt-4">
+                  <img
+                    src={data.img}
+                    alt={data.name}
+                    width={25}
+                    height={30}
+                    className="rounded-3xl"
+                  />{" "}
+                  <div className="w-1 h-1 bg-black rounded-full"></div>
+                  <h6 className="text-sm font-medium">{data.name}</h6>
                 </div>
-              </SwiperSlide>
-            ))
-            }
-         </Swiper>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
 
-      <div className="w-[80%] m-auto rounded-xl h-full p-5 flex flex-col gap-10 bg-olive-1 mt-20">
-        <h3 className="font-semibold text-2xl">Breaking the Budget, Not the Flavor: </h3>
+      <div className="w-[90%] m-auto rounded-xl h-full p-5 flex flex-col gap-10 bg-olive-1 mt-20">
+        <h3 className="font-semibold text-2xl">
+          Breaking the Budget, Not the Flavor:{" "}
+        </h3>
         <div className="mt-5 flex flex-col gap-2">
-          <h3 className="font-medium text-2xl">HelloThali's Mission to Bring Affordable Thali to every Customer.</h3>
-          <h3 className="font-medium text-2xl">Good Food is like a warm hug, it nourishes the soul.</h3>
-          <button className="bg-green-4 text-white rounded-md p-2 text-sm w-28 font-medium mt-3">Contact Us</button>
+          <h3 className="font-medium text-2xl">
+            HelloThali's Mission to Bring Affordable Thali to every Customer.
+          </h3>
+          <h3 className="font-medium text-2xl">
+            Good Food is like a warm hug, it nourishes the soul.
+          </h3>
+          <button className="bg-green-4 text-white rounded-md p-2 text-sm w-28 font-medium mt-3">
+            Contact Us
+          </button>
         </div>
-
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
 export default Homepage;
-
