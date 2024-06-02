@@ -3,13 +3,14 @@
 import { Fragment } from "react";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
-// import required modules
+
 import { Pagination, Autoplay } from "swiper/modules";
 import { Homecard, TestimonalCard } from "@/constants";
+// import Image from "next/image";
 
 const Homepage = () => {
   return (
@@ -195,7 +196,7 @@ const Homepage = () => {
         </h3>
         <div className="mt-5 flex flex-col gap-2">
           <h3 className="font-medium text-2xl">
-            HelloThali's Mission to Bring Affordable Thali to every Customer.
+            HelloThali Mission to Bring Affordable Thali to every Customer.
           </h3>
           <h3 className="font-medium text-2xl">
             Good Food is like a warm hug, it nourishes the soul.

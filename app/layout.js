@@ -1,7 +1,7 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
+import StoreProvider from "@/store/StoreProvider";
+import "../styles/globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import CustomProvider from "./Provider";
+
 
 export const metadata = {
   title: "Hello Thali",
@@ -10,15 +10,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <StoreProvider>
     <html lang="en">
-      <body>
-       <CustomProvider>
-       <main>
-        {children}
-        </main>
-       </CustomProvider>
-        <Toaster />
-      </body>
+        <body>
+          <main>{children}</main>
+          <Toaster />
+        </body>
     </html>
+    </StoreProvider>
   );
 }

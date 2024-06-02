@@ -1,13 +1,9 @@
-'use client'
-
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from './slice/userSlice';
-import cartReducer from './slice/cartSlice';
+import authReducer from './slices/authSlice';
 
-const store  = configureStore({
+const store =configureStore({
     reducer: {
-        user: userReducer,
-        cart: cartReducer
+        auth: authReducer,
     }
 });
 

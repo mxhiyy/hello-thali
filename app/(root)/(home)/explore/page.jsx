@@ -2,9 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { MenuLink } from '@/constants';
-import { addToCart } from '@/store/slice/cartSlice';
 import { CircularProgress, Rating } from '@mui/material';
-import Image from 'next/image';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { CiStar } from "react-icons/ci";
@@ -41,14 +39,10 @@ const buttons = [
 const Explorepage = () => {
   const [selectedButton, setSelectedButton] = useState("Thali");
   const [ loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+
 
   const n = MenuLink.length;
 
-  const handleAddToCartItems = (data) => {
-    dispatch(addToCart(data));
-    console.log(`item added succussfully : ${data.name}`)
-  }
 
   const handleSubmitButton = (name) => {
     setSelectedButton(name);
