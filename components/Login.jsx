@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   sendOtp,
   verifyOtp,
-  resendOtp,
   setUser,
 } from "@/store/slices/authSlice";
 import toast, { Toaster } from "react-hot-toast";
@@ -50,7 +49,7 @@ const LoginCard = ({ open, setOpen }) => {
   const handleVerifyOtp = async () => {
    const result = await dispatch(verifyOtp({ phoneNumber, otp }));
    if(verifyOtp.fulfilled.match(result)){
-    dispatch(setUser(phoneNumber));
+    dispatch(setUser({ phoneNumber }));
     toast.success('OTP Verified succesfully');
     handleClose();
    }

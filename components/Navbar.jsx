@@ -27,6 +27,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
+  const { totalQuantity, totalPrice } = useSelector((state) => state.cart);
 
 
   const handleClick = () => {
@@ -74,10 +75,12 @@ const Navbar = () => {
           <Link href={"/cart"}>
           <Button className='flex items-center gap-3 bg-green-4 text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white'>
             <FaCartShopping size={25} />
-            <div className="flex flex-col">
-              <p className="text-xs font-medium">2 items</p>
-              <p className="text-xs font-medium">₹198</p>
-            </div>
+            {totalQuantity >= 1 && (
+              <div className="flex flex-col">
+               <p className="text-xs font-medium">{totalQuantity} items</p>
+               <p className="text-xs font-medium">₹ {totalPrice}</p>
+              </div>
+            )}
           </Button>
           </Link>
           {token ? (

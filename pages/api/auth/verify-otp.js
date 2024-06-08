@@ -4,7 +4,6 @@ import Cors from "cors";
 import { json, urlencoded } from "express";
 import initMiddleware from "@/lib/middleware/initMiddleware";
 
-
 const cors = initMiddleware(
   Cors({
     methods: ["POST", "GET", "HEAD"],

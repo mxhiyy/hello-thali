@@ -3,6 +3,17 @@ import connectDB from "@/lib/config/db";
 import Cors from "cors";
 import { json, urlencoded } from "express";
 import initMiddleware from "@/lib/middleware/initMiddleware";
+import fs from 'fs'
+
+
+export const getServerSideProps = async () => {
+  // ✅ Can use fs here (runs only on the server)
+  console.log(fs)
+
+  return {
+    props: {}, // will be passed to the page component as props
+  }
+};
 
 const cors = initMiddleware(
   Cors({

@@ -28,18 +28,32 @@ const authSlice = createSlice({
         loading: false,
         error: null,
         token: Cookies.get('token') || null,
+        openLogin: false, //add for login modal state
+        isLoggedIn: !!Cookies.get('token'),
     },
 
     reducers: {
         setUser: (state, action) => {
             state.user = action.payload;
+            state.isLoggedIn = true;
         },
 
         logout: (state) => {
             state.user = null;
             state.token = null;
+            state.isLoggedIn = true;
             Cookies.remove('token');
+        },
+
+        openLoginModal: (state) => {
+            state.openLogin = true;
+        },
+
+        closeLoginModal: (state) => {
+            state.openLogin = false;
         }
+
+
     },
 
     extraReducers: (builder) => {
@@ -68,6 +82,7 @@ const authSlice = createSlice({
             state.token = action.payload.token;
             console.log('Setting the token', state.token);
             state.user = action.payload;
+            state.isLoggedIn = true;
             Cookies.set('token', action.payload.token);
             toast.success("OTP Verified Successfully!");
         })
@@ -95,6 +110,6 @@ const authSlice = createSlice({
     }
 });
 
-export const { setUser, logout } = authSlice.actions;
+export const { setUser, logout, openLoginModal, closeLoginModal } = authSlice.actions;
 
 export default authSlice.reducer;
