@@ -12,7 +12,6 @@ import "swiper/css/effect-coverflow";
 
 import { Pagination, Autoplay, EffectCoverflow } from "swiper/modules";
 import { Homecard, TestimonalCard } from "@/constants";
-import Image from "next/image";
 // import Image from "next/image";
 
 const slides = [
@@ -22,6 +21,9 @@ const slides = [
   {
     url: "/assets/second-banner.png",
   },
+  {
+    url: "/assets/third-banner.png"
+  }
 ];
 
 const Homepage = () => {

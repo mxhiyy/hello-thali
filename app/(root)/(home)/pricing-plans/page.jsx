@@ -55,7 +55,7 @@ const PricingPlanspage = () => {
   return (
     <main>
       <div className="mt-20 w-[90%] m-auto">
-        <h1 className="text-6xl font-semibold text-blue text-center">
+        <h1 className="text-6xl font-semibold text-[#001062AD] text-center">
           Choose Your Plan
         </h1>
         <div className="mt-10 grid grid-cols-2 grid-rows-1 place-items-center">

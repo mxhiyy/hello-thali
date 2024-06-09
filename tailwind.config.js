@@ -35,14 +35,21 @@ module.exports = {
           5: "#004B07",
         },
         olive: {
-          1: "#7997000F"
+          1: "#7997000F",
         },
-        gray: {1:"#F4F4F4", 2 : "#F0F5F3", 3: "#E4E6E7", 4: "#F8F8F8", 5: "#D9D9D9", 6: '#ECEFEC'},
-        purple: {2: "#A38F98", 3: "#132C21", 4: "#F0F5F3"},
+        gray: {
+          1: "#F4F4F4",
+          2: "#F0F5F3",
+          3: "#E4E6E7",
+          4: "#F8F8F8",
+          5: "#D9D9D9",
+          6: "#ECEFEC",
+          7: "#FCFCFC",
+        },
+        purple: { 2: "#A38F98", 3: "#132C21", 4: "#F0F5F3" },
         indigo: "#6F2489D4",
         slate: "#94AEA0",
         purple: "#3A0442",
-        blue: "#001062AD",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -81,7 +88,7 @@ module.exports = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-        5: "5px"
+        5: "5px",
       },
       keyframes: {
         "accordion-down": {

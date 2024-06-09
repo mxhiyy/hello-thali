@@ -303,7 +303,7 @@ export const blogsCard = [
     name: "Mohit Poonia",
     img: "/assets/money.jpg",
     title: "How GenZ's are spending too much on food online and still feels unsatisfied everyday",
-    description: "Picture this: You're juggling work deadlines, family commitments, and a social life. The last thing you have time for is slaving away in the kitchen, yet the thought of another greasy takeout meal or ...",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas officiis deleniti dignissimos illum quam rem consequuntur blanditiis quia nobis cum. Exercitationem commodi eius molestias corporis maxime inventore atque, accusantium adipisci veritatis nesciunt a earum? Dolores sit distinctio veritatis vel itaque ea laudantium reprehenderit porro,incidunt ipsa illum inventore. Enim, ullam aperiam! Blanditiissapiente suscipit iure vitae voluptatum, molestias consecteturrepellat doloribus assumenda earum exercitationem incidunt iste,itaque quisquam a soluta esse dignissimos rerum debitis temporibusmolestiae tenetur. Aut fuga voluptas cupiditate mollitia laborum estobcaecati quam amet accusantium deleniti quidem, odio aliasperferendis eveniet repellat exercitationem inventore. Culpa dictaunde asperiores in accusantium maiores deleniti, alias quisquamobcaecati delectus tenetur perferendis pariatur quod, veritatis id.Similique voluptates deleniti tenetur rerum impedit numquam sed,perferendis dolorem officiis dolor voluptatem quaerat dolore iste.Delectus non esse nihil earum natus inventore neque fugiat,dignissimos ipsam numquam eius temporibus nesciunt omnis quis dolorumdicta quas facilis. Hic consequuntur deleniti eius quibusdam minimaitaque at voluptatibus vitae earum suscipit dolorem deserunt, porroquis, iste, asperiores corrupti illo nesciunt assumenda. Ducimusdignissimos deleniti aspernatur quo odio, quia fugiat similique errorhic quidem facilis dolorem doloremque possimus, eveniet ipsa vitae a.Quos minus, repudiandae ab quisquam delectus, cupiditate, eligendidignissimos adipisci harum maxime facilis voluptas nam praesentiumvero impedit exercitationem consectetur unde aliquam aperiam excepturisit neque! Voluptatibus labore repellat, consectetur neque temporasoluta, porro dolores ullam accusantium illum expedita laboriosamsequi iusto libero quaerat assumenda natus similique! Ipsamconsectetur veniam cumque ea odio rerum labore in saepe repudiandaetemporibus. Alias similique, quibusdam voluptatibus explicabo deseruntveniam ratione aperiam aliquid nemo sunt ea qui minus voluptatemsapiente nostrum omnis",
     date: "29-Feb-2024"
   },
 
@@ -311,7 +311,7 @@ export const blogsCard = [
     id: 2,
     name: "Rahul",
     img: "/assets/money.jpg",
-    title: "How GenZ's are spending too much on food online and still feels unsatisfied everyday",
+    title: "Why there is a need for someone to deliver daily thalis to doorstep",
     description: "Picture this: You're juggling work deadlines, family commitments, and a social life. The last thing you have time for is slaving away in the kitchen, yet the thought of another greasy takeout meal or ...",
     date: "29-Feb-2024"
   },
@@ -320,7 +320,7 @@ export const blogsCard = [
     id: 3,
     name: "Eshika Rawat",
     img: "/assets/money.jpg",
-    title: "How GenZ's are spending too much on food online and still feels unsatisfied everyday",
+    title: "You don’t want to waste time and energy in the kitchen to cook",
     description: "Picture this: You're juggling work deadlines, family commitments, and a social life. The last thing you have time for is slaving away in the kitchen, yet the thought of another greasy takeout meal or ...",
     date: "29-Feb-2024"
   }
