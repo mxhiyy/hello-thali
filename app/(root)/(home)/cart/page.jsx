@@ -1,15 +1,15 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Divider, Modal } from "@mui/material";
 import { IoMdAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
-import { useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { Button } from "@/components/ui/button";
 import { MdDeleteForever } from "react-icons/md";
-import { SiTicktick } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { FaAngleDoubleRight } from "react-icons/fa";
 import {
   addItem,
   decrementItem,
@@ -17,25 +17,52 @@ import {
   updateCustomisation,
 } from "@/store/slices/cartSlice";
 import { FaLeftLong } from "react-icons/fa6";
+import Image from "next/image";
+import Cookies from 'js-cookie';
+
+const customisationOptions = [
+  "Roti(3), Rice(HalfBowl)",
+  "Roti(6)",
+  "Full Bowl Rice"
+];
 
 const CartPage = () => {
   const dispatch = useDispatch();
   const { items, totalQuantity } = useSelector((state) => state.cart);
   const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [customisation, setCustomisation] = useState(customisationOptions[0]);
   const router = useRouter();
+
+  // Update customisation state only when selectedItem changes
+  useEffect(() => {
+    if (selectedItem) {
+      const savedCustomisation = Cookies.get(`customisation-${selectedItem.id}`);
+      if (savedCustomisation) {
+        setCustomisation(savedCustomisation);
+      }
+    }
+  }, [selectedItem]);
 
   const handleRemoveItem = (id) => {
     dispatch(removeItem(id));
   };
 
+  // Update customisation state and save it to cookies
   const handleUpdateCustomisation = (id, customisation) => {
     dispatch(updateCustomisation({ id, customisation }));
+    Cookies.set(`customisation-${id}`, customisation);
   };
 
-  const handleOpen = () => {
+  // Open modal and set selected item
+  const handleOpen = (item) => {
+    setSelectedItem(item);
+    const savedCustomisation = Cookies.get(`customisation-${item.id}`);
+    setCustomisation(savedCustomisation || customisationOptions[0]);
     setOpen(true);
   };
 
+  // Close modal
   const handleClose = () => {
     setOpen(false);
   };
@@ -48,11 +75,20 @@ const CartPage = () => {
     dispatch(decrementItem(id));
   };
 
+  // Handle customisation change
+  const handleCustomisationChange = (e) => {
+    const newCustomisation = e.target.value;
+    setCustomisation(newCustomisation);
+    if (selectedItem) {
+      handleUpdateCustomisation(selectedItem.id, newCustomisation);
+    }
+  };
+
   const calculateItemTotal = () => {
     return items.reduce((total, item) => total + item.mrp * item.quantity, 0);
   };
 
-  const calcuateSellingTotal = () => {
+  const calculateSellingTotal = () => {
     return items.reduce(
       (total, item) => total + item.sellingPrice * item.quantity,
       0
@@ -68,19 +104,14 @@ const CartPage = () => {
 
   const itemTotal = calculateItemTotal();
   const itemDiscount = calculateItemDiscount();
-  const sellingPriceTotal = calcuateSellingTotal();
+  const sellingPriceTotal = calculateSellingTotal();
   const deliveryFee = 25;
   const deliveryDiscount = 20;
-  const gstCharges = (
-    (itemTotal + deliveryFee - itemDiscount - deliveryDiscount) *
-    0.05
-  ).toFixed(2);
   const toPay = (
     itemTotal +
     deliveryFee -
     itemDiscount -
-    deliveryDiscount +
-    parseFloat(gstCharges)
+    deliveryDiscount
   ).toFixed(2);
   const savings = itemDiscount + deliveryDiscount;
 
@@ -111,7 +142,8 @@ const CartPage = () => {
               const discount = Math.floor(
                 (1 - item.sellingPrice / item.mrp) * 100
               );
-              console.log(item);
+              const itemCustomisation = Cookies.get(`customisation-${item.id}`) || customisationOptions[0];
+
               return (
                 <div className="flex gap-2 mt-5" key={item.id}>
                   <div
@@ -120,7 +152,7 @@ const CartPage = () => {
                   >
                     <div className="w-3/5 flex flex-col gap-2">
                       <div className="flex gap-3 items-center">
-                        <img
+                        <Image
                           src="/assets/veg.svg"
                           alt="veg"
                           width={30}
@@ -130,7 +162,7 @@ const CartPage = () => {
                           {item.main}
                         </p>
                       </div>
-                      <h2 className="font-semibold text-2xl">{item.title}</h2>
+                      <h2 className="font-semibold text-xl">{item.title}</h2>
                       <div className="flex items-center gap-3">
                         <p className="font-semibold text-base line-through text-gray-500">
                           {item.mrp}
@@ -147,12 +179,12 @@ const CartPage = () => {
                         <p className="text-sm font-light">{item.rating}</p>
                       </div>
                       <h5 className="font-normal text-sm">
-                        {item.description}
+                        Serves 1 | Other Items: {itemCustomisation}, Raiyeta, Salad, Pickel, Mouth Freshner
                       </h5>
                     </div>
                     <div className="w-2/5 flex flex-col relative items-end mr-10">
                       <div>
-                        <img
+                        <Image
                           src={item.image}
                           alt="paneer"
                           width={150}
@@ -172,8 +204,8 @@ const CartPage = () => {
                         </Button>
                         <div className="mt-3 flex justify-center items-center">
                           <p
-                            onClick={handleOpen}
-                            className="text-center font-semibold cursor-pointer bg-green-4 opacity-65 text-white text-[10px] p-[0.8px] rounded-2xl w-24"
+                            onClick={() => handleOpen(item)}
+                            className="text-center font-semibold cursor-pointer bg-green-4 text-white text-[10px] px-1 rounded-2xl w-24"
                           >
                             Customisable Now
                           </p>
@@ -189,104 +221,41 @@ const CartPage = () => {
                           <div
                             className={`rounded-md bg-white w-[800px] h-[350px] flex flex-col gap-7 p-5`}
                           >
-                            <h1 className="font-bold text-center text-4xl text-green-4 opacity-65">
+                            <h1 className="font-bold text-center text-4xl text-green-4">
                               Customise as per your taste
                             </h1>
                             <div className="text-xl font-bold flex justify-between w-96">
-                              <p>Matar Paneer</p> | <p>₹ 130</p>
+                              <p>{selectedItem?.title}</p> | <p>₹{selectedItem?.sellingPrice}</p>
                             </div>
                             <div className="flex justify-between">
                               <div className="w-[450px] bg-[#E3E3E380] p-5 rounded-md">
                                 <form className="flex flex-col gap-5">
-                                  <div className="flex justify-between">
-                                    <div className="flex gap-2">
-                                      <img
-                                        src="/assets/veg.svg"
-                                        alt="veg"
-                                        width={30}
-                                        height={30}
+                                  {customisationOptions.map((option, index) => (
+                                    <div className="flex justify-between" key={index}>
+                                      <div className="flex gap-2">
+                                        <Image
+                                          src="/assets/veg.svg"
+                                          alt="veg"
+                                          width={30}
+                                          height={30}
+                                        />
+                                        <label
+                                          className="font-bold text-lg"
+                                          htmlFor={`option${index}`}
+                                        >
+                                          {option}
+                                        </label>
+                                      </div>
+                                      <input
+                                        type="radio"
+                                        id={`option${index}`}
+                                        name="options"
+                                        checked={customisation === option}
+                                        onChange={handleCustomisationChange}
+                                        value={option}
                                       />
-                                      <label
-                                        className="font-bold text-lg"
-                                        id="option1"
-                                      >
-                                        3 Roti & Half-Bowl Rice
-                                      </label>
                                     </div>
-                                    <input
-                                      type="radio"
-                                      id="option1"
-                                      name="options"
-                                      placeholder="w-30 h-30"
-                                      onChange={(e) =>
-                                        handleUpdateCustomisation(
-                                          "item-id",
-                                          e.target.value
-                                        )
-                                      }
-                                      value="Roti & Half-Bowl Rice"
-                                    />
-                                  </div>
-
-                                  <div className="flex justify-between">
-                                    <div className="flex gap-2">
-                                      <img
-                                        src="/assets/veg.svg"
-                                        alt="veg"
-                                        width={30}
-                                        height={30}
-                                      />
-                                      <label
-                                        className="font-bold text-lg"
-                                        id="option1"
-                                      >
-                                        6 Roti
-                                      </label>
-                                    </div>
-                                    <input
-                                      type="radio"
-                                      id="option1"
-                                      name="options"
-                                      placeholder="w-30 h-30"
-                                      onChange={(e) =>
-                                        handleUpdateCustomisation(
-                                          "item-id",
-                                          e.target.value
-                                        )
-                                      }
-                                      value="6 Roti"
-                                    />
-                                  </div>
-
-                                  <div className="flex justify-between">
-                                    <div className="flex gap-2">
-                                      <img
-                                        src="/assets/veg.svg"
-                                        alt="veg"
-                                        width={30}
-                                        height={30}
-                                      />
-                                      <label
-                                        className="font-bold text-lg"
-                                        id="option1"
-                                      >
-                                        Full Bowl Rice
-                                      </label>
-                                    </div>
-                                    <input
-                                      type="radio"
-                                      id="option1"
-                                      name="options"
-                                      placeholder="w-30 h-30"
-                                      onChange={(e) =>
-                                        handleUpdateCustomisation(
-                                          "item-id",
-                                          e.target.value
-                                        )
-                                      }
-                                      value="Full Bowl Rice"
-                                    />
-                                  </div>
+                                  ))}
                                 </form>
                               </div>
 
@@ -296,7 +265,7 @@ const CartPage = () => {
                                     Customisation at No Extra Cost
                                   </p>
                                   <Button
-                                    className="bg-green-4 opacity-65 hover:bg-green-4 text-white text-xl font-semibold"
+                                    className="bg-green-4 hover:bg-green-4 hover:opacity-90 text-white text-xl font-semibold"
                                     onClick={handleClose}
                                   >
                                     Update Items
@@ -310,7 +279,7 @@ const CartPage = () => {
                     </div>
                   </div>
 
-                  {/* Delete secion================== */}
+                  {/* Delete section */}
                   <div
                     className="w-5 rounded-md cursor-pointer bg-[#EFEDED] flex items-center justify-center"
                     onClick={() => handleRemoveItem(item.id)}
@@ -328,7 +297,7 @@ const CartPage = () => {
         {items.length > 0 && (
           <div className="w-[30%] mt-5">
             <div
-              className="w-[350px] h-[500px] rounded-xl flex flex-col gap-2 border-2 border-black bg-[#FAF9F9] p-5"
+              className="w-[350px] h-auto rounded-xl flex flex-col gap-2 border-2 border-black bg-[#FAF9F9] p-5"
               style={{ border: "1px solid #0000001A" }}
             >
               <h6 className="font-normal text-xl">Enter Promo Code</h6>
@@ -339,49 +308,48 @@ const CartPage = () => {
                   placeholder="Promo Code"
                   style={{ outline: "none" }}
                 />
-                <p className="text-green-4 text-xs font-bold flex gap-1 items-center">
-                  Applied <SiTicktick color="bg-green-4" />
-                </p>
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="font-bold text-xl">Bill Details</h3>
                 <div className="flex justify-between">
                   <div className="flex gap-2">
                     <h1 className="font-medium text-sm">Item Total</h1>
-                    <div className="px-1 bg-blue-100 rounded-md"><p className="font-semibold text-xs text-blue-500">Saved ₹{itemDiscount} </p></div>
+                    <div className="px-1 bg-blue-100 rounded-md">
+                      <p className="font-semibold text-xs text-blue-500">Saved ₹{itemDiscount} </p>
+                    </div>
                   </div>
                   <div className="flex gap-2">
-                    <h1 className="font-medium text-sm line-through">
+                    <h1 className="font-semibold text-sm line-through text-gray-500">
                       ₹ {itemTotal}
                     </h1>
-                    <h1 className="font-medium text-sm">
+                    <h1 className="font-semibold text-sm">
                       ₹ {sellingPriceTotal}
                     </h1>
                   </div>
                 </div>
                 <div className="flex justify-between">
-                  <h1 className="font-medium text-sm">Delivery Fee</h1>
-                  <h1 className="font-medium text-sm">₹ {deliveryFee}</h1>
+                  <div className="flex gap-2">
+                    <h1 className="font-medium text-sm">Delivery Fee</h1>
+                    <div className="px-1 bg-blue-100 rounded-md">
+                      <p className="font-semibold text-xs text-blue-500">Saved ₹{deliveryDiscount} </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <h1 className="font-semibold text-sm line-through text-gray-500">₹ {deliveryFee}</h1>
+                    <h1 className="font-semibold text-sm">
+                      ₹ 5
+                    </h1>
+                  </div>
                 </div>
                 <Divider sx={{ backgroundColor: "black" }} />
-                <div className="flex justify-between">
-                  <h1 className="font-medium text-sm">Delivery Discount</h1>
-                  <h1 className="font-medium text-sm">-₹ {deliveryDiscount}</h1>
-                </div>
-                <div className="flex justify-between">
-                  <h1 className="font-medium text-sm">
-                    GST and Restaurant Charges
-                  </h1>
-                  <h1 className="font-medium text-sm">₹ {gstCharges}</h1>
-                </div>
 
                 <div className="flex justify-between">
                   <h1 className="font-bold text-xl">TO PAY</h1>
                   <h1 className="font-bold text-xl">₹ {toPay}</h1>
                 </div>
 
-                <Button className="bg-green-4 bg-opacity-60 text-white rounded-xl text-lg font-extrabold hover:bg-green-4">
-                  CHECKOUT
+                <Button className="flex gap-2 bg-green-4 text-white rounded-xl text-lg font-extrabold hover:bg-green-4 hover:opacity-90">
+                  PROCEED <FaAngleDoubleRight />
                 </Button>
                 <div className="mt-2 bg-gray-5 h-4">
                   <p className="text-xs text-green-4 font-bold text-center">
