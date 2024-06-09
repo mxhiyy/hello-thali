@@ -6,7 +6,7 @@ import { MenuLink } from "@/constants";
 import { Rating, Tooltip } from "@mui/material";
 import { openLoginModal, closeLoginModal } from "@/store/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { CiStar } from "react-icons/ci";
+import StarIcon from '@mui/icons-material/Star';
 import RatingModal from "@/components/RatingModal";
 import { fetchRatings, fetchReviews } from "@/store/slices/feedbackSlice";
 import LoginCard from "@/components/Login";
@@ -14,6 +14,7 @@ import ReviewModal from "@/components/ReviewModal";
 import { addItem, decrementItem } from "@/store/slices/cartSlice";
 import { IoMdAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
+import Image from "next/image";
 
 const Explorepage = () => {
   const [openRating, setOpenRating] = useState(false);
@@ -68,11 +69,12 @@ const Explorepage = () => {
       <div className="relative m-auto w-[90%] h-[300px] rounded-xl mt-10">
         <div className="absolute top-0 left-0 w-full h-full  blur-md backgroundDiv rounded-xl"></div>
         <div className="flex flex-col gap-2 items-center justify-center">
-          <h1 className="relative text-7xl z-50 font-extrabold text-white mt-20">
+          <h1 className="relative text-7xl font-extrabold text-white mt-20">
             Not Subscribed to Plan?
           </h1>
           <p className="relative font-semibold text-white text-xl">
-            <span className="text-green-4">No Problem!</span> But we bet you definitely will
+            <span className="text-black">No Problem!</span> But we bet you
+            definitely will
           </p>
         </div>
       </div>
@@ -89,6 +91,10 @@ const Explorepage = () => {
         >
           {MenuLink.map((data) => {
             const itemInCart = items.find((item) => item.id === data.id);
+            const discount = Math.floor(
+              (1 - data.sellingPrice / data.mrp) * 100
+            );
+
             return (
               <div
                 className="flex h-[250px] p-3 rounded-lg"
@@ -97,7 +103,7 @@ const Explorepage = () => {
               >
                 <div className="w-3/5 flex flex-col gap-4">
                   <div className="flex gap-3 items-center">
-                    <img
+                    <Image
                       src={data.img}
                       alt={data.name}
                       width={30}
@@ -115,16 +121,18 @@ const Explorepage = () => {
                     <p className="font-semibold text-base text-black">
                       ₹{data.sellingPrice}
                     </p>
-                    <p className="font-semibold text-xs bg-red-700 rounded-md px-2 text-white">{data.discount}% off</p>
+                    <p className="font-semibold text-xs bg-red-700 rounded-md px-2 text-white">
+                      {discount}% off
+                    </p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <CiStar size={23} />
-                    <p className="text-sm font-light">4.9</p>
+                  <div className="flex items-center gap-1">
+                    <StarIcon className="text-yellow-400" size={23} />
+                    <p className="text-sm font-normal">{data.rating}</p>
                   </div>
-                  <h5 className="font-light text-sm">{data.description}</h5>
+                  <h5 className="font-normal text-sm">{data.description}</h5>
                 </div>
                 <div className="w-2/5 flex flex-col items-end relative mr-10">
-                  <img
+                  <Image
                     src={data.image}
                     alt={data.name}
                     width={190}
@@ -132,7 +140,7 @@ const Explorepage = () => {
                     className="rounded-xl"
                   />
                   {itemInCart ? (
-                    <Button className="text-green-4 w-28 bg-[#EEEEEE] rounded-md absolute bottom-4 right-9 font-semibold text-xl hover:text-green-4 hover:bg-[#EEEEEE] flex justify-between">
+                    <Button className="text-green-4 w-28 bg-[#EEEEEE] rounded-md absolute bottom-6 right-9 font-semibold text-xl hover:text-green-4 hover:bg-[#EEEEEE] flex justify-between">
                       <IoMdAdd size={20} onClick={() => handleAddItem(data)} />
                       {itemInCart.quantity}
                       <FiMinus
@@ -143,12 +151,12 @@ const Explorepage = () => {
                   ) : (
                     <Button
                       onClick={() => handleAddItem(data)}
-                      className="text-black w-28 bg-[#EEEEEE] rounded-xl absolute bottom-4 right-9 font-semibold text-xl hover:text-black hover:bg-gray-200"
+                      className="text-black w-28 bg-[#EEEEEE] rounded-xl absolute bottom-6 right-9 font-semibold text-xl hover:text-black hover:bg-gray-200"
                     >
                       Add
                     </Button>
                   )}
-                  <div className="w-48 mt-5 flex justify-center items-center">
+                  <div className="w-48 mt-3 flex justify-center items-center">
                     <Tooltip
                       title="You can customise the items later in the cart"
                       arrow

@@ -115,3 +115,18 @@ input[type="radio"] {
   width: 87vw;
   height: 280px;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F8F8F8;
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb {
+  background:right,  #ACACAC;
+  border-radius: 30px;
+  height: 40px
+}

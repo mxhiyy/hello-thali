@@ -4,7 +4,7 @@ import { Divider, Modal } from "@mui/material";
 import { IoMdAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
 import { useState } from "react";
-import { CiStar } from "react-icons/ci";
+import StarIcon from '@mui/icons-material/Star';
 import { Button } from "@/components/ui/button";
 import { MdDeleteForever } from "react-icons/md";
 import { SiTicktick } from "react-icons/si";
@@ -18,12 +18,11 @@ import {
 } from "@/store/slices/cartSlice";
 import { FaLeftLong } from "react-icons/fa6";
 
-const CardPage = () => {
+const CartPage = () => {
   const dispatch = useDispatch();
-  const { items, totalPrice, totalQuantity } = useSelector(
+  const { items, totalQuantity } = useSelector(
     (state) => state.cart
   );
-  const [customised, setCustomised] = useState("3 Roti & Half-Bowl Rice");
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -51,17 +50,33 @@ const CardPage = () => {
     dispatch(decrementItem(id));
   };
 
+  const calculateItemTotal = () => {
+    return items.reduce((total, item) => total + item.mrp * item.quantity, 0);
+  };
+
+  const calculateItemDiscount = () => {
+    return items.reduce((total, item) => total + ( item.mrp - item.sellingPrice ) * item.quantity, 0);
+  }
+
+  const itemTotal = calculateItemTotal();
+  const itemDiscount = calculateItemDiscount();
+  const deliveryFee = 25;
+  const deliveryDiscount = 20;
+  const gstCharges = ((itemTotal + deliveryFee - itemDiscount - deliveryDiscount ) * 0.05).toFixed(2);
+  const toPay = (itemTotal + deliveryFee - itemDiscount - deliveryDiscount  + parseFloat(gstCharges)).toFixed(2);
+  const savings = itemDiscount + deliveryDiscount;
+
   return (
     <main className="w-full h-full">
       <div
-        className="mt-10 flex flex-col gap-7 w-[90%] m-auto"
+        className="flex flex-col gap-7 w-[90%] m-auto"
         style={{ fontFamily: "Inter" }}
       >
         <h1 className="font-normal text-7xl">Your Cart</h1>
         <div className="flex justify-between text-base font-normal">
-          <div className="flex items-center gap-2 cursor-pointer hover:underline decoration-green-4 underline-offset-2">
+          <div className="flex items-center gap-2 cursor-pointer underline text-green-4 decoration-green-4 underline-offset-2">
             <FaLeftLong />
-            <h6 onClick={() => router.push("/explore")}>Continue Shopping</h6>
+            <h6  onClick={() => router.push("/explore")}>Continue Shopping</h6>
           </div>
           <h6>{totalQuantity} Items</h6>
           <h6>Need Help? Call +91 80033XX0XX</h6>
@@ -72,15 +87,18 @@ const CardPage = () => {
       </div>
 
       <div className="w-[90%] m-auto flex gap-4 mt-20">
-        <div className="w-[85%]">
+        <div className="w-[85%] overflow-y-auto max-h-[600px] ">
           {items.length > 0 ? (
-            items.map((item) => (
-              <div className="flex gap-2 mt-5" key={item.id}>
+            items.map((item) => {
+              const discount = Math.floor((1 - (item.sellingPrice/item.mrp)) * 100);
+              console.log(item);
+              return(
+                <div className="flex gap-2 mt-5" key={item.id}>
                 <div
-                  className="flex w-[100%] h-[260px] p-3 rounded-lg"
+                  className="flex w-[80%] h-[200px] p-3 rounded-lg"
                   style={{ border: "1px solid #0000001A" }}
                 >
-                  <div className="w-3/5 flex flex-col gap-4">
+                  <div className="w-3/5 flex flex-col gap-2">
                     <div className="flex gap-3 items-center">
                       <img
                         src="/assets/veg.svg"
@@ -88,35 +106,38 @@ const CardPage = () => {
                         width={30}
                         height={30}
                       />
+                      <p className="text-sm font-bold text-red-700">
+                      {item.main}
+                      </p>
                     </div>
-                    <h2 className="font-semibold text-2xl">{item.name}</h2>
+                    <h2 className="font-semibold text-2xl">{item.title}</h2>
                     <div className="flex items-center gap-3">
                       <p className="font-semibold text-base line-through text-gray-500">
-                        {item.sellingPrice}
+                        {item.mrp}
                       </p>
                       <p className="font-semibold text-base text-black">
-                        ₹ {item.mrp}
+                        ₹ {item.sellingPrice}
                       </p>
+                      <p className="font-semibold text-xs bg-red-700 rounded-md px-2 text-white">{discount}% off</p>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <CiStar size={23} />
-                      <p className="text-sm font-light">4.9</p>
+                    <div className="flex items-center gap-1">
+                    <StarIcon className="text-yellow-400" size={23} />
+                      <p className="text-sm font-light">{item.rating}</p>
                     </div>
-                    <h5 className="font-light text-sm">
-                      Serves 1 | Other Items: {customised}, Raiyeta, Salad,
-                      Pickel, Mouth Freshner
+                    <h5 className="font-normal text-sm">
+                      {item.description}
                     </h5>
                   </div>
                   <div className="w-2/5 flex flex-col relative items-end mr-10">
                     <div>
                       <img
-                        src="/assets/paneer.jpeg"
+                        src={item.image}
                         alt="paneer"
-                        width={190}
-                        height={200}
+                        width={150}
+                        height={150}
                         className="rounded-xl"
                       />
-                      <Button className="text-green-4 w-28 bg-[#EEEEEE] rounded-md absolute bottom-7 right-9 font-semibold text-xl hover:text-green-4 hover:bg-[#EEEEEE] flex justify-between">
+                      <Button className="text-green-4 w-28 bg-[#EEEEEE] rounded-md absolute bottom-4 right-5 font-semibold text-xl hover:text-green-4 hover:bg-[#EEEEEE] flex justify-between">
                         <IoMdAdd
                           size={20}
                           onClick={() => handleAddItem(item)}
@@ -127,7 +148,7 @@ const CardPage = () => {
                           onClick={() => handleDecrementItem(item.id)}
                         />
                       </Button>
-                      <div className="mt-7 flex justify-center items-center">
+                      <div className="mt-3 flex justify-center items-center">
                         <p
                           onClick={handleOpen}
                           className="text-center font-semibold cursor-pointer bg-green-4 opacity-65 text-white text-[10px] p-[0.8px] rounded-2xl w-24"
@@ -268,16 +289,16 @@ const CardPage = () => {
                 </div>
 
                 {/* Delete secion================== */}
-                <div className="w-5 rounded-md bg-[#EFEDED] flex items-center justify-center">
+                <div className="w-5 rounded-md cursor-pointer bg-[#EFEDED] flex items-center justify-center" onClick={() => handleRemoveItem(item.id)}>
                   <MdDeleteForever
-                    className="text-black cursor-pointer"
-                    onClick={() => handleRemoveItem(item.id)}
+                    className="text-black"
                   />
                 </div>
               </div>
-            ))
+              )
+            })
           ) : (
-            <div>No items in the cart</div>
+            <div>No cart items, Please select items from Menu </div>
           )}
         </div>
 
@@ -303,31 +324,31 @@ const CardPage = () => {
                 <h3 className="font-bold text-xl">Bill Details</h3>
                 <div className="flex justify-between">
                   <h1 className="font-normal text-sm">Item Total</h1>
-                  <h1 className="font-normal text-sm">₹ {totalPrice}</h1>
+                  <h1 className="font-normal text-sm">₹ {itemTotal}</h1>
                 </div>
                 <div className="flex justify-between">
                   <h1 className="font-normal text-sm">Delivery Fee</h1>
-                  <h1 className="font-normal text-sm">₹ 25</h1>
+                  <h1 className="font-normal text-sm">₹ {deliveryFee}</h1>
                 </div>
                 <Divider sx={{ backgroundColor: "black" }} />
                 <div className="flex justify-between">
                   <h1 className="font-normal text-sm">Item Discount</h1>
-                  <h1 className="font-normal text-sm">-₹ 0</h1>
+                  <h1 className="font-normal text-sm">-₹ {itemDiscount}</h1>
                 </div>
                 <div className="flex justify-between">
                   <h1 className="font-normal text-sm">Delivery Discount</h1>
-                  <h1 className="font-normal text-sm">-₹ 0</h1>
+                  <h1 className="font-normal text-sm">-₹ {deliveryDiscount}</h1>
                 </div>
                 <div className="flex justify-between">
                   <h1 className="font-normal text-sm">
                     GST and Restaurant Charges
                   </h1>
-                  <h1 className="font-normal text-sm">₹ 8.09</h1>
+                  <h1 className="font-normal text-sm">₹ {gstCharges}</h1>
                 </div>
 
                 <div className="flex justify-between">
                   <h1 className="font-bold text-xl">TO PAY</h1>
-                  <h1 className="font-bold text-xl">₹ {totalPrice + 25 + 8}</h1>
+                  <h1 className="font-bold text-xl">₹ {toPay}</h1>
                 </div>
 
                 <Button className="bg-green-4 bg-opacity-60 text-white rounded-xl text-lg font-extrabold hover:bg-green-4">
@@ -335,7 +356,7 @@ const CardPage = () => {
                 </Button>
                 <div className="mt-2 bg-gray-5 h-4">
                   <p className="text-xs text-green-4 font-bold text-center">
-                    Savings of ₹0
+                    Savings of ₹{savings}
                   </p>
                 </div>
 
@@ -356,4 +377,4 @@ const CardPage = () => {
   );
 };
 
-export default CardPage;
+export default CartPage;

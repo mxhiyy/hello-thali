@@ -52,7 +52,7 @@ export const PricingPlans = [
     titleeight: "Mobile Phone Support",
     titleninth: "Customization",
     buttonText: "Book Now",
-    cardcolor: "linear-gradient(180deg, rgba(136, 130, 79, 0.078) 0%, rgba(132, 48, 109, 0.048) 47%);",
+    cardcolor: "#2995343B",
     route: "/pricing-plans/book-now"
   },
 ];
@@ -176,76 +176,70 @@ export const MenuLink = [
       id: 1198419811651, 
       img: "/assets/veg.svg",
       main: "Bestseller",
-      name: "Paneer",
       title: "Mattar Paneer & Mix Veg Thali",
       sellingPrice: 130,
-      discount: 20,
       mrp: 160,
       image: "/assets/paneer.jpeg",
-      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
+      description: "Serves 1 | Other Items: Roti(3), Rice(Half-Bowl), Raiyeta, Salad, Pickel, Mouth Freshner",
       divider: true,
+      rating: 4.3
     },
     {
       id:2987984815611, 
-      name: "Potatos",
       main: "Recommended",
       img: "/assets/veg.svg",
       title: "Shahi Paneer & Chole Thali",
       sellingPrice: 130,
-      discount: 20,
       mrp: 160,
       image: "/assets/potatos.jpg",
-      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
+      description: "Serves 1 | Other Items: Roti(3), Rice(Half-Bowl), Raiyeta, Salad, Pickel, Mouth Freshner",
       divider: true,
+      rating: 4.2
     },
     {
       id:365648484642684, 
-      name: "Bhindi",
       img: "/assets/veg.svg",
       title: "Aalo Mattar & Dal Thali",
       sellingPrice: 90,
-       discount: 20,
       mrp: 160,
       image: "/assets/bhindi.jpeg",
-      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
+      description: "Serves 1 | Other Items: Roti(3), Rice(Half-Bowl), Raiyeta, Salad, Pickel, Mouth Freshner",
       divider: true,
+      rating: 4.7
     },
     {
       id:4148748246846, 
-      name: "Brinjal",
       img: "/assets/veg.svg",
       title: "Kadhai Paneer & Dal Tadka Thali",
       sellingPrice: 120,
-      discount: 20,
       mrp: 160,
       image: "/assets/brinjal.jpg",
-      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
+      description: "Serves 1 | Other Items: Roti(3), Rice(Half-Bowl), Raiyeta, Salad, Pickel, Mouth Freshner",
       divider: true,
+      rating: 4.5
     },
     {
       id:5687498748245, 
-      name: "Mixed Veg",
       img: "/assets/veg.svg",
       title: "Mattar Paneer & Rajma Thali",
       sellingPrice: 130,
-      discount: 20,
       mrp:160,
       image: "/assets/mixedveg.png",
-      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
+      description: "Serves 1 | Other Items: Roti(3), Rice(Half-Bowl), Raiyeta, Salad, Pickel, Mouth Freshner",
       divider: true,
+      rating: 4.9
 
     },
     {
       id:66871984298486, 
-      name: "Bottle gaurd",
       img: "/assets/veg.svg",
       title: "Kadhi Pakoda & Masala Chaap Thali",
       sellingPrice: 99,
-      discount: 20,
       mrp: 160,
       image: "/assets/bottlegaurd.jpg",
-      description: "Serves 1 | Other Items: 3 Roti, Half-Bowl Rice, Raiyeta, Salad, Pickel, Mouth Freshner",
+      description: "Serves 1 | Other Items: Roti(3), Rice(Half-Bowl), Raiyeta, Salad, Pickel, Mouth Freshner",
       divider: true,
+      rating: 4.1
     }
 ];
 

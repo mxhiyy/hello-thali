@@ -18,7 +18,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import LoginCard from "./Login";
-import { useState  } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/store/slices/authSlice";
 
@@ -27,20 +27,20 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
-  const { totalQuantity, totalPrice } = useSelector((state) => state.cart);
-
+  const { totalQuantity, totalDisplyPrice } = useSelector(
+    (state) => state.cart
+  );
 
   const handleClick = () => {
     setOpen(true);
-  }
+  };
 
   const handleLogout = () => {
     dispatch(logout());
-  }
-
+  };
 
   return (
-    <nav className="p-3 w-full mb-5 border-b-2 border-gray-4">
+    <nav className="p-3 w-full bg-white mb-5 border-b-2 border-gray-4 z-50 sticky top-0">
       <div className="lg:w-[90%] m-auto hidden sm:flex items-center justify-between">
         <div className="sm:w-[350px] lg:w-[50%] xl:w-2/5 flex justify-between items-center">
           {/* hello thali logo */}
@@ -58,10 +58,13 @@ const Navbar = () => {
               return (
                 <Link
                   key={link.label}
-                  className={cn("text-black text-base font-medium drop-shadow-2xl  cursor-pointer hover:text-green-5", {
-                    "text-green-5": isActive,
-                  })}
-                  style={{ fontFamily: 'Inter'}}
+                  className={cn(
+                    "text-black text-base font-medium drop-shadow-2xl  cursor-pointer hover:text-green-5",
+                    {
+                      "text-green-5": isActive,
+                    }
+                  )}
+                  style={{ fontFamily: "Inter" }}
                   href={link.route}
                 >
                   {link.label}
@@ -71,41 +74,69 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className={`flex items-center sm:w-[200px] lg:w-[24%] justify-between`}>
+        <div
+          className={`flex items-center sm:w-[200px] ${
+            totalQuantity >= 1 ? "lg:w-[24%] " : "lg:w-[20%]"
+          } justify-between`}
+        >
           <Link href={"/cart"}>
-          <Button className='flex items-center gap-3 bg-green-4 text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white'>
-            <FaCartShopping size={25} />
-            {totalQuantity >= 1 && (
-              <div className="flex flex-col">
-               <p className="text-xs font-medium">{totalQuantity} items</p>
-               <p className="text-xs font-medium">₹ {totalPrice}</p>
-              </div>
-            )}
-          </Button>
+            <Button className={cn("flex items-center gap-3 bg-gray-6 text-black font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white", { "bg-green-4 text-white"  : pathname === '/cart'}, { "bg-gray-6 text-black" : open === true })}>
+              <FaCartShopping size={25} />
+              {totalQuantity >= 1 && (
+                <div className="flex flex-col">
+                  <h1 className="text-xs font-medium">{totalQuantity} items</h1>
+                  <h1 className="text-xs font-medium">₹ {totalDisplyPrice}</h1>
+                </div>
+              )}
+            </Button>
           </Link>
           {token ? (
             <NavigationMenu>
-            <NavigationMenuList >
-              <NavigationMenuItem>
-                <NavigationMenuTrigger><p className="text-base font-mediume">Hi User</p></NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <Link  href={"/profile"}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Profile Section</NavigationMenuLink></Link>
-                  <Link href={"/orders"}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Orders</NavigationMenuLink></Link>
-                  <Link href={"/"} onClick={handleLogout}><NavigationMenuLink className={navigationMenuTriggerStyle()}>Log Out</NavigationMenuLink></Link>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                    <p className="text-base font-medium">Hi User</p>
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <Link href={"/profile"}>
+                      <NavigationMenuLink
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        Profile Section
+                      </NavigationMenuLink>
+                    </Link>
+                    <Link href={"/orders"}>
+                      <NavigationMenuLink
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        Orders
+                      </NavigationMenuLink>
+                    </Link>
+                    <Link href={"/"} onClick={handleLogout}>
+                      <NavigationMenuLink
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        Log Out
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           ) : (
-            <Button className='bg-green-4 text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white' onClick={handleClick} >Login</Button>
-          )} 
-          {open && ( <LoginCard open={open} setOpen={setOpen} />)}
-         <Link href={"/contact-us"}>
-         <Button
-            className="bg-green-4  text-white font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white"
-          >
-            Contact Us
-          </Button></Link>
+            <Button
+              className={cn("bg-gray-6 text-black font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white", { "bg-green-4 text-white" : open === true })}
+              onClick={handleClick}
+            >
+              Login
+            </Button>
+          )}
+          {open && <LoginCard open={open} setOpen={setOpen} />}
+          <Link href={"/contact-us"}>
+            <Button className={cn("bg-gray-6 text-black font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white", { "bg-green-4 text-white" : pathname === "/contact-us"}, { "bg-gray-6 text-black" : open === true })}>
+              Contact Us
+            </Button>
+          </Link>
         </div>
       </div>
 

@@ -1,62 +1,95 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { RxDotFilled } from "react-icons/rx";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 
-import { Pagination, Autoplay } from "swiper/modules";
+import { Pagination, Autoplay, EffectCoverflow } from "swiper/modules";
 import { Homecard, TestimonalCard } from "@/constants";
+import Image from "next/image";
 // import Image from "next/image";
 
+const slides = [
+  {
+    url: "/assets/first-banner.svg",
+  },
+  {
+    url: "/assets/second-banner.png",
+  },
+];
+
 const Homepage = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true);
+  const autoslideInterval = 3000;
+
+  const prevSlide = () => {
+    const isFirstIndex = currentIndex === 0;
+    const newIndex = isFirstIndex ? slides.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+
+  const nextSlide = () => {
+    const isLastSlide = currentIndex === slides.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
+
+  useEffect(() => {
+    if (!autoPlay) return;
+    const slideInterval = setInterval(nextSlide, autoslideInterval);
+    return () => clearInterval(slideInterval);
+  }, [autoPlay, currentIndex]);
+
+  const goToSlide = (slideIndex) => {
+    setCurrentIndex(slideIndex);
+  };
+
   return (
     <Fragment>
-      <div className="w-[90%] m-auto">
-        <Swiper
-          pagination={{
-            dynamicBullets: true,
-            clickable: true,
-          }}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          modules={[Pagination, Autoplay]}
-        >
-          <SwiperSlide>
-            <img
-              src="/assets/first-banner.svg"
-              alt="first-banner"
-              className="w-full"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src="/assets/first-banner.svg"
-              alt="first-banner"
-              className="w-full"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src="/assets/first-banner.svg"
-              alt="first-banner"
-              className="w-full"
-            />
-          </SwiperSlide>
-        </Swiper>
+      <div className={`max-w-[1400px] h-[500px] m-auto px-4 relative group`}>
+        <div
+          className="w-full h-full rounded-2xl bg-center bg-cover duration-700 cursor-pointer"
+          style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
+          onMouseEnter={() => setAutoPlay(false)}
+          onMouseLeave={() => setAutoPlay(true)}
+        ></div>
+
+        {/* Left arrow */}
+        <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+          <BsChevronCompactLeft onClick={prevSlide} size={30} />
+        </div>
+
+        {/*  right arrow */}
+        <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+          <BsChevronCompactRight onClick={nextSlide} size={30} />
+        </div>
+
+        <div className="flex top-4 justify-center py-2">
+          {slides.map((slide, slideIndex) => (
+            <div
+              key={slideIndex}
+              onClick={() => goToSlide(slideIndex)}
+              className="text-2xl cursor-pointer"
+            >
+              <RxDotFilled />
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="w-[90%] m-auto mt-10 h-[80%]">
         <div className="flex justify-between">
           <div className="flex flex-col gap-32 h-full">
-            <div className="bg-olive-1 w-[450px] rounded-3xl p-7 flex flex-col gap-2">
+            <div className="bg-olive-1 w-[500px] rounded-3xl p-7 mt-14 flex flex-col gap-2">
               <h5 className="text-2xl font-extrabold">About Us</h5>
-              <p className="text-sm font-semibold w-96 leading-6">
+              <p className="text-sm font-semibold w-[27rem] leading-6">
                 We deliver authentic, delicious Indian thalis straight to your
                 door. Forger expensive restaurants or grocery shopping enjoy
                 alfordable weekly/monthly plans with diverse menus curated by
@@ -82,12 +115,12 @@ const Homepage = () => {
           </div>
 
           <div className="flex flex-col gap-10">
-            <div className=" flex justify-end">
+            <div className="flex justify-end">
               <img src="/assets/aboutimage.svg" alt="image-about" width={400} />
             </div>
-            <div className="bg-olive-1 w-[450px] rounded-3xl p-7 flex flex-col gap-2 ">
+            <div className="bg-olive-1 w-[500px] rounded-3xl p-7 mt-24 flex flex-col gap-2 ">
               <h5 className="text-2xl font-extrabold">Our Mission</h5>
-              <p className="text-sm font-semibold w-96 leading-6">
+              <p className="text-sm font-semibold w-[27rem] leading-6">
                 We deliver authentic, delicious Indian thalis straight to your
                 door. Forger expensive restaurants or grocery shopping enjoy
                 alfordable weekly/monthly plans with diverse menus curated by
@@ -188,6 +221,7 @@ const Homepage = () => {
             </SwiperSlide>
           ))}
         </Swiper>
+        
       </div>
 
       <div className="w-[90%] m-auto rounded-xl h-full p-5 flex flex-col gap-10 bg-olive-1 mt-20">
