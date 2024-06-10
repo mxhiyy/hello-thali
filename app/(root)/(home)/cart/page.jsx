@@ -10,6 +10,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { FaAngleDoubleRight } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 import {
   addItem,
   decrementItem,
@@ -26,15 +27,20 @@ const customisationOptions = [
   "Full Bowl Rice"
 ];
 
+const VALID_COUPEN = ["COUPEN2023"]
+
 const CartPage = () => {
   const dispatch = useDispatch();
   const { items, totalQuantity } = useSelector((state) => state.cart);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [customisation, setCustomisation] = useState(customisationOptions[0]);
+  const [coupen, setCoupen]  = useState('');
+  const [coupenApplied, setCoupenApplied] = useState(false);
+  const [ discountMessage, setDiscountMesaage] = useState('');
   const router = useRouter();
 
-  // Update customisation state only when selectedItem changes
+ 
   useEffect(() => {
     if (selectedItem) {
       const savedCustomisation = Cookies.get(`customisation-${selectedItem.id}`);
@@ -102,18 +108,33 @@ const CartPage = () => {
     );
   };
 
+  const handleApplyCoupen = () => {
+    if(VALID_COUPEN.includes(coupen)){
+      setCoupenApplied(true);
+      setDiscountMesaage(`Coupen Applied. You Saved 10%!`);
+      setCoupen("");
+    }
+    else{
+      setCoupenApplied(false);
+      setDiscountMesaage(`Invalid coupen code`)
+      setCoupen("");
+    }
+  }
+
   const itemTotal = calculateItemTotal();
   const itemDiscount = calculateItemDiscount();
   const sellingPriceTotal = calculateSellingTotal();
   const deliveryFee = 25;
   const deliveryDiscount = 20;
+  const coupenDiscount = coupenApplied ? 0.1 * (itemTotal + deliveryFee - itemDiscount - deliveryDiscount ) : 0;
   const toPay = (
     itemTotal +
     deliveryFee -
     itemDiscount -
-    deliveryDiscount
+    deliveryDiscount -
+    coupenDiscount
   ).toFixed(2);
-  const savings = itemDiscount + deliveryDiscount;
+  const savings = itemDiscount + deliveryDiscount + coupenDiscount;
 
   return (
     <main className="w-full h-full">
@@ -294,6 +315,7 @@ const CartPage = () => {
           )}
         </div>
 
+        {/* ============= Billing page ===================== */}
         {items.length > 0 && (
           <div className="w-[30%] mt-5">
             <div
@@ -304,11 +326,14 @@ const CartPage = () => {
               <div className="flex items-center gap-3">
                 <input
                   type="text"
-                  className="p-2 w-48 rounded-md"
+                  className={`p-2 w-48 rounded-md outline-none`}
                   placeholder="Promo Code"
-                  style={{ outline: "none" }}
+                  value={coupen}
+                  onChange={(e) => setCoupen(e.target.value)}
                 />
+                {coupenApplied ? (<div className="flex justify-center items-center text-base font-medium gap-1 text-green-4"><FaCheckCircle /><h2>Applied</h2></div>) : (<Button className='bg-green-4 text-white hover:bg-green-4 hover:opacity-90 text-base' onClick={handleApplyCoupen}>Apply</Button>)}
               </div>
+              {coupenApplied ? <p className="text-xs text-green-4">{discountMessage}</p> : <p className="text-xs text-red-600">{discountMessage}</p>}
               <div className="flex flex-col gap-2">
                 <h3 className="font-bold text-xl">Bill Details</h3>
                 <div className="flex justify-between">
