@@ -1,16 +1,23 @@
+'use client'
+import React, { useState } from 'react';
 import { userPage } from "@/constants";
 import Link from "next/link";
 import { FaChevronRight } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 import { PiHandsPrayingFill } from "react-icons/pi";
-import { logout } from "@/store/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import LogoutModal from '../components/LogoutModal';
 
 const Sidebar = () => {
-  const dispatch = useDispatch();
-  const handleLogout = () => {
-    dispatch(logout());
-  };
+
+  const pathname = usePathname();
+
+  const [ isOpen, setIsOpen ] = useState(false);
+  
+  const handleOpen = () => {
+    setIsOpen(true);
+  }
 
   return (
     <main className="w-[250px] h-auto">
@@ -26,9 +33,11 @@ const Sidebar = () => {
         </div>
       </Link>
       <div className="mt-10 flex flex-col gap-3">
-        {userPage.map((data) => (
-          <Link key={data.id} href={data.route}>
-            <div className="border-2 border-gray-6 rounded-md flex justify-between items-center p-3">
+        {userPage.map((data) => {
+          const isActive = pathname === data.route;
+          return(
+            <Link key={data.id} href={data.route}>
+            <div className={cn("border-2 border-gray-6 rounded-md flex justify-between items-center p-3", { "shadow-lg" : isActive})}>
               {data.icon}
               <h2 className="font-medium text-xl" href={data.route}>
                 {data.name}
@@ -36,17 +45,18 @@ const Sidebar = () => {
               <FaChevronRight className="text-green-4" size={25} />
             </div>
           </Link>
-        ))}
+          )
+       })}
       </div>
 
       {/* ============= logout option ============ */}
-      <Link href={"/"} onClick={handleLogout}>
-        <div className="border-2 border-gray-6 p-3 mt-3 rounded-md flex justify-between items-center">
+        <div className={cn("border-2 border-gray-6 p-3 mt-3 rounded-md flex justify-between items-center cursor-pointer", { "shadow-lg" : isOpen === true })} onClick={handleOpen}>
           <IoLogOut size={30} className="text-green-4" />
           <h2 className="text-xl font-medium">Log Out</h2>
           <FaChevronRight className="text-green-4" size={25} />
         </div>
-      </Link>
+
+      {isOpen && ( <LogoutModal open={isOpen} setIsOpen={setIsOpen} />)}
     </main>
   );
 };

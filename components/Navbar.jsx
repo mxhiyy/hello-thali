@@ -26,10 +26,16 @@ import { FaBagShopping } from "react-icons/fa6";
 import { GrPlan } from "react-icons/gr";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoLogOut } from "react-icons/io5";
+import LogoutModal from "./LogoutModal";
 
 const Navbar = () => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [ isOpen, setIsOpen ] = useState(false);
+  
+  const handleOpen = () => {
+    setIsOpen(true);
+  }
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
   const { totalQuantity, totalDisplyPrice } = useSelector(
@@ -81,7 +87,7 @@ const Navbar = () => {
 
         <div
           className={`flex items-center sm:w-[200px] ${
-            totalQuantity >= 1 ? "lg:w-[27%]" : "lg:w-[25%]"
+            totalQuantity >= 1 ? "lg:w-[32%]" : "lg:w-[25%]"
           } justify-between`}
         >
           <Link href={"/cart"}>
@@ -160,7 +166,7 @@ const Navbar = () => {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
-                  <p className="text-base font-medium">Hi User</p>
+                  <p className="text-base font-medium">My Account</p>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <Link href={"/my-account/my-profile"}>
@@ -191,19 +197,17 @@ const Navbar = () => {
                     <div className="flex w-full justify-center items-center gap-2 text-lg"><FaLocationDot /> Saved Address</div>
                     </NavigationMenuLink>
                   </Link>
-                  
-                  <Link href={"/"} onClick={handleLogout}>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
                     >
-                    <div className="flex w-full justify-center items-center gap-2 text-lg"><IoLogOut /> LogOut</div>
+                    <div className="flex w-full justify-center items-center gap-2 text-lg cursor-pointer" onClick={handleOpen}><IoLogOut /> LogOut</div>
                     </NavigationMenuLink>
-                  </Link>
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
           )}
+          { isOpen && ( <LogoutModal open={isOpen} setIsOpen={setIsOpen} />)}
           {open && <LoginCard open={open} setOpen={setOpen} />}
           <Link href={"/contact-us"}>
             <Button className={cn("bg-gray-6 text-black font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white", { "bg-green-4 text-white" : pathname === "/contact-us"}, { "bg-gray-6 text-black" : open === true })}>
