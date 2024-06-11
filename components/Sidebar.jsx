@@ -15,20 +15,20 @@ const Sidebar = () => {
   return (
     <main className="w-[250px] h-auto">
       <Link href={"/user-profile"}>
-      <div className="border-2 border-gray-6 p-3 rounded-md flex justify-center items-center hover:bg-green-4 hover:text-white cursor-pointer">
-        <h2 className="text-xl font-medium flex gap-2 items-center">
-          <PiHandsPrayingFill className="text-yellow-400" size={20} /> Hello,
-          HelloThali User
-        </h2>
-      </div>
+        <div className="p-3 rounded-md flex flex-col gap-1 items-center  cursor-pointer">
+          <h2 className="text-xl font-medium flex gap-2 items-center">
+            <PiHandsPrayingFill className="text-yellow-400" size={20} />{" "}
+            Namaste,
+          </h2>
+          <h2 className="text-xl font-medium flex gap-2 items-center">
+            HelloThali User
+          </h2>
+        </div>
       </Link>
-      <div className="mt-20 flex flex-col gap-3">
+      <div className="mt-10 flex flex-col gap-3">
         {userPage.map((data) => (
-          <Link href={data.route}>
-            <div
-              className="border-2 border-gray-6 rounded-md flex justify-between items-center p-3"
-              key={data.id}
-            >
+          <Link key={data.id} href={data.route}>
+            <div className="border-2 border-gray-6 rounded-md flex justify-between items-center p-3">
               {data.icon}
               <h2 className="font-medium text-xl" href={data.route}>
                 {data.name}

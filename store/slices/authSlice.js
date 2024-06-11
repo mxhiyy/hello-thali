@@ -83,7 +83,7 @@ const authSlice = createSlice({
             console.log('Setting the token', state.token);
             state.user = action.payload;
             state.isLoggedIn = true;
-            Cookies.set('token', action.payload.token);
+            Cookies.set('token', action.payload.token, { expires: '180'});
             toast.success("OTP Verified Successfully!");
         })
 

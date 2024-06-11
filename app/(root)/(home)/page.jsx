@@ -12,7 +12,7 @@ import "swiper/css/effect-coverflow";
 
 import { Pagination, Autoplay, EffectCoverflow } from "swiper/modules";
 import { Homecard, TestimonalCard } from "@/constants";
-// import Image from "next/image";
+
 
 const slides = [
   {

@@ -2,7 +2,7 @@ import { IoMdPerson } from "react-icons/io";
 import { FaBagShopping } from "react-icons/fa6";
 import { GrPlan } from "react-icons/gr";
 import { FaLocationDot } from "react-icons/fa6";
-import { IoLogOut } from "react-icons/io5";
+
 
 export const NavbarLink = [{
     label: "Home",
@@ -333,24 +333,33 @@ export const blogsCard = [
 ];
 
 export const userPage = [
+
+  { 
+    id: 9080983453,
+    name: "My Profile",
+    route: "/my-account/my-profile",
+    icon: <IoMdPerson size={28} className="text-green-4" />
+  },
+
+  
   { 
     id: 342354235,
     name: "My Orders",
-    route: "/my-orders",
+    route: "/my-account/my-orders",
     icon: <FaBagShopping size={28} className="text-green-4" />
   },
 
   { 
     id: 547657657,
     name: "My Plans",
-    route: "/my-plan",
+    route: "/my-account/my-plan",
     icon: <GrPlan size={28} className="text-green-4" />
   },
 
   { 
     id: 547567657567,
     name: "Saved Address",
-    route: "/saved-address",
+    route: "/my-account/saved-address",
     icon: <FaLocationDot size={28} className="text-green-4" />
   },
 ]
