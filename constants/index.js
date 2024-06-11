@@ -1,3 +1,9 @@
+import { IoMdPerson } from "react-icons/io";
+import { FaBagShopping } from "react-icons/fa6";
+import { GrPlan } from "react-icons/gr";
+import { FaLocationDot } from "react-icons/fa6";
+import { IoLogOut } from "react-icons/io5";
+
 export const NavbarLink = [{
     label: "Home",
     route: "/",
@@ -324,4 +330,27 @@ export const blogsCard = [
     description: "Picture this: You're juggling work deadlines, family commitments, and a social life. The last thing you have time for is slaving away in the kitchen, yet the thought of another greasy takeout meal or ...",
     date: "29-Feb-2024"
   }
+];
+
+export const userPage = [
+  { 
+    id: 342354235,
+    name: "My Orders",
+    route: "/my-orders",
+    icon: <FaBagShopping size={28} className="text-green-4" />
+  },
+
+  { 
+    id: 547657657,
+    name: "My Plans",
+    route: "/my-plan",
+    icon: <GrPlan size={28} className="text-green-4" />
+  },
+
+  { 
+    id: 547567657567,
+    name: "Saved Address",
+    route: "/saved-address",
+    icon: <FaLocationDot size={28} className="text-green-4" />
+  },
 ]
