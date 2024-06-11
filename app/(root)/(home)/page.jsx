@@ -55,7 +55,7 @@ const Homepage = () => {
 
   return (
     <Fragment>
-      <div className={`max-w-[1400px] h-[500px] m-auto px-4 relative group`}>
+      <div className={`sm:w-[50%] md:w-[100%] lg:w-[95%] md:h-[600px] lg:h-[500px] m-auto px-4 relative group`}>
         <div
           className="w-full h-full rounded-2xl bg-center bg-cover duration-700 cursor-pointer"
           style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
