@@ -93,7 +93,7 @@ const LoginCard = ({ open, setOpen }) => {
           className="flex justify-center items-center"
         >
           <div
-            className={`rounded-md bg-white w-[500px] h-[400px] flex flex-col gap-3 p-5`}
+            className={`rounded-md bg-white w-auto h-auto flex flex-col gap-3 p-5`}
           >
             <div
               className="flex justify-end cursor-pointer"

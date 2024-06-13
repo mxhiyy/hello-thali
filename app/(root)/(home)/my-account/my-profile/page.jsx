@@ -56,10 +56,10 @@ const UserProfilepage = () => {
             autoFocus
             name="phoneNumber"
             type="number"
-            value={phoneNumber}
+            value={user?.phoneNumber}
             disabled
             required
-            placeholder={phoneNumber}
+            placeholder={user?.phoneNumber}
           />
         </div>
         <div className="flex flex-col gap-3 mt-3">

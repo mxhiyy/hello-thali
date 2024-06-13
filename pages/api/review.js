@@ -11,7 +11,7 @@ import {createReview} from '@/lib/controllers/reviewController';
 const cors = initMiddleware(
   Cors({
     methods: ["POST", "GET", "HEAD"],
-    origin: "*", //Allow all origin
+    origin: "*", 
   })
 );
 
