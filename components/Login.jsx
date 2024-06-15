@@ -112,7 +112,7 @@ const LoginCard = ({ open, setOpen }) => {
               India`s First Daily Meal App
             </h5>
             <p className="font-medium text-xl text-center">Log in or Sign up</p>
-            <div className="pl-20">
+            <div className="pl-10">
               <PhoneInput
                 inputStyle={{ border: "2px solid gray" }}
                 value={phoneNumber}
