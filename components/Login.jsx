@@ -3,19 +3,15 @@
 import { CircularProgress, Modal } from "@mui/material";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { loadFromLocalStorage } from "@/store/slices/authSlice";
 import { RxCross2 } from "react-icons/rx";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 import OTPInput from "react-otp-input";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  sendOtp,
-  verifyOtp,
-  setUser,
-} from "@/store/slices/authSlice";
+import { sendOtp, verifyOtp, setUser } from "@/store/slices/authSlice";
 import toast, { Toaster } from "react-hot-toast";
-
 
 const LoginCard = ({ open, setOpen }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -26,6 +22,13 @@ const LoginCard = ({ open, setOpen }) => {
   const [isTimerRunning, setIsTimerRunning] = useState(true);
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    const storedUser = loadFromLocalStorage("user");
+    if (storedUser) {
+      dispatch(setUser(storedUser));
+    }
+  }, [dispatch]);
 
   const handleClose = () => {
     setOpen(false);
@@ -47,17 +50,17 @@ const LoginCard = ({ open, setOpen }) => {
   };
 
   const handleVerifyOtp = async () => {
-   const result = await dispatch(verifyOtp({ phoneNumber, otp }));
-   if(verifyOtp.fulfilled.match(result)){
-    dispatch(setUser({ phoneNumber }));
-    toast.success('OTP Verified succesfully');
-    handleClose();
-   }
+    const result = await dispatch(verifyOtp({ phoneNumber, otp }));
+    if (verifyOtp.fulfilled.match(result)) {
+      dispatch(setUser({ phoneNumber }));
+      toast.success("OTP Verified succesfully");
+      handleClose();
+    }
   };
 
   const handleResendCode = async () => {
     const result = await dispatch(sendOtp(phoneNumber));
-    if(sendOtp.fulfilled.match(result)){
+    if (sendOtp.fulfilled.match(result)) {
       setTimeLeft(35);
       setIsTimerRunning(true);
     }
@@ -151,7 +154,7 @@ const LoginCard = ({ open, setOpen }) => {
               </Link>
               &{" "}
               <Link href={"#"} className="underline">
-                 Privacy policy
+                Privacy policy
               </Link>
             </p>
           </div>

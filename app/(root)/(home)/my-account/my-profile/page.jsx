@@ -2,12 +2,12 @@
 
 import React from "react";
 import { useSelector } from "react-redux";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 // import { FiEdit } from "react-icons/fi";
 
 const UserProfilepage = () => {
   const { user } = useSelector((state) => state.auth);
-  const phoneNumber = Cookies.get("phoneNumber");
+  // const phoneNumber = Cookies.get("phoneNumber");
 
   return (
     <main className="p-6">
