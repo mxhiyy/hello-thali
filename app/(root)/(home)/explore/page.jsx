@@ -53,20 +53,12 @@ const Explorepage = () => {
     }
   };
 
-  // console.log(ratings);
-
-  // const calculateAverage = (category) => {
-  //   if (!ratings.length) return 4.5;
-  //   const total = ratings.reduce((sum, rating) => sum + rating[category], 0);
-  //   return (total / ratings.length).toFixed(1);
-  // };
-
   const n = MenuLink.length;
   const options = { day: "numeric", month: "short", year: "numeric" };
 
   return (
     <main className="w-full">
-      <div className="relative m-auto w-[90%] h-[300px] rounded-xl mt-10">
+      <div className="relative m-auto w-[90%] h-[250px] rounded-xl mt-10">
         <div className="absolute top-0 left-0 w-full h-full  blur-md backgroundDiv rounded-xl"></div>
         <div className="flex flex-col gap-2 items-center justify-center">
           <h1 className="relative text-7xl font-extrabold text-white mt-20">

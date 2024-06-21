@@ -11,9 +11,9 @@ const initialState = {
     : 0,
   totalMRP: 0,
   totalDiscount: 0,
-  totalDisplyPrice: Cookies.get("totalDisplyPrice")
-  ? JSON.parse(Cookies.get("totalDisplyPrice"))
-  : 0,
+  totalDisplayPrice: Cookies.get("totalDisplayPrice")
+    ? JSON.parse(Cookies.get("totalDisplayPrice"))
+    : 0,
 };
 
 const calculateItemTotal = (items) => {
@@ -21,8 +21,18 @@ const calculateItemTotal = (items) => {
 };
 
 const calculateItemDiscount = (items) => {
-  return items.reduce((total, item) => total + ( item.mrp - item.sellingPrice ) * item.quantity, 0);
-}
+  return items.reduce(
+    (total, item) => total + (item.mrp - item.sellingPrice) * item.quantity,
+    0
+  );
+};
+
+const updateCartCookies = (state) => {
+  Cookies.set("cartItems", JSON.stringify(state.items));
+  Cookies.set("cartQuantity", JSON.stringify(state.totalQuantity));
+  Cookies.set("cartTotalPrice", JSON.stringify(state.totalPrice));
+  Cookies.set("totalDisplayPrice", JSON.stringify(state.totalDisplayPrice));
+};
 
 const cartSlice = createSlice({
   name: "cart",
@@ -39,6 +49,7 @@ const cartSlice = createSlice({
           ...newItem,
           quantity: 1,
           totalPrice: newItem.sellingPrice,
+          customisation: Cookies.get(`customisation-${newItem.id}`) || null,
         });
       }
 
@@ -46,12 +57,9 @@ const cartSlice = createSlice({
       state.totalPrice += newItem.sellingPrice;
       state.totalMRP = calculateItemTotal(state.items);
       state.totalDiscount = calculateItemDiscount(state.items);
-      state.totalDisplyPrice = state.totalMRP - state.totalDiscount;
+      state.totalDisplayPrice = state.totalMRP - state.totalDiscount;
 
-      Cookies.set("cartItems", JSON.stringify(state.items));
-      Cookies.set("cartQuantity", JSON.stringify(state.totalQuantity));
-      Cookies.set("cartTotalPrice", JSON.stringify(state.totalPrice));
-      Cookies.set("totalDisplyPrice", JSON.stringify(state.totalDisplyPrice));
+      updateCartCookies(state);
     },
 
     removeItem(state, action) {
@@ -61,17 +69,13 @@ const cartSlice = createSlice({
         state.totalQuantity -= existingItem.quantity;
         state.totalPrice -= existingItem.totalPrice;
         state.items = state.items.filter((item) => item.id !== id);
-        
       }
 
       state.totalMRP = calculateItemTotal(state.items);
       state.totalDiscount = calculateItemDiscount(state.items);
-      state.totalDisplyPrice = state.totalMRP - state.totalDiscount;
-      
-      Cookies.set("cartItems", JSON.stringify(state.items));
-      Cookies.set("cartQuantity", JSON.stringify(state.totalQuantity));
-      Cookies.set("cartTotalPrice", JSON.stringify(state.totalPrice));
-      Cookies.set("totalDisplyPrice", JSON.stringify(state.totalDisplyPrice));
+      state.totalDisplayPrice = state.totalMRP - state.totalDiscount;
+
+      updateCartCookies(state);
     },
 
     decrementItem(state, action) {
@@ -92,12 +96,23 @@ const cartSlice = createSlice({
 
       state.totalMRP = calculateItemTotal(state.items);
       state.totalDiscount = calculateItemDiscount(state.items);
-      state.totalDisplyPrice = state.totalMRP - state.totalDiscount;
+      state.totalDisplayPrice = state.totalMRP - state.totalDiscount;
 
-      Cookies.set("cartItems", JSON.stringify(state.items));
-      Cookies.set("cartQuantity", JSON.stringify(state.totalQuantity));
-      Cookies.set("cartTotalPrice", JSON.stringify(state.totalPrice));
-      Cookies.set("totalDisplyPrice", JSON.stringify(state.totalDisplyPrice));
+      updateCartCookies(state);
+    },
+
+    clearCart(state) {
+      state.items = [];
+      state.totalQuantity = 0;
+      state.totalPrice = 0;
+      state.totalMRP = 0;
+      state.totalDiscount = 0;
+      state.totalDisplayPrice = 0;
+
+      Cookies.remove("cartItems");
+      Cookies.remove("cartQuantity");
+      Cookies.remove("cartTotalPrice");
+      Cookies.remove("totalDisplayPrice");
     },
 
     updateCustomisation(state, action) {
@@ -105,11 +120,18 @@ const cartSlice = createSlice({
       const existingItem = state.items.find((item) => item.id === id);
       if (existingItem) {
         existingItem.customisation = customisation;
+        existingItem.description = `Serves 1 | Other Items: ${customisation}, Raiyeta, Salad, Pickel, Mouth Freshner`;
+        Cookies.set(`customisation-${id}`, customisation);
       }
     },
   },
 });
 
-export const { addItem, removeItem, decrementItem, updateCustomisation } =
-  cartSlice.actions;
+export const {
+  addItem,
+  removeItem,
+  decrementItem,
+  updateCustomisation,
+  clearCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;

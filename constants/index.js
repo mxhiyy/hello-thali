@@ -15,11 +15,6 @@ export const NavbarLink = [{
   },
 
   {
-    label: "Pricing Plans",
-    route: "/pricing-plans",
-  },
-
-  {
     label: "Blogs",
     route: "/blogs",
   },
@@ -350,13 +345,6 @@ export const userPage = [
   },
 
   { 
-    id: 547657657,
-    name: "My Plans",
-    route: "/my-account/my-plan",
-    icon: <GrPlan size={28} className="text-green-4" />
-  },
-
-  { 
     id: 547567657567,
     name: "Saved Address",
     route: "/my-account/saved-address",
@@ -364,29 +352,3 @@ export const userPage = [
   },
 ];
 
-
-export const orderedItem = [
-  { 
-    orderId: "ODID1101637281900",
-    TotalOrder: 4,
-    orderAmount: "130",
-    isPending: "",
-    isDelivered: "Delivered on 13 May",
-    isCancelled: "", 
-    orderdate: "Placed 6 Days ago",
-    orderTime: "6:00PM",
-  },
-
-  { 
-    orderId: "ODID1101637281920",
-    TotalOrder: 1,
-    orderAmount: "230",
-    isPending: "",
-    isDelivered: "",
-    isCancelled: "Cancelled on 12 May", 
-    orderdate: "Placed 5 Days ago",
-    orderTime: "4:00PM",
-  },
-
-
-]

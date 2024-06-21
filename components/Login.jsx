@@ -3,7 +3,7 @@
 import { CircularProgress, Modal } from "@mui/material";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { loadFromLocalStorage } from "@/store/slices/authSlice";
+// import { loadFromLocalStora/ge } from "@/store/slices/authSlice";
 import { RxCross2 } from "react-icons/rx";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
@@ -22,13 +22,6 @@ const LoginCard = ({ open, setOpen }) => {
   const [isTimerRunning, setIsTimerRunning] = useState(true);
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    const storedUser = loadFromLocalStorage("user");
-    if (storedUser) {
-      dispatch(setUser(storedUser));
-    }
-  }, [dispatch]);
 
   const handleClose = () => {
     setOpen(false);

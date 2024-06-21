@@ -31,14 +31,14 @@ import LogoutModal from "./LogoutModal";
 const Navbar = () => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [ isOpen, setIsOpen ] = useState(false);
-  
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleOpen = () => {
     setIsOpen(true);
-  }
+  };
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
-  const { totalQuantity, totalDisplyPrice } = useSelector(
+  const { totalQuantity, totalDisplayPrice } = useSelector(
     (state) => state.cart
   );
 
@@ -53,7 +53,7 @@ const Navbar = () => {
   return (
     <nav className="p-3 w-full bg-white mb-5 border-b-2 border-gray-4 z-50 sticky top-0">
       <div className="lg:w-[90%] m-auto hidden sm:flex items-center justify-between">
-        <div className="sm:w-[350px] lg:w-[50%] xl:w-2/5 flex justify-between items-center">
+        <div className="sm:w-[350px] lg:w-[50%] xl:w-2/5 flex gap-20 items-center">
           {/* hello thali logo */}
           <Link href="/">
             <Image
@@ -63,7 +63,7 @@ const Navbar = () => {
               height={50}
             />
           </Link>
-          <div className="sm:w-[300px] lg:w-[90%] flex justify-between ml-10">
+          <div className="sm:w-[300px] lg:w-[60%] flex gap-10 ">
             {NavbarLink.map((link) => {
               const isActive = pathname === link.route;
               return (
@@ -91,123 +91,142 @@ const Navbar = () => {
           } justify-between`}
         >
           <Link href={"/cart"}>
-            <Button className={cn("flex items-center gap-3 bg-gray-6 text-black font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white", { "bg-green-4 text-white"  : pathname === '/cart'}, { "bg-gray-6 text-black" : open === true })}>
+            <Button
+              className={cn(
+                "flex items-center gap-3 bg-gray-6 text-black font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white",
+                { "bg-green-4 text-white": pathname === "/cart" },
+                { "bg-gray-6 text-black": open === true }
+              )}
+            >
               <FaCartShopping size={25} />
               {totalQuantity >= 1 && (
                 <div className="flex flex-col">
                   <h1 className="text-xs font-medium">{totalQuantity} items</h1>
-                  <h1 className="text-xs font-medium">₹ {totalDisplyPrice}</h1>
+                  <h1 className="text-xs font-medium">₹ {totalDisplayPrice}</h1>
                 </div>
               )}
             </Button>
           </Link>
           {token ? (
-             <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>
-                  <p className="text-base font-medium">My Account</p>
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <Link href={"/my-account/my-profile"}>
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                    <p className="text-base font-medium">My Account</p>
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <Link href={"/my-account/my-profile"}>
+                      <NavigationMenuLink
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <div className="flex w-full justify-center items-center gap-2 text-lg">
+                          <IoMdPerson /> My Profile
+                        </div>
+                      </NavigationMenuLink>
+                    </Link>
+                    <Link href={"/my-account/my-orders"}>
+                      <NavigationMenuLink
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <div className="flex w-full justify-center items-center gap-2 text-lg">
+                          <FaBagShopping /> My Orders
+                        </div>
+                      </NavigationMenuLink>
+                    </Link>
+                    <Link href={"/my-account/saved-address"}>
+                      <NavigationMenuLink
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <div className="flex w-full justify-center items-center gap-2 text-lg">
+                          <FaLocationDot /> Saved Address
+                        </div>
+                      </NavigationMenuLink>
+                    </Link>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
                     >
-                      <div className="flex w-full justify-center items-center gap-2 text-lg"><IoMdPerson /> My Profile</div>
+                      <div
+                        className="flex w-full justify-center items-center gap-2 text-lg cursor-pointer"
+                        onClick={handleOpen}
+                      >
+                        <IoLogOut /> LogOut
+                      </div>
                     </NavigationMenuLink>
-                  </Link>
-                  <Link href={"/my-account/my-orders"}>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
-                       <div className="flex w-full justify-center items-center gap-2 text-lg"><FaBagShopping /> My Orders</div>
-                    </NavigationMenuLink>
-                  </Link>
-                  <Link href={"/my-account/my-plan"}>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
-                    <div className="flex w-full justify-center items-center gap-2 text-lg"><GrPlan /> My Plan</div>
-                    </NavigationMenuLink>
-                  </Link>
-                  <Link href={"/my-account/saved-address"}>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
-                    <div className="flex w-full justify-center items-center gap-2 text-lg"><FaLocationDot /> Saved Address</div>
-                    </NavigationMenuLink>
-                  </Link>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
-                    <div className="flex w-full justify-center items-center gap-2 text-lg cursor-pointer" onClick={handleOpen}><IoLogOut /> LogOut</div>
-                    </NavigationMenuLink>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          ) : (
             // <Button
             //   className={cn("bg-gray-6 text-black font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white", { "bg-green-4 text-white" : open === true })}
             //   onClick={handleClick}
             // >
             //   Login
             // </Button>
-          ) : (
             <Button
-              className={cn("bg-gray-6 text-black font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white", { "bg-green-4 text-white" : open === true })}
+              className={cn(
+                "bg-gray-6 text-black font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white",
+                { "bg-green-4 text-white": open === true }
+              )}
               onClick={handleClick}
             >
               Login
             </Button>
-          //   <NavigationMenu>
-          //   <NavigationMenuList>
-          //     <NavigationMenuItem>
-          //       <NavigationMenuTrigger>
-          //         <p className="text-base font-medium">My Account</p>
-          //       </NavigationMenuTrigger>
-          //       <NavigationMenuContent>
-          //         <Link href={"/my-account/my-profile"}>
-          //           <NavigationMenuLink
-          //             className={navigationMenuTriggerStyle()}
-          //           >
-          //             <div className="flex w-full justify-center items-center gap-2 text-lg"><IoMdPerson /> My Profile</div>
-          //           </NavigationMenuLink>
-          //         </Link>
-          //         <Link href={"/my-account/my-orders"}>
-          //           <NavigationMenuLink
-          //             className={navigationMenuTriggerStyle()}
-          //           >
-          //              <div className="flex w-full justify-center items-center gap-2 text-lg"><FaBagShopping /> My Orders</div>
-          //           </NavigationMenuLink>
-          //         </Link>
-          //         <Link href={"/my-account/my-plan"}>
-          //           <NavigationMenuLink
-          //             className={navigationMenuTriggerStyle()}
-          //           >
-          //           <div className="flex w-full justify-center items-center gap-2 text-lg"><GrPlan /> My Plan</div>
-          //           </NavigationMenuLink>
-          //         </Link>
-          //         <Link href={"/my-account/saved-address"}>
-          //           <NavigationMenuLink
-          //             className={navigationMenuTriggerStyle()}
-          //           >
-          //           <div className="flex w-full justify-center items-center gap-2 text-lg"><FaLocationDot /> Saved Address</div>
-          //           </NavigationMenuLink>
-          //         </Link>
-          //           <NavigationMenuLink
-          //             className={navigationMenuTriggerStyle()}
-          //           >
-          //           <div className="flex w-full justify-center items-center gap-2 text-lg cursor-pointer" onClick={handleOpen}><IoLogOut /> LogOut</div>
-          //           </NavigationMenuLink>
-          //       </NavigationMenuContent>
-          //     </NavigationMenuItem>
-          //   </NavigationMenuList>
-          // </NavigationMenu>
+            //   <NavigationMenu>
+            //   <NavigationMenuList>
+            //     <NavigationMenuItem>
+            //       <NavigationMenuTrigger>
+            //         <p className="text-base font-medium">My Account</p>
+            //       </NavigationMenuTrigger>
+            //       <NavigationMenuContent>
+            //         <Link href={"/my-account/my-profile"}>
+            //           <NavigationMenuLink
+            //             className={navigationMenuTriggerStyle()}
+            //           >
+            //             <div className="flex w-full justify-center items-center gap-2 text-lg"><IoMdPerson /> My Profile</div>
+            //           </NavigationMenuLink>
+            //         </Link>
+            //         <Link href={"/my-account/my-orders"}>
+            //           <NavigationMenuLink
+            //             className={navigationMenuTriggerStyle()}
+            //           >
+            //              <div className="flex w-full justify-center items-center gap-2 text-lg"><FaBagShopping /> My Orders</div>
+            //           </NavigationMenuLink>
+            //         </Link>
+            //         <Link href={"/my-account/my-plan"}>
+            //           <NavigationMenuLink
+            //             className={navigationMenuTriggerStyle()}
+            //           >
+            //           <div className="flex w-full justify-center items-center gap-2 text-lg"><GrPlan /> My Plan</div>
+            //           </NavigationMenuLink>
+            //         </Link>
+            //         <Link href={"/my-account/saved-address"}>
+            //           <NavigationMenuLink
+            //             className={navigationMenuTriggerStyle()}
+            //           >
+            //           <div className="flex w-full justify-center items-center gap-2 text-lg"><FaLocationDot /> Saved Address</div>
+            //           </NavigationMenuLink>
+            //         </Link>
+            //           <NavigationMenuLink
+            //             className={navigationMenuTriggerStyle()}
+            //           >
+            //           <div className="flex w-full justify-center items-center gap-2 text-lg cursor-pointer" onClick={handleOpen}><IoLogOut /> LogOut</div>
+            //           </NavigationMenuLink>
+            //       </NavigationMenuContent>
+            //     </NavigationMenuItem>
+            //   </NavigationMenuList>
+            // </NavigationMenu>
           )}
-          { isOpen && ( <LogoutModal open={isOpen} setIsOpen={setIsOpen} />)}
+          {isOpen && <LogoutModal open={isOpen} setIsOpen={setIsOpen} />}
           {open && <LoginCard open={open} setOpen={setOpen} />}
           <Link href={"/contact-us"}>
-            <Button className={cn("bg-gray-6 text-black font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white", { "bg-green-4 text-white" : pathname === "/contact-us"}, { "bg-gray-6 text-black" : open === true })}>
+            <Button
+              className={cn(
+                "bg-gray-6 text-black font-medium text-base hover:opacity-90 hover:bg-green-4 hover:text-white",
+                { "bg-green-4 text-white": pathname === "/contact-us" },
+                { "bg-gray-6 text-black": open === true }
+              )}
+            >
               Contact Us
             </Button>
           </Link>

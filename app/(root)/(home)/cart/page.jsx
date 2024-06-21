@@ -19,15 +19,16 @@ import {
 } from "@/store/slices/cartSlice";
 import { FaLeftLong } from "react-icons/fa6";
 import Image from "next/image";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
+
 
 const customisationOptions = [
   "Roti(3), Rice(HalfBowl)",
   "Roti(6)",
-  "Full Bowl Rice"
+  "Full Bowl Rice",
 ];
 
-const VALID_COUPEN = ["COUPEN2023"]
+const VALID_COUPEN = ["COUPEN2023"];
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -35,15 +36,16 @@ const CartPage = () => {
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [customisation, setCustomisation] = useState(customisationOptions[0]);
-  const [coupen, setCoupen]  = useState('');
+  const [coupen, setCoupen] = useState("");
   const [coupenApplied, setCoupenApplied] = useState(false);
-  const [ discountMessage, setDiscountMesaage] = useState('');
+  const [discountMessage, setDiscountMesaage] = useState("");
   const router = useRouter();
 
- 
   useEffect(() => {
     if (selectedItem) {
-      const savedCustomisation = Cookies.get(`customisation-${selectedItem.id}`);
+      const savedCustomisation = Cookies.get(
+        `customisation-${selectedItem.id}`
+      );
       if (savedCustomisation) {
         setCustomisation(savedCustomisation);
       }
@@ -81,7 +83,6 @@ const CartPage = () => {
     dispatch(decrementItem(id));
   };
 
-  // Handle customisation change
   const handleCustomisationChange = (e) => {
     const newCustomisation = e.target.value;
     setCustomisation(newCustomisation);
@@ -89,7 +90,6 @@ const CartPage = () => {
       handleUpdateCustomisation(selectedItem.id, newCustomisation);
     }
   };
-
   const calculateItemTotal = () => {
     return items.reduce((total, item) => total + item.mrp * item.quantity, 0);
   };
@@ -109,30 +109,41 @@ const CartPage = () => {
   };
 
   const handleApplyCoupen = () => {
-    if(VALID_COUPEN.includes(coupen)){
+    if (VALID_COUPEN.includes(coupen)) {
       setCoupenApplied(true);
       setDiscountMesaage(`Coupen Applied. You Saved 10%!`);
       setCoupen("");
-    }
-    else{
+    } else {
       setCoupenApplied(false);
-      setDiscountMesaage(`Invalid coupen code`)
+      setDiscountMesaage(`Invalid coupen code`);
       setCoupen("");
     }
-  }
+  };
+
+  const handleCheckout = async () => {
+    if (Cookies.get("token")) {
+      router.push(`/cart/checkout?toPay=${toPay}`);
+    } else {
+      alert("Please log in to proceed to checkout");
+    }
+  };
 
   const itemTotal = calculateItemTotal();
   const itemDiscount = calculateItemDiscount();
   const sellingPriceTotal = calculateSellingTotal();
   const deliveryFee = 25;
   const deliveryDiscount = 20;
-  const coupenDiscount = coupenApplied ? 0.1 * (itemTotal + deliveryFee - itemDiscount - deliveryDiscount ) : 0;
+  const handlingCharge = 1;
+  const coupenDiscount = coupenApplied
+    ? 0.1 * (itemTotal + deliveryFee - itemDiscount - deliveryDiscount)
+    : 0;
   const toPay = (
     itemTotal +
     deliveryFee -
     itemDiscount -
     deliveryDiscount -
-    coupenDiscount
+    coupenDiscount +
+    handlingCharge
   ).toFixed(2);
   const savings = itemDiscount + deliveryDiscount + coupenDiscount;
 
@@ -163,7 +174,9 @@ const CartPage = () => {
               const discount = Math.floor(
                 (1 - item.sellingPrice / item.mrp) * 100
               );
-              const itemCustomisation = Cookies.get(`customisation-${item.id}`) || customisationOptions[0];
+              const itemCustomisation =
+                Cookies.get(`customisation-${item.id}`) ||
+                customisationOptions[0];
 
               return (
                 <div className="flex gap-2 mt-5" key={item.id}>
@@ -200,7 +213,7 @@ const CartPage = () => {
                         <p className="text-sm font-light">{item.rating}</p>
                       </div>
                       <h5 className="font-normal text-sm">
-                        Serves 1 | Other Items: {itemCustomisation}, Raiyeta, Salad, Pickel, Mouth Freshner
+                        {item.description}
                       </h5>
                     </div>
                     <div className="w-2/5 flex flex-col relative items-end mr-10">
@@ -246,13 +259,17 @@ const CartPage = () => {
                               Customise as per your taste
                             </h1>
                             <div className="text-xl font-bold flex justify-between w-96">
-                              <p>{selectedItem?.title}</p> | <p>₹{selectedItem?.sellingPrice}</p>
+                              <p>{selectedItem?.title}</p> |{" "}
+                              <p>₹{selectedItem?.sellingPrice}</p>
                             </div>
                             <div className="flex justify-between">
                               <div className="w-[450px] bg-[#E3E3E380] p-5 rounded-md">
                                 <form className="flex flex-col gap-5">
                                   {customisationOptions.map((option, index) => (
-                                    <div className="flex justify-between" key={index}>
+                                    <div
+                                      className="flex justify-between"
+                                      key={index}
+                                    >
                                       <div className="flex gap-2">
                                         <Image
                                           src="/assets/veg.svg"
@@ -311,7 +328,7 @@ const CartPage = () => {
               );
             })
           ) : (
-            <div>No cart items, Please select items from Menu </div>
+            <div>No cart items, Please select items from Menu</div>
           )}
         </div>
 
@@ -331,16 +348,34 @@ const CartPage = () => {
                   value={coupen}
                   onChange={(e) => setCoupen(e.target.value)}
                 />
-                {coupenApplied ? (<div className="flex justify-center items-center text-base font-medium gap-1 text-green-4"><FaCheckCircle /><h2>Applied</h2></div>) : (<Button className='bg-green-4 text-white hover:bg-green-4 hover:opacity-90 text-base' onClick={handleApplyCoupen}>Apply</Button>)}
+                {coupenApplied ? (
+                  <div className="flex justify-center items-center text-base font-medium gap-1 text-green-4">
+                    <FaCheckCircle />
+                    <h2>Applied</h2>
+                  </div>
+                ) : (
+                  <Button
+                    className="bg-green-4 text-white hover:bg-green-4 hover:opacity-90 text-base"
+                    onClick={handleApplyCoupen}
+                  >
+                    Apply
+                  </Button>
+                )}
               </div>
-              {coupenApplied ? <p className="text-xs text-green-4">{discountMessage}</p> : <p className="text-xs text-red-600">{discountMessage}</p>}
+              {coupenApplied ? (
+                <p className="text-xs text-green-4">{discountMessage}</p>
+              ) : (
+                <p className="text-xs text-red-600">{discountMessage}</p>
+              )}
               <div className="flex flex-col gap-2">
                 <h3 className="font-bold text-xl">Bill Details</h3>
                 <div className="flex justify-between">
                   <div className="flex gap-2">
                     <h1 className="font-medium text-sm">Item Total</h1>
                     <div className="px-1 bg-blue-100 rounded-md">
-                      <p className="font-semibold text-xs text-blue-500">Saved ₹{itemDiscount} </p>
+                      <p className="font-semibold text-xs text-blue-500">
+                        Saved ₹{itemDiscount}{" "}
+                      </p>
                     </div>
                   </div>
                   <div className="flex gap-2">
@@ -356,14 +391,25 @@ const CartPage = () => {
                   <div className="flex gap-2">
                     <h1 className="font-medium text-sm">Delivery Fee</h1>
                     <div className="px-1 bg-blue-100 rounded-md">
-                      <p className="font-semibold text-xs text-blue-500">Saved ₹{deliveryDiscount} </p>
+                      <p className="font-semibold text-xs text-blue-500">
+                        Saved ₹{deliveryDiscount}{" "}
+                      </p>
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <h1 className="font-semibold text-sm line-through text-gray-500">₹ {deliveryFee}</h1>
-                    <h1 className="font-semibold text-sm">
-                      ₹ 5
+                    <h1 className="font-semibold text-sm line-through text-gray-500">
+                      ₹ {deliveryFee}
                     </h1>
+                    <h1 className="font-semibold text-sm">₹ 5</h1>
+                  </div>
+                </div>
+
+                <div className="flex justify-between">
+                  <div className="flex gap-2">
+                    <h1 className="font-medium text-sm">Handling Charge</h1>
+                  </div>
+                  <div className="">
+                    <h1 className="font-semibold text-sm">₹ 1</h1>
                   </div>
                 </div>
                 <Divider sx={{ backgroundColor: "black" }} />
@@ -373,7 +419,10 @@ const CartPage = () => {
                   <h1 className="font-bold text-xl">₹ {toPay}</h1>
                 </div>
 
-                <Button className="flex gap-2 bg-green-4 text-white rounded-xl text-lg font-extrabold hover:bg-green-4 hover:opacity-90">
+                <Button
+                  className="flex gap-2 bg-green-4 text-white rounded-xl text-lg font-extrabold hover:bg-green-4 hover:opacity-90"
+                  onClick={handleCheckout}
+                >
                   PROCEED <FaAngleDoubleRight />
                 </Button>
                 <div className="mt-2 bg-gray-5 h-4">
