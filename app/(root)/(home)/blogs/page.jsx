@@ -1,16 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { blogsCard } from "@/constants/index";
 import Link from "next/link";
 import Image from "next/image";
+import { CircularProgress } from "@mui/material";
 
 const Blogspage = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredBlogs, setFilteredBlogs] = useState(blogsCard);
+  const [loading, setLoading] = useState(false);
 
-  const filteredBlogs = blogsCard.filter((blog) =>
-    blog.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    setLoading(true);
+    const timeoutId = setTimeout(() => {
+      const filtered = blogsCard.filter((blog) =>
+        blog.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredBlogs(filtered);
+      setLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchTerm]);
+
   return (
     <main>
       <div
@@ -60,7 +73,9 @@ const Blogspage = () => {
       </div>
 
       <div className="w-[85%] m-auto mt-10">
-        {filteredBlogs.length > 0 ? (
+        {loading ? (
+          <div className="text-center mt-10 text-lg font-normal"><CircularProgress size={25} /></div>
+        ) : filteredBlogs.length > 0 ? (
           <div className="grid grid-cols-2 grid-rows-2 place-items-center gap-20 place-content-between">
             {filteredBlogs.map((data) => (
               <Link key={data.id} href={`/blogs/${data.id}`}>

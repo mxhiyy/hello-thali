@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
+import CryptoJS from 'cryptojs';
+
 
 
 export const sendOtp = createAsyncThunk('auth/sendOtp', async (phoneNumber) => {
@@ -36,6 +38,8 @@ const authSlice = createSlice({
         setUser: (state, action) => {
             state.user = action.payload;
             state.isLoggedIn = true;
+            const session = CryptoJS.AES.encrypt(action.payload.phoneNumber, process.env.ENCRYPTION_KEY).toString();
+            Cookies.set('session', session);
         },
 
         logout: (state) => {
@@ -84,6 +88,8 @@ const authSlice = createSlice({
             state.user = action.payload;
             state.isLoggedIn = true;
             Cookies.set('token', action.payload.token);
+            const session = CryptoJS.AES.encrypt(action.payload.phoneNumber, process.env.ENCRYPTION_KEY).toString();
+            Cookies.set('session', session);
             toast.success("OTP Verified Successfully!");
         })
 

@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import React, { useState } from 'react';
 import { userPage } from "@/constants";
 import Link from "next/link";
@@ -8,30 +9,28 @@ import { PiHandsPrayingFill } from "react-icons/pi";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import LogoutModal from '../components/LogoutModal';
+import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
 
   const pathname = usePathname();
-
   const [ isOpen, setIsOpen ] = useState(false);
-  
+  const { profile } = useSelector((state) => state.user);
   const handleOpen = () => {
     setIsOpen(true);
   }
 
   return (
     <main className="w-[250px] h-auto">
-      <Link href={"/user-profile"}>
         <div className="p-3 rounded-md flex flex-col gap-1 items-center  cursor-pointer">
           <h2 className="text-xl font-medium flex gap-2 items-center">
             <PiHandsPrayingFill className="text-yellow-400" size={20} />{" "}
             Namaste,
           </h2>
           <h2 className="text-xl font-medium flex gap-2 items-center">
-            HelloThali User
+            {profile? `HelloThali ${profile.firstName}` : `HelloThali User` }
           </h2>
         </div>
-      </Link>
       <div className="mt-10 flex flex-col gap-3">
         {userPage.map((data) => {
           const isActive = pathname === data.route;
