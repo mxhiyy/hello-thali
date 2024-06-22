@@ -6,11 +6,10 @@ import {
   fetchUserProfile,
   updateUserProfile,
 } from "../../../../../store/slices/userSlice";
-import CryptoJS from "crypto-js";
 import Cookies from "js-cookie";
 import toast, { Toaster } from "react-hot-toast";
 
-const UserProfilepage = () => {
+const UserProfilePage = () => {
   const dispatch = useDispatch();
   const { profile, status } = useSelector((state) => state.user);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -36,11 +35,7 @@ const UserProfilepage = () => {
 
     const encryptedPhoneNumber = Cookies.get("phone");
     if (encryptedPhoneNumber) {
-      const decryptedPhoneNumber = CryptoJS.AES.decrypt(
-        encryptedPhoneNumber,
-        process.env.ENCRYPTION_KEY
-      ).toString(CryptoJS.enc.Utf8);
-      setPhoneNumber(decryptedPhoneNumber);
+      setPhoneNumber(encryptedPhoneNumber);
     }
   }, [profile]);
 
@@ -168,4 +163,4 @@ const UserProfilepage = () => {
   );
 };
 
-export default UserProfilepage;
+export default UserProfilePage;

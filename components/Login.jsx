@@ -44,7 +44,6 @@ const LoginCard = ({ open, setOpen }) => {
 
   const handleVerifyOtp = async () => {
     const result = await dispatch(verifyOtp({ phoneNumber, otp }));
-    dispatch(setUser({ phoneNumber }));
     if (verifyOtp.fulfilled.match(result)) {
       dispatch(setUser({ phoneNumber }));
       toast.success("OTP Verified succesfully");

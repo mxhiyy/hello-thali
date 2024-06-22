@@ -20,9 +20,9 @@ const urlencodedParser = initMiddleware(urlencoded({ extended: false }));
 
 export default async function handler(req, res) {
   try {
-    await cors(req, res);
-    await jsonParser(req, res);
-    await urlencodedParser(req, res);
+    await cors(req, res, () => {});
+    await jsonParser(req, res, () => {});
+    await urlencodedParser(req, res, () => {});
 
     await connectDB();
 

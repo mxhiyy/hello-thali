@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
-import CryptoJS from "crypto-js";
 
 export const sendOtp = createAsyncThunk("auth/sendOtp", async (phoneNumber) => {
   const res = await axios.post("http://localhost:3000/api/auth/send-otp", {
@@ -39,7 +38,7 @@ const authSlice = createSlice({
     loading: false,
     error: null,
     token: Cookies.get("token") || null,
-    openLogin: false, //add for login modal state
+    openLogin: false,
     isLoggedIn: !!Cookies.get("token"),
   },
 
@@ -47,11 +46,7 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
       state.isLoggedIn = true;
-      const encryptedPhoneNumber = CryptoJS.AES.encrypt(
-        action.payload.phoneNumber,
-        process.env.ENCRYPTION_KEY
-      ).toString();
-      Cookies.set("phone", encryptedPhoneNumber);
+      Cookies.set("phone", action.payload.phoneNumber);
     },
 
     logout: (state) => {
@@ -95,15 +90,10 @@ const authSlice = createSlice({
       .addCase(verifyOtp.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
-        console.log("Setting the token", state.token);
         state.user = action.payload;
         state.isLoggedIn = true;
         Cookies.set("token", action.payload.token);
-        const encryptedPhoneNumber = CryptoJS.AES.encrypt(
-          action.payload.phoneNumber,
-          process.env.ENCRYPTION_KEY
-        ).toString();
-        Cookies.set("phone", encryptedPhoneNumber);
+        Cookies.set("phone", action.payload.phoneNumber);
         toast.success("OTP Verified Successfully!");
       })
 
