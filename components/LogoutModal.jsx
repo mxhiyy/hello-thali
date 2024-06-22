@@ -14,6 +14,7 @@ const LogoutModal = ({ open, setIsOpen }) => {
 
   const handleLogout = () => {
     dispatch(logout());
+    setIsOpen(false);
   }
 
   return (

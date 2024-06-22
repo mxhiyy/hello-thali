@@ -2,120 +2,135 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
-import CryptoJS from 'cryptojs';
+import CryptoJS from "crypto-js";
 
-
-
-export const sendOtp = createAsyncThunk('auth/sendOtp', async (phoneNumber) => {
-    const res = await axios.post('http://localhost:3000/api/auth/send-otp', { phoneNumber });
-    return res.data;
-})
-
-
-export const verifyOtp = createAsyncThunk('auth/verifyOtp', async ({ phoneNumber, otp }) => {
-    const res = await axios.post('http://localhost:3000/api/auth/verify-otp', { phoneNumber, otp });
-    return res.data;
+export const sendOtp = createAsyncThunk("auth/sendOtp", async (phoneNumber) => {
+  const res = await axios.post("http://localhost:3000/api/auth/send-otp", {
+    phoneNumber,
+  });
+  return res.data;
 });
 
-export const resendOtp = createAsyncThunk('auth/resendOtp', async (phoneNumber) => {
-    const res = await axios.post('http://localhost:3000/api/auth/resend-otp', { phoneNumber });
+export const verifyOtp = createAsyncThunk(
+  "auth/verifyOtp",
+  async ({ phoneNumber, otp }) => {
+    const res = await axios.post("http://localhost:3000/api/auth/verify-otp", {
+      phoneNumber,
+      otp,
+    });
     return res.data;
-});
+  }
+);
 
+export const resendOtp = createAsyncThunk(
+  "auth/resendOtp",
+  async (phoneNumber) => {
+    const res = await axios.post("http://localhost:3000/api/auth/resend-otp", {
+      phoneNumber,
+    });
+    return res.data;
+  }
+);
 
 const authSlice = createSlice({
-    name: 'auth',
-    initialState: {
-        user: null,
-        loading: false,
-        error: null,
-        token: Cookies.get('token') || null,
-        openLogin: false, //add for login modal state
-        isLoggedIn: !!Cookies.get('token'),
+  name: "auth",
+  initialState: {
+    user: null,
+    loading: false,
+    error: null,
+    token: Cookies.get("token") || null,
+    openLogin: false, //add for login modal state
+    isLoggedIn: !!Cookies.get("token"),
+  },
+
+  reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+      state.isLoggedIn = true;
+      const encryptedPhoneNumber = CryptoJS.AES.encrypt(
+        action.payload.phoneNumber,
+        process.env.ENCRYPTION_KEY
+      ).toString();
+      Cookies.set("phone", encryptedPhoneNumber);
     },
 
-    reducers: {
-        setUser: (state, action) => {
-            state.user = action.payload;
-            state.isLoggedIn = true;
-            const session = CryptoJS.AES.encrypt(action.payload.phoneNumber, process.env.ENCRYPTION_KEY).toString();
-            Cookies.set('session', session);
-        },
-
-        logout: (state) => {
-            state.user = null;
-            state.token = null;
-            state.isLoggedIn = true;
-            Cookies.remove('token');
-        },
-
-        openLoginModal: (state) => {
-            state.openLogin = true;
-        },
-
-        closeLoginModal: (state) => {
-            state.openLogin = false;
-        }
-
-
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      state.isLoggedIn = true;
+      Cookies.remove("token");
+      Cookies.remove("phone");
     },
 
-    extraReducers: (builder) => {
-        builder
-        .addCase(sendOtp.pending, (state) => {
-            state.loading = true;
-        })
+    openLoginModal: (state) => {
+      state.openLogin = true;
+    },
 
-        .addCase(sendOtp.fulfilled, (state, action) => {
-            state.loading = false;
-            toast.success('OTP Send Successfully!');
-        })
+    closeLoginModal: (state) => {
+      state.openLogin = false;
+    },
+  },
 
-        .addCase(sendOtp.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
-            toast.error('Failed to Send OTP');
-        })
+  extraReducers: (builder) => {
+    builder
+      .addCase(sendOtp.pending, (state) => {
+        state.loading = true;
+      })
 
-        .addCase(verifyOtp.pending, (state) => {
-            state.loading = true;
-        })
+      .addCase(sendOtp.fulfilled, (state, action) => {
+        state.loading = false;
+        toast.success("OTP Send Successfully!");
+      })
 
-        .addCase(verifyOtp.fulfilled, (state, action) => {
-            state.loading = false;
-            state.token = action.payload.token;
-            console.log('Setting the token', state.token);
-            state.user = action.payload;
-            state.isLoggedIn = true;
-            Cookies.set('token', action.payload.token);
-            const session = CryptoJS.AES.encrypt(action.payload.phoneNumber, process.env.ENCRYPTION_KEY).toString();
-            Cookies.set('session', session);
-            toast.success("OTP Verified Successfully!");
-        })
+      .addCase(sendOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+        toast.error("Failed to Send OTP");
+      })
 
-        .addCase(verifyOtp.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
-            toast.error('Invalid or Expired OTP!');
-        })
+      .addCase(verifyOtp.pending, (state) => {
+        state.loading = true;
+      })
 
-        .addCase(resendOtp.pending, (state) => {
-            state.loading = true;
-        })
+      .addCase(verifyOtp.fulfilled, (state, action) => {
+        state.loading = false;
+        state.token = action.payload.token;
+        console.log("Setting the token", state.token);
+        state.user = action.payload;
+        state.isLoggedIn = true;
+        Cookies.set("token", action.payload.token);
+        const encryptedPhoneNumber = CryptoJS.AES.encrypt(
+          action.payload.phoneNumber,
+          process.env.ENCRYPTION_KEY
+        ).toString();
+        Cookies.set("phone", encryptedPhoneNumber);
+        toast.success("OTP Verified Successfully!");
+      })
 
-        .addCase(resendOtp.fulfilled, (state, action) => {
-            state.loading = false;
-            toast.success('OTP Resend Successfully!');
-        })
+      .addCase(verifyOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+        toast.error("Invalid or Expired OTP!");
+      })
 
-        .addCase(resendOtp.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
-            toast.error('Failed to Resend OTP');
-        })
-    }
+      .addCase(resendOtp.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(resendOtp.fulfilled, (state, action) => {
+        state.loading = false;
+        toast.success("OTP Resend Successfully!");
+      })
+
+      .addCase(resendOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+        toast.error("Failed to Resend OTP");
+      });
+  },
 });
 
-export const { setUser, logout, openLoginModal, closeLoginModal } = authSlice.actions;
+export const { setUser, logout, openLoginModal, closeLoginModal } =
+  authSlice.actions;
 
 export default authSlice.reducer;
