@@ -1,26 +1,26 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useSelector, useDispatch } from "react-redux";
+import { saveAddress, deleteAddress, editAddress } from "@/store/slices/addressSlice";
 import React, { useState } from "react";
 import AddressModal from "@/components/AddressModal";
 import IfUserAddress from "@/components/IfUserAddress";
 
 const Addresspage = () => {
-  const [userAddresses, setUserAddresses] = useState([]);
+  const userAddresses = useSelector((state) => state.address.userAddress);
+  const dispatch = useDispatch();
 
   const handleSaveAddress = (newAddress) => {
-    setUserAddresses((prevAddresses) => [...prevAddresses, newAddress]);
+    dispatch(saveAddress(newAddress));
   };
 
   const handleEditAddress = (editedAddress, index) => {
-    const updatedAddresses = [...userAddresses];
-    updatedAddresses[index] = editedAddress;
-    setUserAddresses(updatedAddresses);
+    dispatch(editAddress({ address: editedAddress, index }));
   };
 
   const handleDeleteAddress = (index) => {
-    const updatedAddresses = userAddresses.filter((_, i) => i !== index);
-    setUserAddresses(updatedAddresses);
+    dispatch(deleteAddress(index));
   };
 
   return (

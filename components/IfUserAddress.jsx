@@ -42,7 +42,7 @@ const IfUserAddress = ({
   };
 
   const openPopover = isOpen;
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? 'simple-popover' : undefined;
 
   const handleEdit = (index) => {
     setEditingIndex(index);
@@ -75,14 +75,13 @@ const IfUserAddress = ({
           editAddress={editAddress}
         />
       )}
-
       {userAddresses.map((userAddress, index) => (
         <div className="mt-10 flex justify-between" key={index}>
           <div className="flex gap-2 items-center">
             {addressIcons[userAddress.type]}
             <div className="flex flex-col">
               <h1 className="text-base font-bold">
-                {userAddress.type === "Other"
+                {userAddress.type === 'Other'
                   ? userAddress.other
                   : userAddress.type}
               </h1>
@@ -103,8 +102,8 @@ const IfUserAddress = ({
               anchorEl={isOpen}
               onClose={handleClose}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+                vertical: 'bottom',
+                horizontal: 'left',
               }}
             >
               <p

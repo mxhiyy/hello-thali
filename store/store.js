@@ -4,7 +4,7 @@ import feedbackReducer from './slices/feedbackSlice';
 import cartReducer from './slices/cartSlice';
 import orderReducer from './slices/orderSlice';
 import userReducer from './slices/userSlice';
-
+import addressReducer from './slices/addressSlice';
 
 const store = configureStore({
     reducer: {
@@ -13,6 +13,7 @@ const store = configureStore({
         cart: cartReducer,
         order: orderReducer,
         user: userReducer,
+        address: addressReducer
     }
 });
 
