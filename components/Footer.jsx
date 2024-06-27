@@ -9,59 +9,105 @@ import { IoLogoYoutube } from "react-icons/io5";
 
 import Link from "next/link";
 import Image from "next/image";
+import { Divider } from "@mui/material";
 
 const Footer = () => {
   return (
     <div className="mt-20 border-t-2 border-gray-4 w-full">
-      <div className="w-[90%] m-auto flex justify-between p-5">
-        <div className="flex flex-col gap-5">
-          <h2 className="text-base font-semibold">Company</h2>
+      <div className="w-[100%] md:w-[90%] m-auto flex justify-between p-5">
+        <div className="flex flex-col gap-4 md:gap-5">
+          <h2 className="text-sm md:text-base font-semibold">Company</h2>
           <Link href={"/"}>
-            <p className="text-sm font-medium mt-2">About</p>
+            <p className="text-xs md:text-sm font-medium mt-2">About</p>
           </Link>
           <Link href={"/"}>
-            <p className="text-sm font-medium">Careers</p>
+            <p className="text-xs md:text-sm font-medium">Careers</p>
           </Link>
           <Link href={"/"}>
-            <p className="text-sm font-medium">Blog</p>
+            <p className="text-xs md:text-sm font-medium">Blog</p>
           </Link>
           <Link href={"/"}>
-            <p className="text-sm font-medium">Team</p>
+            <p className="text-xs md:text-sm font-medium">Team</p>
           </Link>
           <Link href={"/"}>
-            <p className="text-sm font-medium">FAQs</p>
+            <p className="text-xs md:text-sm font-medium">FAQs</p>
+          </Link>
+        </div>
+
+        <div className="flex flex-col gap-5 ml-10 md:ml-0">
+          <h2 className="text-sm md:text-base font-semibold">Legal</h2>
+          <Link href={"/"}>
+            <p className="text-xs md:text-sm font-medium mt-2">Privacy Policy</p>
+          </Link>
+          <Link href={"/"}>
+            <p className="text-xs md:text-sm font-medium">Terms & Conditions</p>
+          </Link>
+          <Link href={"/"}>
+            <p className="text-xs md:text-sm font-medium">Cookie Policy</p>
           </Link>
         </div>
 
         <div className="flex flex-col gap-5">
-          <h2 className="text-base font-semibold">Legal</h2>
+          <h2 className="text-sm md:text-base font-semibold">Contact Us</h2>
           <Link href={"/"}>
-            <p className="text-sm font-medium mt-2">Privacy Policy</p>
-          </Link>
-          <Link href={"/"}>
-            <p className="text-sm font-medium">Terms & Conditions</p>
-          </Link>
-          <Link href={"/"}>
-            <p className="text-sm font-medium">Cookie Policy</p>
+            <p className="text-xs md:text-sm font-medium mt-2">Help & Support</p>
           </Link>
         </div>
 
-        <div className="flex flex-col gap-5">
-          <h2 className="text-base font-semibold">Contact Us</h2>
+        <div className="hidden md:flex flex-col gap-5">
+          <h2 className="text-sm md:text-base font-semibold">Useful Links</h2>
           <Link href={"/"}>
-            <p className="text-sm font-medium mt-2">Help & Support</p>
+            <p className="text-xs md:text-sm font-medium mt-2">Mobile App</p>
           </Link>
         </div>
 
-        <div className="flex flex-col gap-5">
-          <h2 className="text-base font-semibold">Useful Links</h2>
-          <Link href={"/"}>
-            <p className="text-sm font-medium mt-2">Mobile App</p>
-          </Link>
-        </div>
-
-        <div className="flex flex-col gap-5">
+        <div className="hidden md:flex flex-col gap-5">
           <h2 className="text-base font-semibold">Social Links</h2>
+          <div className="mt-2 flex gap-1 justify-center">
+            <Link href={"/"}>
+              <FaXTwitter size={15} />
+            </Link>
+            <Link href={"/"}>
+              <FaLinkedin size={15} />
+            </Link>
+            <Link href={"/"}>
+              <FaInstagram size={15} />
+            </Link>
+            <Link href={"/"}>
+              <AiOutlineFacebook size={15} />
+            </Link>
+            <Link href={"/"}>
+              <IoLogoYoutube size={15} />
+            </Link>
+          </div>
+        </div>
+
+        <div className="hidden md:flex flex-col gap-3 items-center">
+          <Image
+            src="/icons/hellothali-logo.png"
+            alt="logo"
+            width={40}
+            height={40}
+          />
+          <p className="text-sm font-semibold flex items-center">
+            <AiOutlineCopyrightCircle /> XYZ Pvt. Ltd
+          </p>
+        </div>
+      </div>
+
+      {/* ========= for mobile =========== */}
+
+      <Divider style={{ border: '1px solid #f4f4f4'}} />
+      <div className="flex justify-between p-5 w-[100%] md:hidden">
+      <div className="flex flex-col gap-5">
+          <h2 className="text-sm md:text-base font-semibold">Useful Links</h2>
+          <Link href={"/"}>
+            <p className="text-xs md:text-sm font-medium mt-2">Mobile App</p>
+          </Link>
+        </div>
+
+        <div className="flex flex-col gap-5">
+          <h2 className="text-sm md:text-base font-semibold">Social Links</h2>
           <div className="mt-2 flex gap-1 justify-center">
             <Link href={"/"}>
               <FaXTwitter size={15} />
@@ -93,7 +139,7 @@ const Footer = () => {
           </p>
         </div>
       </div>
-      <div className="text-lg p-5">
+      <div className="hidden md:flex text-lg p-5">
         <p className="text-center text-sm font-medium">
           All Rights Reserved©{" "}
           <span className="underline cursor-pointer">hellothali.com</span>
